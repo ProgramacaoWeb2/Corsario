@@ -1,0 +1,38 @@
+
+body{
+    margin: 0 !important;
+    background: #f9f9f9;
+}
+#appFooter{
+    align-items: center;
+}
+#appFooter p{
+    width: 100%;
+    text-align: center;
+    bottom: 0 !important;
+}
+#appHeader,#appFooter{
+    padding: 0 23rem;
+    display: block;
+    position: relative;
+    background-color: #6775d8;
+    color: #fff;
+}
+#appBrand {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+    #appBrand img{
+        width: 8rem;
+    }
+
+#appBody{
+    margin: 0 23rem;
+    padding: 0.9rem;
+    display: block;
+    height: 100vh;
+    background: #fff;
+}
