@@ -19,6 +19,17 @@
             <img src="Content/images/appBrand.png" alt="">
             <span>Corsário</span>
         </div>
+
+        <div id="appHeaderSearch">
+            <input type="text" id="inputSearchHeader" placeholder="O que você está procurando?">
+            <button>Pesquisar</button>
+        </div>
+
+        <div id="appHeaderRightContent">
+            <div>Entrar</div>
+            <div>Favoritos</div>
+            <div>Carrinho</div>
+        </div>
  
 	</header>
 
