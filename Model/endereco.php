@@ -2,7 +2,7 @@
 
 class Endereco
 {
-
+    private $id;
     private $rua;
     private $numero;
     private $complemento;
@@ -11,9 +11,21 @@ class Endereco
     private $cidade;
     private $estado;
 
-    public function __construct($rua, $numero, $complemento, $bairro, $cep, $cidade, $estado)
+    public function __construct($id, $rua, $numero, $complemento, $bairro, $cep, $cidade, $estado)
     {
-        
+        $this->id = $id;
+        $this->rua = $rua;
+        $this->numero = $numero;
+        $this->complemento = $complemento;
+        $this->bairro = $bairro;
+        $this->cep = $cep;
+        $this->cidade = $cidade;
+        $this->estado = $estado;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getRua()
@@ -50,6 +62,11 @@ class Endereco
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function setRua($rua)

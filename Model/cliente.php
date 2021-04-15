@@ -2,17 +2,30 @@
 
 class Cliente
 {
+    private $id;
     private $nome;
     private $telefone;
     private $email;
     private $cartaoCredito;
 
-    public function __construct($nome, $telefone, $email, $cartaoCredito)
+    public function __construct($id, $nome, $telefone, $email, $cartaoCredito)
     {
+        $this->id = $id;
         $this->nome = $nome;
         $this->telefone = $telefone;
         $this->email = $email;
         $this->cartaoCredito = $cartaoCredito;
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getNome()

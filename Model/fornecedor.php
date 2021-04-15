@@ -1,20 +1,28 @@
 <?php
 
-class Fornecedor{
+class Fornecedor
+{
 
+    private $id;
     private $nome;
     private $descricao;
     private $telefone;
     private $email;
 
- 
 
-    public function __construct($nome, $descricao, $telefone, $email)
+
+    public function __construct($id, $nome, $descricao, $telefone, $email)
     {
-        $this->nome =$nome;
+        $this->$id = $id;
+        $this->nome = $nome;
         $this->descricao = $descricao;
         $this->telefone = $telefone;
         $this->email = $email;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getNome()
@@ -33,12 +41,16 @@ class Fornecedor{
         return $this->telefone;
     }
 
- 
+
     public function getEmail()
     {
         return $this->email;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function setNome($nome)
     {
@@ -55,11 +67,9 @@ class Fornecedor{
     public function setTelefone($telefone)
     {
         $this->telefone = $telefone;
-
     }
     public function setEmail($email)
     {
         $this->email = $email;
-
     }
 }
