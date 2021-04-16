@@ -1,6 +1,6 @@
 <?php 
 
- include_once "layoutHeader.php";
+ include_once "Views/Layout/layoutHeader.php";
 
     echo "CU";
 
@@ -8,6 +8,8 @@
 
     echo "bootstrap me usem";
 
- include_once "layoutFooter.php";
+    echo "<br/> bootstrap é pra quem não se garante no soco";
+
+ include_once "Views/Layout/layoutFooter.php";
 
 ?>

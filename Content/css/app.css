@@ -1,23 +1,27 @@
-
-body{
+body {
     margin: 0 !important;
     background: #f9f9f9;
 }
-#appFooter{
+
+#appFooter {
     align-items: center;
 }
-#appFooter p{
+
+#appFooter p {
     width: 100%;
     text-align: center;
     bottom: 0 !important;
 }
-#appHeader,#appFooter{
+
+#appHeader,
+#appFooter {
     padding: 0 2rem;
     display: flex;
     position: relative;
     background-color: #6775d8;
     color: #fff;
 }
+
 #appBrand {
     display: flex;
     align-items: center;
@@ -25,11 +29,12 @@ body{
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
-    #appBrand img{
-        width: 8rem;
-    }
 
-#appBody{
+#appBrand img {
+    width: 8rem;
+}
+
+#appBody {
     margin: 0 2rem;
     padding: 0.9rem;
     display: block;
@@ -37,18 +42,19 @@ body{
     background: #fff;
 }
 
-#appHeaderRightContent{
+#appHeaderRightContent {
     position: relative;
     display: flex;
     align-items: center;
     text-align: end;
     float: right;
 }
-    #appHeaderRightContent div:not(:last-child){
-        margin-right: 1rem;
-    }
 
-#appHeaderSearch{
+#appHeaderRightContent div:not(:last-child) {
+    margin-right: 1rem;
+}
+
+#appHeaderSearch {
     position: relative;
     display: flex;
     align-items: center;
@@ -56,30 +62,88 @@ body{
     margin: 0.5rem 1rem;
 }
 
-    #appHeaderSearch input{
-        width: 100%;
-        height: 3rem;
-        border-radius: 0.6rem;
-        border: 1px solid #b0b8ec;
-        font-family: 'Roboto';
-        font-size: 15px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+#appHeaderSearch input {
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.6rem;
+    border: 1px solid #b0b8ec;
+    font-family: 'Roboto';
+    font-size: 15px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 
-    #appHeaderSearch button{
-        position: absolute;
-        right: 0;
-        border: none;
-        background: #e8e8e8;
-        color: #6775d8;
-        font-family: 'Roboto';
-        font-size: 16px;
-        height: 3.2rem;
-        border-radius: 0rem 0.5rem 0.5rem 0rem;
-        cursor: pointer;
-    }
+#appHeaderSearch button {
+    position: absolute;
+    right: 0;
+    border: none;
+    background: #e8e8e8;
+    color: #6775d8;
+    font-family: 'Roboto';
+    font-size: 16px;
+    height: 3.2rem;
+    border-radius: 0rem 0.5rem 0.5rem 0rem;
+    cursor: pointer;
+}
 
+#loginbBody {
+    max-width: 33rem;
+    margin: auto;
+    font-family: 'Roboto';
+    color: #616161;
+    padding: 2rem;
+}
 
-   
+#loginbBody span {
+    text-align: center;
+    display: block;
+    font-size: 25px;
+}
 
+#loginbBody label {
+    display: block;
+}
+
+#loginFormArea {
+    display: flex;
+    max-width: 360px;
+    margin: auto;
+}
+
+#loginFormArea form {
+    margin: auto;
+    width: 100%;
+}
+
+#loginFormArea input {
+    width: 100%;
+    padding: 0.2rem 1rem;
+}
+
+.formGroup {
+    margin: 1rem 0;
+}
+
+.formGroup label {
+    margin-bottom: 0.5rem;
+}
+
+.formGroup input {
+    height: 2rem;
+    border: 0.5px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.corsBtn {
+    border: 1px solid #b1b1b1;
+    min-height: 2rem;
+    border-radius: 0.22rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+#btnLogin {
+    color: #fff;
+    background: #6775d8;
+    padding: 0.5rem 0.9rem;
+}
