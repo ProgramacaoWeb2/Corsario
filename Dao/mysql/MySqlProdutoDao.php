@@ -1,7 +1,7 @@
 <?php
 
-include_once('DaoProduto.php');
-include_once('Dao.php');
+include_once('./Dao/DaoProduto.php');
+include_once('./Dao/Dao.php');
 
 class MySqlProdutoDao extends Dao implements DaoProduto
 {

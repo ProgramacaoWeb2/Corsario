@@ -5,7 +5,9 @@ include_once "./fachada.php";
 
 $dao = $factory->getProdutoDao();
 
-//$pd =new Produto(1,"Gphone","teste","dsad") ;   
+$pd =new Produto(1,"Gphone","teste","dsad") ;   
+
+$dao->insere($pd);
 
 // $result = $dao->altera($pd); OK
 
