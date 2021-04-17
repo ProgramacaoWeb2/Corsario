@@ -1,9 +1,9 @@
 <?php
 
-include_once('./Dao/DaoProduto.php');
-include_once('./Dao/Dao.php');
+include_once('DaoProduto.php');
+include_once('Dao.php');
 
-class MySqlProdutoDao extends DAO implements DaoProduto
+class MySqlProdutoDao extends Dao implements DaoProduto
 {
     private $tabela = "produto";
 
@@ -16,9 +16,9 @@ class MySqlProdutoDao extends DAO implements DaoProduto
 
         $prep = $this->connection->prepare($query);
 
-        $prep->bindParam(":nome", $produto->getNome());
-        $prep->bindParam(":descricao", $produto->getDescricao());
-        $prep->bindParam(":foto", $produto->getFoto());
+        $prep->bindValue(":nome", $produto->getNome());
+        $prep->bindValue(":descricao", $produto->getDescricao());
+        $prep->bindValue(":foto", $produto->getFoto());
 
         if ($prep->execute()) {
             return true;
@@ -36,10 +36,10 @@ class MySqlProdutoDao extends DAO implements DaoProduto
         $prep = $this->connection->prepare($query);
 
 
-        $prep->bindParam(":nome", $produto->getNome());
-        $prep->bindParam(":descricao", $produto->getDescricao());
-        $prep->bindParam(":foto", $produto->getFoto());
-        $prep->bindParam(":id", $produto->getId());
+        $prep->bindValue(":nome", $produto->getNome());
+        $prep->bindValue(":descricao", $produto->getDescricao());
+        $prep->bindValue(":foto", $produto->getFoto());
+        $prep->bindValue(":id", $produto->getId());
 
 
         if ($prep->execute()) {
@@ -77,7 +77,7 @@ class MySqlProdutoDao extends DAO implements DaoProduto
         $query = "SELECT id, nome, descricao, foto FROM " . $this->tabela . " WHERE nome :nome ? LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(":nome", $nome);
+        $stmt->bindValue(":nome", $nome);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -112,7 +112,7 @@ class MySqlProdutoDao extends DAO implements DaoProduto
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindParam(':id', $produto->getId());
+        $stmt->bindValue(':id', $produto->getId());
 
         if ($stmt->execute()) {
             return true;

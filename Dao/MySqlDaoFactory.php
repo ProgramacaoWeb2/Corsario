@@ -1,7 +1,7 @@
 <?php
 
-include_once('./Dao/DaoFactory.php');
-include_once('./Dao/DaoProduto.php');
+include_once('DaoFactory.php');
+include_once('Dao.php');
 
 
 class MySqlDaoFactory extends DaoFactory

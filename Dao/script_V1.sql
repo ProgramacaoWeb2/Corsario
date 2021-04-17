@@ -16,7 +16,7 @@ CREATE TABLE usuario(
 
 CREATE TABLE fornecedor(
 	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEndereco INTEGER UNSIGNED NOT NULL,
+    fkEndereco INTEGER UNSIGNED,
     
     
     nome VARCHAR(200) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE endereco(
 
 CREATE TABLE cliente(
 	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEndereco INTEGER UNSIGNED NOT NULL,
+    fkEndereco INTEGER UNSIGNED,
     
     nome VARCHAR(200) NOT NULL,
     telefone VARCHAR(9) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE cliente(
 
 CREATE TABLE produto(
 	idProduto INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkFornecedor INTEGER UNSIGNED NOT NULL,
+    fkFornecedor INTEGER UNSIGNED,
     
     nome VARCHAR(200) NOT NULL,
     descricao VARCHAR(70) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE produto(
 
 CREATE TABLE estoque(
 	idEstoque INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkProduto INTEGER UNSIGNED NOT NULL,
+    fkProduto INTEGER UNSIGNED,
     
    	quantidade INTEGER NOT NULL,
     preco DOUBLE NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE estoque(
 
 CREATE TABLE pedido(
 	IdPedido INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkCliente INTEGER UNSIGNED NOT NULL,
+    fkCliente INTEGER UNSIGNED,
     
     numero INTEGER NOT NULL,
    	dataPedido DATE NOT NULL,
