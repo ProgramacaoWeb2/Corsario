@@ -1,10 +1,10 @@
 <?php
 
-include_once('./Dao/daoFactory.php');
-include_once('./Dao/produtoDao.php');
+include_once('./Dao/DaoFactory.php');
+include_once('./Dao/ProdutoDao.php');
 
 
-class mySqlDaoFactory extends DaoFactory
+class MySqlDaoFactory extends DaoFactory
 {
 
     private $host = "localhost";
@@ -32,6 +32,6 @@ class mySqlDaoFactory extends DaoFactory
 
     public function getProdutoDao()
     {
-        return new mySqlProdutoDao($this->getConnection());
+        return new MySqlProdutoDao($this->getConnection());
     }
 }

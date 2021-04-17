@@ -1,15 +1,15 @@
 <?php
 
-include_once('./Dao/produtoDao.php');
-include_once('./Dao/dao.php');
+include_once('./Dao/ProdutoDao.php');
+include_once('./Dao/Dao.php');
 
-class mySqlProdutoDao extends dao implements ProdutoDao
+class MySqlProdutoDao extends DAO implements ProdutoDao
 {
     private $tabela = "produto";
 
 
 
-    public function insert($produto)
+    public function insere($produto)
     {
 
         $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto) VALUES" . "(:nome,:descricao,:foto)";
@@ -27,19 +27,19 @@ class mySqlProdutoDao extends dao implements ProdutoDao
         }
     }
 
-    public function update($produto)
+    public function altera($produto)
     {
         $query = "UPDATE " . $this->tabela .
             " SET nome = :nome, descricao = :descricao, foto = :foto" .
             " WHERE id = :id";
 
-        $prep = $this->conn->prepare($query);
+        $prep = $this->connection->prepare($query);
 
 
         $prep->bindParam(":nome", $produto->getNome());
         $prep->bindParam(":descricao", $produto->getDescricao());
         $prep->bindParam(":foto", $produto->getFoto());
-        $prep->bindParam(':id', $produto->getId());
+        $prep->bindParam(":id", $produto->getId());
 
 
         if ($prep->execute()) {
@@ -49,47 +49,17 @@ class mySqlProdutoDao extends dao implements ProdutoDao
         return false;
     }
 
-    public function getCode($id)
+    public function getPorCodigo($id)
     {
 
         $produto = null;
 
-        $query = "SELECT
-                    id, nome, descricao, foto
-                FROM
-                    " . $this->tabela . "
-                WHERE
-                    id = ?
-                LIMIT
-                    1";
+        $query = "SELECT id, nome, descricao, foto FROM " . $this->tabela . "
+        WHERE id = :id LIMIT 1";
+
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row) {
-            $produto = new produto($row['id'], $row['nome'], $row['descricao'], $row['foto']);
-        }
-
-        return $produto;
-    }
-
-    public function getName($nome)
-    {
-        $produto = null;
-
-        $query = "SELECT
-                    id, nome, descricao, foto
-                FROM
-                    " . $this->tabela . "
-                WHERE
-                    nome = ?
-                LIMIT
-                    1";
-
-        $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(1, $nome);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -100,13 +70,27 @@ class mySqlProdutoDao extends dao implements ProdutoDao
         return $produto;
     }
 
-    public function getAll()
+    public function getPorNome($nome)
     {
-        $query = "SELECT
-                    id, nome, descricao, foto
-                FROM
-                    " . $this->tabela;
+        $produto = null;
 
+        $query = "SELECT id, nome, descricao, foto FROM " . $this->tabela . " WHERE nome :nome ? LIMIT 1";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":nome", $nome);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $produto = new Produto($row['id'], $row['nome'], $row['descricao'], $row['foto']);
+        }
+
+        return $produto;
+    }
+
+    public function getTodos()
+    {
+        $query = "SELECT id, nome, descricao, foto FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -121,18 +105,15 @@ class mySqlProdutoDao extends dao implements ProdutoDao
     }
 
 
-    public function delete($produto)
+    public function deleta($produto)
     {
         $query = "DELETE FROM " . $this->tabela .
             " WHERE id = :id";
 
         $stmt = $this->connection->prepare($query);
 
-        // bind parameters
         $stmt->bindParam(':id', $produto->getId());
 
-
-        // execute the query
         if ($stmt->execute()) {
             return true;
         }

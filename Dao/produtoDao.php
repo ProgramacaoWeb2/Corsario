@@ -2,11 +2,11 @@
 
 interface ProdutoDao{
 
-    public function insert($produto);
-    public function update($produto);
-    public function getCode($id);
-    public function getName($nome);
-    public function getAll();
-    public function delete($produto);
+    public function insere($produto);
+    public function altera($produto);
+    public function getPorCodigo($id);
+    public function getPorNome($nome);
+    public function getTodos();
+    public function deleta($produto);
     
 }
