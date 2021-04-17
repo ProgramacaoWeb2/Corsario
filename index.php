@@ -1,15 +1,18 @@
-<?php 
+<?php
 
- include_once "Views/Layout/layoutHeader.php";
+include_once "Views/Layout/layoutHeader.php";
 
-    echo "CU";
+echo "CU";
 
-    echo " XD ";
+echo " XD ";
 
-    echo "bootstrap me usem";
+echo "bootstrap me usem";
 
-    echo "<br/> bootstrap é pra quem não se garante no soco";
+echo "<br/> bootstrap é pra quem não se garante no soco";
 
- include_once "Views/Layout/layoutFooter.php";
+echo "<br/>";
 
-?>
+echo "You crazy men... Não acredite nas mentiras dele";
+
+
+include_once "Views/Layout/layoutFooter.php";
