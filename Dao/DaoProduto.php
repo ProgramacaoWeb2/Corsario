@@ -1,6 +1,6 @@
 <?php
 
-interface ProdutoDao{
+interface DaoProduto{
 
     public function insere($produto);
     public function altera($produto);

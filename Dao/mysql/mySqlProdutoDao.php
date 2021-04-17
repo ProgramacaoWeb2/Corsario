@@ -1,9 +1,9 @@
 <?php
 
-include_once('./Dao/ProdutoDao.php');
+include_once('./Dao/DaoProduto.php');
 include_once('./Dao/Dao.php');
 
-class MySqlProdutoDao extends DAO implements ProdutoDao
+class MySqlProdutoDao extends DAO implements DaoProduto
 {
     private $tabela = "produto";
 
