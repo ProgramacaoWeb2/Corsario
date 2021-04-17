@@ -5,18 +5,23 @@ include_once "./fachada.php";
 
 $dao = $factory->getProdutoDao();
 
-$id = 1;
-$nome = "Celular";
-$desc = "Caro pra cacete";
-$foto = "A";
+//$pd =new Produto(1,"Gphone","teste","dsad") ;   
+
+// $result = $dao->altera($pd); OK
+
+//$result=$dao->deleta($pd); OK
+
+// $result = $dao->getPorNome("Celular"); OK
+
+//$result = $dao->getPorCodigo(4); OK
+
+//$result = $dao->getTodos(); OK
+
+//echo $result[4]->getNome();
+
+//$dao->deleta($v); OK
 
 
-$pd =new Produto($id,$nome,$desc,$foto) ;   
-
-$resl= $dao->insere($pd);
-
-
-echo ($resl);
 
 
 echo "CU";
@@ -30,8 +35,6 @@ echo "<br/> bootstrap é pra quem não se garante no soco";
 echo "<br>";
 
 echo "You crazy men... Não acredite nas mentiras dele";
-
-echo "<br>";
 
 
 
