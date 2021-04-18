@@ -1,6 +1,6 @@
 <?php
 
-include_once('./Dao/EstoqueDao.php');
+include_once('./Dao/DaoEstoque.php');
 include_once('./Dao/Dao.php');
 
 class MySqlEstoqueDao extends Dao implements DaoEstoque

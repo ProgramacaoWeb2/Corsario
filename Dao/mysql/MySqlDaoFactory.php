@@ -54,5 +54,4 @@ class MySqlDaoFactory extends DaoFactory
     {
         return new MySqlFornecedorDao($this->getConnection());
     }
-
 }

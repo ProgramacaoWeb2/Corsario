@@ -4,9 +4,22 @@ include_once "Views/Layout/layoutHeader.php";
 include_once "./fachada.php";
 
 $dao = $factory->getProdutoDao();
+$daoCliente = $factory->getClienteDao();
+$daoFornecedor = $factory->getFornecedorDao();
+$daoEstoque = $factory->getEstoqueDao();
+$daoEndereco = $factory->getEnderecoDao();
+$daoEstoque = $factory->getEstoqueDao();
 
 $pd =new Produto(1,"Gphone","teste","dsad") ;   
+$cliente = new Cliente(1,"Cliente", "1234", "dsad", "124");
+$fornecedor = new Fornecedor(1,"Fornecedor","teste","123", "dasda");
+$endereco = new Endereco(1,"dsa","dsf","dsaas","dsf","sda","ewae","rs");
+$estoque = new Estoque(12,10);
 
+$daoCliente->insere($cliente);
+$daoFornecedor->insere($fornecedor);
+$daoEndereco->insere($endereco);
+$daoEstoque->insere($estoque);
 $dao->insere($pd);
 
 // $result = $dao->altera($pd); OK
