@@ -5,20 +5,24 @@ include_once('./Dao/Dao.php');
 
 class MySqlEnderecoDao extends Dao implements DaoEndereco
 {
-    private $tabela = "Endereco";
+    private $tabela = "endereco";
 
 
 
-    public function insere($produto)
+    public function insere($endereco)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto) VALUES" . "(:nome,:descricao,:foto)";
+        $query = "INSERT INTO " . $this->tabela . "(rua, numero, complemento, bairro, cep, cidade, estado) VALUES" . "(:rua,:numero,:complemento,:bairro,:cep,:cidade, :estado)";
 
         $prep = $this->connection->prepare($query);
 
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
+        $prep->bindValue(":rua", $endereco->getRua());
+        $prep->bindValue(":numero", $endereco->getNumero());
+        $prep->bindValue(":complemento", $endereco->getComplemento());
+        $prep->bindValue(":bairro", $endereco->getBairro());
+        $prep->bindValue(":cep", $endereco->getCep());
+        $prep->bindValue(":cidade", $endereco->getCidade());
+        $prep->bindValue(":estado", $endereco->getEstado());
 
         if ($prep->execute()) {
             return true;
@@ -27,20 +31,24 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
         }
     }
 
-    public function altera($produto)
+    public function altera($endereco)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET nome = :nome, descricao = :descricao, foto = :foto" .
-            " WHERE idProduto = :idProduto";
+            " SET rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro,  cep =  :cep, cidade = :cidade, estado = :estado" .
+            " WHERE idEndereco = :idEndereco";
 
         $prep = $this->connection->prepare($query);
 
 
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
-        $prep->bindValue(":idProduto", $produto->getId());
 
+        $prep->bindValue(":rua", $endereco->getRua());
+        $prep->bindValue(":numero", $endereco->getNumero());
+        $prep->bindValue(":complemento", $endereco->getComplemento());
+        $prep->bindValue(":bairro", $endereco->getBairro());
+        $prep->bindValue(":cep", $endereco->getCep());
+        $prep->bindValue(":cidade", $endereco->getCidade());
+        $prep->bindValue(":estado", $endereco->getEstado());
+        $prep->bindValue(":idEndereco", $endereco->getId());
 
         if ($prep->execute()) {
             return true;
@@ -52,66 +60,66 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
     public function getPorCodigo($id)
     {
 
-        $produto = null;
+        $endereco = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
+        $query = "SELECT idEndereco, rua, numero, complemento, bairro, cep, cidade, estado FROM " . $this->tabela . " WHERE idEndereco = :idEndereco LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindValue(":idProduto", $id);
+        $stmt->bindValue(":idEndereco", $id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $endereco = new Endereco($row['idEndereco'], $row['rua'], $row['numero'], $row['complemento'], ['bairro'], ['cep'], ['cidade'], ['estado']);
         }
 
-        return $produto;
+        return $endereco;
     }
 
-    public function getPorRua($nome)
+    public function getPorRua($rua)
     {
-        $produto = null;
+        $endereco = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
+        $query = "SELECT idEndereco, rua, numero, complemento, bairro, cep, cidade, estado FROM " . $this->tabela . " WHERE rua = :rua LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":rua", $rua);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $endereco = new Endereco($row['idEndereco'], $row['rua'], $row['numero'], $row['complemento'], $row['bairro'], $row['cep'], $row['cidade'], $row['estado']);
         }
 
-        return $produto;
+        return $endereco;
     }
 
     public function getTodos()
     {
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela;
+        $query = "SELECT idEndereco, rua, numero, complemento, bairro, cep, cidade, estado FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
-        $produtos = [];
+        $enderecos = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $produto = new Produto($idProduto, $nome, $descricao, $foto);
-            $produtos[] = $produto;
+            $endereco = new Endereco($idEndereco, $rua, $numero, $complemento, $bairro, $cep, $cidade, $estado);
+            $enderecos[] = $endereco;
         }
-        return $produtos;
+        return $enderecos;
     }
 
 
-    public function deleta($produto)
+    public function deleta($endereco)
     {
         $query = "DELETE FROM " . $this->tabela .
-            " WHERE idProduto = :idProduto";
+            " WHERE idEndereco = :idEndereco";
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindValue(':idProduto', $produto->getId());
+        $stmt->bindValue(':idEndereco', $endereco->getId());
 
         if ($stmt->execute()) {
             return true;

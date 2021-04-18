@@ -3,22 +3,21 @@
 include_once('./Dao/DaoFornecedor.php');
 include_once('./Dao/Dao.php');
 
-class MySqlFornecedorDao extends Dao implements DaoProduto
+class MySqlFornecedorDao extends Dao implements DaoFornecedor
 {
-    private $tabela = "produto";
+    private $tabela = "fornecedor";
 
-
-
-    public function insere($produto)
+    public function insere($fornecedor)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto) VALUES" . "(:nome,:descricao,:foto)";
+        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, telefone , email) VALUES" . "(:nome,:descricao,:telefone, :email)";
 
         $prep = $this->connection->prepare($query);
 
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
+        $prep->bindValue(":nome", $fornecedor->getNome());
+        $prep->bindValue(":descricao", $fornecedor->getDescricao());
+        $prep->bindValue(":telefone", $fornecedor->getTelefone());
+        $prep->bindValue(":email", $fornecedor->getEmail());
 
         if ($prep->execute()) {
             return true;
@@ -27,19 +26,21 @@ class MySqlFornecedorDao extends Dao implements DaoProduto
         }
     }
 
-    public function altera($produto)
+    public function altera($fornecedor)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET nome = :nome, descricao = :descricao, foto = :foto" .
-            " WHERE idProduto = :idProduto";
+            " SET nome = :nome, descricao = :descricao, telefone = :telefone, email = :email" .
+            " WHERE idFornecedor = :idFornecedor";
 
         $prep = $this->connection->prepare($query);
 
 
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
-        $prep->bindValue(":idProduto", $produto->getId());
+        $prep->bindValue(":nome", $fornecedor->getNome());
+        $prep->bindValue(":descricao", $fornecedor->getDescricao());
+        $prep->bindValue(":telefone", $fornecedor->getTelefone());
+        $prep->bindValue(":email", $fornecedor->getEmail());
+        $prep->bindValue(":idFornecedor", $fornecedor->getId());
+
 
 
         if ($prep->execute()) {
@@ -52,28 +53,28 @@ class MySqlFornecedorDao extends Dao implements DaoProduto
     public function getPorCodigo($id)
     {
 
-        $produto = null;
+        $fornecedor = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela . " WHERE idFornecedor = :idFornecedor LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindValue(":idProduto", $id);
+        $stmt->bindValue(":idFornecedor", $id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
         }
 
-        return $produto;
+        return $fornecedor;
     }
 
     public function getPorNome($nome)
     {
-        $produto = null;
+        $fornecedor = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":nome", $nome);
@@ -81,37 +82,37 @@ class MySqlFornecedorDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
         }
 
-        return $produto;
+        return $fornecedor;
     }
 
     public function getTodos()
     {
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela;
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
-        $produtos = [];
+        $fornecedores = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $produto = new Produto($idProduto, $nome, $descricao, $foto);
-            $produtos[] = $produto;
+            $fornecedor = new Fornecedor($idFornecedor, $nome, $descricao, $telefone, $email);
+            $fornecedores[] = $fornecedor;
         }
-        return $produtos;
+        return $fornecedores;
     }
 
 
-    public function deleta($produto)
+    public function deleta($fornecedor)
     {
         $query = "DELETE FROM " . $this->tabela .
-            " WHERE idProduto = :idProduto";
+            " WHERE idFornecedor = :idFornecedor";
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindValue(':idProduto', $produto->getId());
+        $stmt->bindValue(':idFornecedor', $fornecedor->getId());
 
         if ($stmt->execute()) {
             return true;

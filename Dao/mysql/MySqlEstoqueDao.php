@@ -3,22 +3,21 @@
 include_once('./Dao/EstoqueDao.php');
 include_once('./Dao/Dao.php');
 
-class MySqlEstoqueDao extends Dao implements DaoProduto
+class MySqlEstoqueDao extends Dao implements DaoEstoque
 {
-    private $tabela = "produto";
+    private $tabela = "estoque";
 
 
 
-    public function insere($produto)
+    public function insere($estoque)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto) VALUES" . "(:nome,:descricao,:foto)";
+        $query = "INSERT INTO " . $this->tabela . "(quantidade, preco) VALUES" . "(:quantidade,:preco)";
 
         $prep = $this->connection->prepare($query);
 
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
+        $prep->bindValue(":quantidade", $estoque->getQuantidade());
+        $prep->bindValue(":preco", $estoque->getPreco());
 
         if ($prep->execute()) {
             return true;
@@ -27,19 +26,16 @@ class MySqlEstoqueDao extends Dao implements DaoProduto
         }
     }
 
-    public function altera($produto)
+    public function altera($estoque)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET nome = :nome, descricao = :descricao, foto = :foto" .
-            " WHERE idProduto = :idProduto";
+            " SET quantidade = :quantidade, preco = :preco" .
+            " WHERE idEstoque = :idEstoque";
 
         $prep = $this->connection->prepare($query);
 
-
-        $prep->bindValue(":nome", $produto->getNome());
-        $prep->bindValue(":descricao", $produto->getDescricao());
-        $prep->bindValue(":foto", $produto->getFoto());
-        $prep->bindValue(":idProduto", $produto->getId());
+        $prep->bindValue(":quantidade", $estoque->getQuantidade());
+        $prep->bindValue(":preco", $estoque->getPreco());
 
 
         if ($prep->execute()) {
@@ -52,66 +48,66 @@ class MySqlEstoqueDao extends Dao implements DaoProduto
     public function getPorCodigo($id)
     {
 
-        $produto = null;
+        $estoque = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
+        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela . " WHERE idEstoque = :idEstoque LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindValue(":idProduto", $id);
+        $stmt->bindValue(":idEstoque", $id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco']);
         }
 
-        return $produto;
+        return $estoque;
     }
 
-    public function getPorNome($nome)
+    public function getPorPreco($preco)
     {
-        $produto = null;
+        $estoque = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
+        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela . " WHERE preco = :preco LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
-        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":preco", $preco);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco']);
         }
 
-        return $produto;
+        return $estoque;
     }
 
     public function getTodos()
     {
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela;
+        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
-        $produtos = [];
+        $estoques = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $produto = new Produto($idProduto, $nome, $descricao, $foto);
-            $produtos[] = $produto;
+            $estoque = new Estoque($idEstoque, $quantidade, $preco);
+            $estoques[] = $estoque;
         }
-        return $produtos;
+        return $estoques;
     }
 
 
-    public function deleta($produto)
+    public function deleta($estoque)
     {
         $query = "DELETE FROM " . $this->tabela .
-            " WHERE idProduto = :idProduto";
+            " WHERE idEstoque = :idEstoque";
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindValue(':idProduto', $produto->getId());
+        $stmt->bindValue(':idEstoque', $estoque->getId());
 
         if ($stmt->execute()) {
             return true;

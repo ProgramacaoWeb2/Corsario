@@ -97,7 +97,7 @@ class MySqlClienteDao extends Dao implements DaoCliente
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $cliente = new Cliente($idProduto, $nome, $telefone, $email, $cartaoCredito);
+            $cliente = new Cliente($idCliente, $nome, $telefone, $email, $cartaoCredito);
             $clientes[] = $cliente;
         }
         return $clientes;
