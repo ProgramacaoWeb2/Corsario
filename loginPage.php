@@ -1,27 +1,33 @@
-<?php include_once "Views/Layout/layoutSimpleHeader.php"; ?>
+<?php include_once "Layout/layoutSimpleHeader.php"; ?>
 
 
 <div id="loginbBody">
 
     <span>Login do cliente</span>
 
-    <div id="loginFormArea">
-        <form action="">
-            <div class="formGroup">
-                <label for="inputUsername">E-mail:</label>
-                <input type="text" id="inputUsername" placeholder="Ex. joaodasilva@gmail.com">
-            </div>
+    <div id="loginContent">
+        <div class="formArea">
+            <form action="">
+                <div class="formGroup">
+                    <label for="inputUsername">E-mail:</label>
+                    <input type="text" id="inputUsername" placeholder="Ex. joaodasilva@gmail.com">
+                </div>
 
-            <div class="formGroup">
-                <label for="inputPassword">Senha:</label>
-                <input type="password" id="inputPassword">
-            </div>
+                <div class="formGroup">
+                    <label for="inputPassword">Senha:</label>
+                    <input type="password" id="inputPassword">
+                </div>
 
-            <button class="corsBtn" type="submit" id="btnLogin">Continuar</button>
+                <button class="corsBtn btn-purple" type="submit">Continuar</button>
 
-        </form>
+            </form>
+        </div>
+
+        <label>Não tem cadastro? <a href="signPage.php">Cadastre-se</a></label>
     </div>
+
+
 
 </div>
 
-<?php include_once "Views/Layout/layoutFooter.php"; ?>
+<?php include_once "Layout/layoutFooter.php"; ?>

@@ -121,3 +121,5 @@ class MySqlProdutoDao extends DAO implements DaoProduto
         return false;
     }
 }
+
+?>

@@ -1,6 +1,6 @@
 <?php
 
-include_once "Views/Layout/layoutHeader.php";
+include_once "Layout/layoutHeader.php";
 
 
 
@@ -17,4 +17,4 @@ echo "<br/>";
 echo "You crazy men... Não acredite nas mentiras dele";
 
 
-include_once "Views/Layout/layoutFooter.php";
+include_once "Layout/layoutFooter.php";

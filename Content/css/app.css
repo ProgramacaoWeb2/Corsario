@@ -104,18 +104,22 @@ body {
     display: block;
 }
 
-#loginFormArea {
-    display: flex;
+#loginContent {
     max-width: 360px;
     margin: auto;
 }
 
-#loginFormArea form {
+.formArea {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.formArea form {
     margin: auto;
     width: 100%;
 }
 
-#loginFormArea input {
+.formArea input {
     width: 100%;
     padding: 0.2rem 1rem;
 }
@@ -138,12 +142,11 @@ body {
     border: 1px solid #b1b1b1;
     min-height: 2rem;
     border-radius: 0.22rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0.9rem;
     cursor: pointer;
 }
 
-#btnLogin {
-    color: #fff;
-    background: #6775d8;
-    padding: 0.5rem 0.9rem;
+.btn-purple {
+    color: #fff !important;
+    background: #6775d8 !important;
 }

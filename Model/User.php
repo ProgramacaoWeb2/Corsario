@@ -1,19 +1,19 @@
 <?php
 
-class Usuario
+class User
 {
 
     private $id;
     private $login;
-    private $senha;
-    private $nome;
+    private $password;
+    private $name;
 
-    public function __construct($id, $login, $senha, $nome)
+    public function __construct($id, $login, $password, $name)
     {
         $this->id = $id;
         $this->login = $login;
-        $this->senha = $senha;
-        $this->nome = $nome;
+        $this->senha = $password;
+        $this->nome = $name;
     }
 
     public function getId()
@@ -37,25 +37,25 @@ class Usuario
         $this->login = $login;
     }
 
-    public function getSenha()
+    public function getPassword()
     {
-        return $this->senha;
+        return $this->password;
     }
 
 
-    public function setSenha($senha)
+    public function setPassword($password)
     {
-        $this->senha = $senha;
+        $this->senha = $password;
     }
 
-    public function getNome()
+    public function getName()
     {
-        return $this->nome;
+        return $this->name;
     }
 
 
-    public function setNome($nome)
+    public function setName($name)
     {
-        $this->nome = $nome;
+        $this->name = $name;
     }
 }

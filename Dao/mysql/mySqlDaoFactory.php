@@ -2,13 +2,14 @@
 
 include_once('./Dao/DaoFactory.php');
 include_once('./Dao/DaoProduto.php');
+include_once('./Dao/DaoUser.php');
 
 
 class MySqlDaoFactory extends DaoFactory
 {
 
     private $host = "localhost";
-    private $db = "db";
+    private $db = "CorsarioDb";
     private $port = "3306";
     private $user = "root";
     private $password = "";
@@ -33,5 +34,10 @@ class MySqlDaoFactory extends DaoFactory
     public function getProdutoDao()
     {
         return new MySqlProdutoDao($this->getConnection());
+    }
+
+    public function User()
+    {
+        return new mySqlDaoUser($this->getConnection());
     }
 }
