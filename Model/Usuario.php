@@ -3,14 +3,14 @@
 class Usuario
 {
 
-    private $id;
+    private $idUsuario;
     private $login;
-    private $password;
-    private $name;
+    private $senha;
+    private $nome;
 
     public function __construct($id, $login, $password, $name)
     {
-        $this->id = $id;
+        $this->idUsuario = $id;
         $this->login = $login;
         $this->senha = $password;
         $this->nome = $name;
@@ -39,7 +39,7 @@ class Usuario
 
     public function getPassword()
     {
-        return $this->password;
+        return $this->senha;
     }
 
 
@@ -50,12 +50,14 @@ class Usuario
 
     public function getName()
     {
-        return $this->name;
+        return $this->nome;
     }
 
 
     public function setName($name)
     {
-        $this->name = $name;
+        $this->nome = $name;
     }
 }
+
+?>

@@ -3,7 +3,6 @@
 include_once "Layout/layoutHeader.php";
 
 echo "CU";
-
 echo " XD 888 ";
 
 echo "bootstrap me usem";

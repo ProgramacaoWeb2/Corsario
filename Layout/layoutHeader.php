@@ -5,7 +5,6 @@
 <head>
 	<meta charset="UTF-8">
     
-	<title><?php echo $page_title; ?></title>
     <link href="Content/fonts/Roboto" rel="stylesheet">
     <link rel="stylesheet" href="Content/css/app.css" />
 

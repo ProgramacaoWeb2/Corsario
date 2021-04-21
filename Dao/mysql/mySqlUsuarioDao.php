@@ -3,9 +3,9 @@
 include_once('./Dao/DaoUsuario.php');
 include_once('./Dao/Dao.php');
 
-class mySqlUsuarioDao extends mySqlDaoFactory implements DaoUsuario{
+class MySqlUsuarioDao extends Dao implements DaoUsuario{
     
-    private $table_name = 'usuario';
+    private $table_name = 'Usuario';
 
 
     public function insere($user){
@@ -15,10 +15,9 @@ class mySqlUsuarioDao extends mySqlDaoFactory implements DaoUsuario{
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindParam(":login", $user->getLogin());
-        $stmt->bindParam(":senha", md5($user->getSPassword()));
-        $stmt->bindParam(":nome", $user->getName());
-
+        $stmt->bindValue(":login", $user->getLogin());
+        $stmt->bindValue(":senha", md5($user->getPassword()));
+        $stmt->bindValue(":nome", $user->getName());
         if($stmt->execute()){
             return true;
         }else{
