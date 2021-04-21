@@ -1,7 +1,7 @@
-CREATE DATABASE db;
-USE db;
+CREATE DATABASE CorsarioDb;
+USE CorsarioDb;
 
-CREATE TABLE usuario(
+CREATE TABLE Usuario(
 	idUsuario INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     login VARCHAR(50) NOT NULL,
     senha VARCHAR(150) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE usuario(
 );
 
 
-CREATE TABLE fornecedor(
+CREATE TABLE Fornecedor(
 	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     
     
@@ -28,7 +28,7 @@ CREATE TABLE fornecedor(
     PRIMARY KEY (idFornecedor)
 );
 
-CREATE TABLE cliente(
+CREATE TABLE Cliente(
 	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
    
     nome VARCHAR(200) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE cliente(
 );
 
 
-CREATE TABLE endereco(
+CREATE TABLE Endereco(
 	idEndereco INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     idFornecedor INTEGER UNSIGNED,
     idCliente INTEGER UNSIGNED,
@@ -63,7 +63,7 @@ CREATE TABLE endereco(
 
 
 
-CREATE TABLE produto(
+CREATE TABLE Produto(
 	idProduto INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     idFornecedor INTEGER UNSIGNED,
 
@@ -78,7 +78,7 @@ CREATE TABLE produto(
     CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor)
 );
 
-CREATE TABLE estoque(
+CREATE TABLE Estoque(
 	idEstoque INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     idProduto INTEGER UNSIGNED,
     
@@ -91,7 +91,7 @@ CREATE TABLE estoque(
 );
 
 
-CREATE TABLE pedido(
+CREATE TABLE Pedido(
 	IdPedido INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     idCliente INTEGER UNSIGNED,
     
@@ -107,7 +107,7 @@ CREATE TABLE pedido(
 
 );
 
-CREATE TABLE itemPedido(
+CREATE TABLE PedidoItens(
 	idItemPedido INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
     quantidade INTEGER NOT NULL,
    	preco DOUBLE NOT NULL,

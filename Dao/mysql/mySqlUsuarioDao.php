@@ -13,7 +13,7 @@ class mySqlUsuarioDao extends mySqlDaoFactory implements DaoUsuario{
         " (login, senha, nome) VALUES" .
         " (:login, :senha, :nome)";
 
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":login", $user->getLogin());
         $stmt->bindParam(":senha", md5($user->getSPassword()));
