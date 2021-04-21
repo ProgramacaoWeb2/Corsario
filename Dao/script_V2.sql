@@ -1,5 +1,5 @@
-CREATE DATABASE CorsarioDb;
-USE CorsarioDb;
+CREATE DATABASE db;
+USE db;
 
 CREATE TABLE usuario(
 	idUsuario INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -16,7 +16,6 @@ CREATE TABLE usuario(
 
 CREATE TABLE fornecedor(
 	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEndereco INTEGER UNSIGNED,
     
     
     nome VARCHAR(200) NOT NULL,
@@ -26,14 +25,28 @@ CREATE TABLE fornecedor(
     
     
     INDEX(idFornecedor),
-	FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco),
     PRIMARY KEY (idFornecedor)
+);
+
+CREATE TABLE cliente(
+	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
+   
+    nome VARCHAR(200) NOT NULL,
+    telefone VARCHAR(9) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    cartaoCredito VARCHAR(30) NOT NULL,
+     
+    
+    INDEX(idCliente),
+    PRIMARY KEY (idCliente)
 );
 
 
 CREATE TABLE endereco(
 	idEndereco INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    
+    idFornecedor INTEGER UNSIGNED,
+    idCliente INTEGER UNSIGNED,
+
     rua VARCHAR(200) NOT NULL,
     numero VARCHAR(100) NOT NULL,
     complemento VARCHAR(100) NOT NULL,
@@ -43,55 +56,44 @@ CREATE TABLE endereco(
     estado VARCHAR(10) NOT NULL,
      
     INDEX(idEndereco),
-    PRIMARY KEY (idEndereco)
+    PRIMARY KEY (idEndereco),
+    CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor),
+    CONSTRAINT fkCliente FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
 
 
-CREATE TABLE cliente(
-	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEndereco INTEGER UNSIGNED,
-    
-    nome VARCHAR(200) NOT NULL,
-    telefone VARCHAR(9) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    cartaoCredito VARCHAR(30) NOT NULL,
-     
-    
-    FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco),
-    INDEX(idCliente),
-    PRIMARY KEY (idCliente)
-);
 
 CREATE TABLE produto(
 	idProduto INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkFornecedor INTEGER UNSIGNED,
-    
+    idFornecedor INTEGER UNSIGNED,
+
+
     nome VARCHAR(200) NOT NULL,
     descricao VARCHAR(70) NOT NULL,
     foto VARCHAR(70) NOT NULL,
      
-    FOREIGN KEY (fkFornecedor) REFERENCES fornecedor(idFornecedor), 
-    INDEX(idProduto),
-    PRIMARY KEY (idProduto)
    
+    INDEX(idProduto),
+    PRIMARY KEY (idProduto),
+    CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor)
 );
 
 CREATE TABLE estoque(
 	idEstoque INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkProduto INTEGER UNSIGNED,
+    idProduto INTEGER UNSIGNED,
     
    	quantidade INTEGER NOT NULL,
     preco DOUBLE NOT NULL,
    
-    FOREIGN KEY(fkProduto) REFERENCES produto(idProduto),
     INDEX(idEstoque),
-    PRIMARY KEY (idEstoque)
+    PRIMARY KEY (idEstoque),
+    CONSTRAINT fkProduto FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
 );
 
 
 CREATE TABLE pedido(
 	IdPedido INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkCliente INTEGER UNSIGNED,
+    idCliente INTEGER UNSIGNED,
     
     numero INTEGER NOT NULL,
    	dataPedido DATE NOT NULL,
@@ -99,9 +101,9 @@ CREATE TABLE pedido(
     situacao VARCHAR(10) NOT NULL,
    
     
-    FOREIGN KEY (fkCliente) REFERENCES cliente(idCliente),
     INDEX(IdPedido),
-    PRIMARY KEY (IdPedido)
+    PRIMARY KEY (IdPedido),
+    CONSTRAINT fkCliente FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 
 );
 

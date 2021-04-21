@@ -1,6 +1,6 @@
 <?php
 
-abstract class DAO{
+abstract class Dao{
    
 
     protected $connection;

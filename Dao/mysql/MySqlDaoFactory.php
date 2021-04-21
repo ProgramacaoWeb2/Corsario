@@ -1,8 +1,8 @@
 <?php
 
 include_once('./Dao/DaoFactory.php');
-include_once('./Dao/DaoProduto.php');
 include_once('./Dao/DaoUser.php');
+include_once('./Dao/DaoProduto.php');
 
 
 class MySqlDaoFactory extends DaoFactory
@@ -39,5 +39,25 @@ class MySqlDaoFactory extends DaoFactory
     public function User()
     {
         return new mySqlDaoUser($this->getConnection());
+
+    }
+    public function getClienteDao()
+    {
+        return new MySqlClienteDao($this->getConnection());
+    }
+
+    public function getEnderecoDao()
+    {
+        return new MySqlEnderecoDao($this->getConnection());
+    }
+
+    public function getEstoqueDao()
+    {
+        return new MySqlEstoqueDao($this->getConnection());
+    }
+
+    public function getFornecedorDao()
+    {
+        return new MySqlFornecedorDao($this->getConnection());
     }
 }
