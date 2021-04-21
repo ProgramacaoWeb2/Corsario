@@ -10,21 +10,21 @@
             <form action="createUser.php" method="POST">
                 <div class="formGroup">
                     <label for="inputUsername">Nome:</label>
-                    <input type="text" id="inputName" placeholder="João">
+                    <input type="text" id="inputName" name="inputName" placeholder="João">
                 </div>
                 <div class="formGroup">
                     <label for="inputUsername">E-mail:</label>
-                    <input type="text" id="inputUsername" placeholder="Ex. joaodasilva@gmail.com">
+                    <input type="text" id="inputUsername" name="inputUsername" placeholder="Ex. joaodasilva@gmail.com">
                 </div>
 
                 <div class="formGroup">
                     <label for="inputPassword">Senha:</label>
-                    <input type="password" id="inputPassword">
+                    <input type="password" id="inputPassword" name="inputPassword">
                 </div>
 
                 <div class="formGroup">
                     <label for="inputConfirmPassword">Confirmar Senha:</label>
-                    <input type="password" id="inputConfirmPassword">
+                    <input type="password" id="inputConfirmPassword" name="inputConfirmPassword">
                 </div>
 
                 <button class="corsBtn btn-purple" type="submit">Criar seu cadastro</button>

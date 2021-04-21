@@ -1,5 +1,4 @@
 <?php
-
 interface DaoUsuario{
 
     public function insere($user);

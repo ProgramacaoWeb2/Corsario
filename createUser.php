@@ -1,4 +1,3 @@
-
 <?php
 require "DbFactory.php";
 
@@ -8,13 +7,12 @@ $password = $_POST['inputPassword'];
 $comfirmPassword = $_POST['inputConfirmPassword'];
 
 
+
 $newUser = new Usuario(null, $userName, $password, $name);
 
 $db->Usuario()->insere($newUser);
 
 
 header("Location: index.php");
-exit;
-
-
+exit();
 ?>
