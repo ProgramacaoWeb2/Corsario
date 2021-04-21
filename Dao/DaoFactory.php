@@ -5,10 +5,10 @@ abstract class DaoFactory
 
     protected abstract function getConnection();
 
-    public abstract function getProdutoDao();
-    public abstract function User();
-    public abstract function getClienteDao();
-    public abstract function getEnderecoDao();
-    public abstract function getEstoqueDao();
-    public abstract function getFornecedorDao();
+    public abstract function Produto();
+    public abstract function Usuario();
+    public abstract function Cliente();
+    public abstract function Endereco();
+    public abstract function Estoque();
+    public abstract function Fornecedor();
 }

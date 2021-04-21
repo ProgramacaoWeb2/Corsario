@@ -31,32 +31,32 @@ class MySqlDaoFactory extends DaoFactory
         return $this->connection;
     }
 
-    public function getProdutoDao()
+    public function Produto()
     {
         return new MySqlProdutoDao($this->getConnection());
     }
 
-    public function User()
+    public function Usuario()
     {
-        return new mySqlDaoUser($this->getConnection());
+        return new mySqlUsuarioDao($this->getConnection());
 
     }
-    public function getClienteDao()
+    public function Cliente()
     {
         return new MySqlClienteDao($this->getConnection());
     }
 
-    public function getEnderecoDao()
+    public function Endereco()
     {
         return new MySqlEnderecoDao($this->getConnection());
     }
 
-    public function getEstoqueDao()
+    public function Estoque()
     {
         return new MySqlEstoqueDao($this->getConnection());
     }
 
-    public function getFornecedorDao()
+    public function Fornecedor()
     {
         return new MySqlFornecedorDao($this->getConnection());
     }

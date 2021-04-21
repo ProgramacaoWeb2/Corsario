@@ -8,9 +8,9 @@ $password = $_POST['inputPassword'];
 $comfirmPassword = $_POST['inputConfirmPassword'];
 
 
-$newUser = new User(null, $userName, $password, $name);
+$newUser = new Usuario(null, $userName, $password, $name);
 
-$db->User()->Add($newUser);
+$db->Usuario()->insere($newUser);
 
 
 header("Location: index.php");

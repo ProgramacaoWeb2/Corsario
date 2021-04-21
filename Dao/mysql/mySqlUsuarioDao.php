@@ -1,14 +1,14 @@
 <?php
 
-include_once('./Dao/DaoUser.php');
+include_once('./Dao/DaoUsuario.php');
 include_once('./Dao/Dao.php');
 
-class mySqlDaoUser extends mySqlDaoFactory implements DaoUser{
+class mySqlUsuarioDao extends mySqlDaoFactory implements DaoUsuario{
     
     private $table_name = 'usuario';
 
 
-    public function Add($user){
+    public function insere($user){
         $query = "INSERT INTO " . $this->table_name . 
         " (login, senha, nome) VALUES" .
         " (:login, :senha, :nome)";
@@ -25,19 +25,19 @@ class mySqlDaoUser extends mySqlDaoFactory implements DaoUser{
             return false;
         }
     }
-    public function Update($user){
+    public function altera($user){
 
     }
-    public function GetById($id){
+    public function getPorCodigo($id){
 
     }
-    public function GetByName($name){
+    public function getPorPreco($name){
 
     }
-    public function Get(){
+    public function getTodos(){
 
     }
-    public function Delete($user){
+    public function deleta($user){
 
     }
 }
