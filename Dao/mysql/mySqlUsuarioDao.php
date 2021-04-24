@@ -30,14 +30,45 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
     public function getPorCodigo($id){
 
     }
-    public function getPorPreco($name){
+    public function getPorNome($name){
 
     }
-    public function getTodos(){
+    public function getTodos($searchArray= null){
 
         $query = "SELECT idUsuario, login, nome FROM " . $this->table_name;
+
+        $conditions = [];
+
+        if(isset($searchArray)){
+
+            if(!empty($searchArray['idUsuario']))
+                $conditions[] = ' idUsuario = '.$searchArray['idUsuario'];
+            
+
+            if(!empty($searchArray['nome']))
+                $conditions[] = ' nome LIKE '."'%".$searchArray['nome']."%' ";
+            
+
+            if(!empty($searchArray['login']))
+                $conditions[] = ' login LIKE '."'%".$searchArray['login']."%' ";
+            
+
+            if ($conditions)
+            {
+                $query .= " WHERE ".implode(" AND ", $conditions);
+            }
+
+
+        }
+
+
+
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
+    
+
+
+      
 
         $usuarios = array();
 

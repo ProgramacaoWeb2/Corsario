@@ -2,7 +2,13 @@
 
 require "DbFactory.php";
 
-$userList = $db->Usuario()->getTodos();
+$search = @$_POST["search"];
+
+if(isset($search))
+    $userList = $db->Usuario()->getTodos($search);
+else
+    $userList = $db->Usuario()->getTodos();
+
 
 
 if($userList) {

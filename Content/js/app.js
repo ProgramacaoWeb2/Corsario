@@ -12,8 +12,8 @@ $(()=>{
     });
 
 
-    $('#appBody').on('click', '#btn-user-search', (elem)=>{
-        return DeleteUser();
+    $('#appBody').on('click', '#btn-user-search', ()=>{
+        return SearchUser();
     });
 
    
@@ -61,6 +61,21 @@ var DeleteUser = (idUsuario)=>{
             }
         }
     });
+
+}
+
+var SearchUser = ()=>{
+    let search = {};
+    search.idUsuario = $('#idInput').val();
+    search.nome = $('#nameInput').val();
+    search.login = $('#userNameInput').val();
+
+    $.post('/userListPartial.php', {search: search},function(data){
+        
+        $('#display-users').html(data);
+
+    },'html');
+
 
 }
 
