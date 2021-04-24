@@ -35,6 +35,19 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
     }
     public function getTodos(){
 
+        $query = "SELECT idUsuario, login, nome FROM " . $this->table_name;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $usuarios = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($row);
+            $usuarios[] = new Usuario($idUsuario,$login,null,$nome);
+        }
+        
+        return $usuarios;
+
     }
     public function deleta($user){
 
