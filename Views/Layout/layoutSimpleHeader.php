@@ -3,21 +3,22 @@
 
 
 <head>
-	<meta charset="UTF-8">
-    
-	<title><?php echo $page_title; ?></title>
-    <link href="Content/fonts/Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="Content/css/app.css" />
+    <meta charset="UTF-8">
 
-    
-    
+    <title><?php echo $page_title; ?></title>
+    <link href="Content/fonts/Roboto">
+    <link rel="stylesheet" href="Content/css/app.css" />
+   
+
+
+
 </head>
 
 <body>
-	<header id="appHeader">
+    <header id="appHeader">
         <div id="appBrand">
             <img src="Content/images/appBrand.png" alt="">
         </div>
-	</header>
+    </header>
 
     <div id="appBody">

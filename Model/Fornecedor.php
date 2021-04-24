@@ -13,7 +13,7 @@ class Fornecedor
 
     public function __construct($id, $nome, $descricao, $telefone, $email)
     {
-        $this->$id = $id;
+        $this->id = $id;
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->telefone = $telefone;

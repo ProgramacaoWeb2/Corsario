@@ -18,12 +18,17 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
         $stmt->bindValue(":login", $user->getLogin());
         $stmt->bindValue(":senha", md5($user->getPassword()));
         $stmt->bindValue(":nome", $user->getName());
+
+        $stmt->bindValue(":login", $user->getLogin());
+        $stmt->bindValue(":senha", md5($user->getPassword()));
+        $stmt->bindValue(":nome", $user->getName());
         if($stmt->execute()){
             return true;
         }else{
             return false;
         }
     }
+
     public function altera($user){
 
     }

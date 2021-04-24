@@ -53,7 +53,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     public function getPorCodigo($id)
     {
 
-        $fornecedor = null;
+        $fornecedorNew = null;
 
         $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela . " WHERE idFornecedor = :idFornecedor LIMIT 1";
 
@@ -64,10 +64,10 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+            $fornecedorNew = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+            
         }
-
-        return $fornecedor;
+        return $fornecedorNew;
     }
 
     public function getPorNome($nome)

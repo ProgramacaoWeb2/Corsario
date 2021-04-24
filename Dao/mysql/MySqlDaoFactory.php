@@ -2,6 +2,7 @@
 
 include_once('./Dao/DaoFactory.php');
 include_once('MySqlUsuarioDao.php');
+include_once('./Dao/DaoUsuario.php');
 include_once('./Dao/DaoProduto.php');
 
 
