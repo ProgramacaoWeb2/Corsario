@@ -49,8 +49,19 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
         return $usuarios;
 
     }
-    public function deleta($user){
+    public function deleta($idUsuario){
+        $query = "DELETE FROM " . $this->table_name . 
+        " WHERE idUsuario = :idUsuario";
 
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":idUsuario", $idUsuario);
+
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

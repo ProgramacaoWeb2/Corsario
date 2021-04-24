@@ -40,6 +40,8 @@ body {
     display: block;
     height: 100vh;
     background: #fff;
+    font-family: 'Roboto', sans-serif;
+    color: #616161;
 }
 
 #appHeaderRightContent {
@@ -149,4 +151,54 @@ body {
 .btn-purple {
     color: #fff !important;
     background: #6775d8 !important;
+}
+
+.thead-purple{
+    color: #fff !important;
+    background: #6775d8 !important;
+}
+
+.btn-group .dropdown-toggle,.btn-group .dropdown-item{
+    font-size: 11px !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.btn-group .dropdown-item{
+    font-size: 12px !important;
+    color: #616161 !important;
+}
+
+.btn-group .dropdown-item:hover{
+    color: #fff !important;
+    background: #6775d8 !important;
+}
+
+.page-title{
+    padding: 10px 0;
+    margin: 8px 0 20px 0;
+    border-bottom: 1px solid #6775d8;
+    color: #6775d8;
+}
+
+.table{
+    font-size: 11px !important;
+    text-align: center !important;
+}
+.search-panel{
+    margin: 23px 0;
+}
+
+.search-panel .btn{
+    margin: 10px 0px;
+}
+.search-panel, .search-panel input, .search-panel .btn{
+    font-size: 11px !important;
+}
+
+.form-inline input{
+    margin: 0 1rem;
+}
+
+.no-padding{
+    padding: 0 !important;
 }
