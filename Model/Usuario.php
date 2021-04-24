@@ -18,12 +18,12 @@ class Usuario
 
     public function getId()
     {
-        return $this->id;
+        return $this->idUsuario;
     }
 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->idUsuario = $id;
     }
 
     public function getLogin()

@@ -1,5 +1,8 @@
 <?php
+header("Content-Type: application/json");
+
 require "DbFactory.php";
+require "Utils.php";
 
 $name = $_POST['inputName'];
 $userName = $_POST['inputUsername'];
@@ -10,9 +13,12 @@ $comfirmPassword = $_POST['inputConfirmPassword'];
 
 $newUser = new Usuario(null, $userName, $password, $name);
 
-$db->Usuario()->insere($newUser);
+$insertResult = $db->Usuario()->insere($newUser);
+
+if(!$insertResult)
+    $result =  new TResult(true, "Erro ao criar usuário");
+else
+    $result =  new TResult(true, "Usuário criado");
 
 
-header("Location: index.php");
-exit();
-?>
+echo json_encode($result);

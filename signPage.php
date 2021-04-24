@@ -7,7 +7,7 @@
 
     <div id="loginContent">
         <div class="formArea" id="loginFormArea">
-            <form action="createUser.php" method="POST">
+            <form>
                 <div class="formGroup">
                     <label for="inputUsername">Nome:</label>
                     <input type="text" id="inputName" name="inputName" placeholder="João">
@@ -27,7 +27,7 @@
                     <input type="password" id="inputConfirmPassword" name="inputConfirmPassword">
                 </div>
 
-                <button class="corsBtn btn-purple" type="submit">Criar seu cadastro</button>
+                <button class="corsBtn btn-purple" type="button" id="btn-create-user">Criar Usuário</button>
 
             </form>
         </div>
