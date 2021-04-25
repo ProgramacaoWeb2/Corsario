@@ -36,6 +36,8 @@ $products =  $db->Produto()->getTodos();
                     <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-user-search">Pesquisar</button>
                 </div>
 
+                <a class="btn btn-purple mb-2 btn-sm" href="/productPage.php"> Criar Produto</a>
+
             </div>
 
 
