@@ -24,8 +24,8 @@
 
 <body>
 
-<header class="navbar navbar-expand-lg navbar-purple fixed-top">
-  <a class="navbar-brand" href="#">
+<header class="navbar navbar-expand-lg navbar-purple fixed-top navbar-dark">
+  <a class="navbar-brand" href="index.php">
         <div id="appBrand">
             <img src="Content/images/appBrand.png" alt="">
             <span>Corsário</span>
@@ -49,7 +49,7 @@
                     <a class="dropdown-item" href="javascript:ExecLogout()">Logout</a>
                 </div>
             </li>
-
+            <li> <div class="dropdown-divider"></div></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    Administração
@@ -72,7 +72,7 @@
             </li>
         <?php } ?>
 
-
+     <li> <div class="dropdown-divider"></div></li>
       <li class="nav-item active">
         <a class="nav-link" href="#">Carrinho</a>
       </li>
@@ -82,32 +82,4 @@
 </header>
 
 
-
-	<!-- <header id="appHeader">
-        <div id="appBrand">
-            <img src="Content/images/appBrand.png" alt="">
-            <span>Corsário</span>
-        </div>
-
-        <div id="appHeaderSearch">
-            <input type="text" id="inputSearchHeader" placeholder="O que você está procurando?">
-            <button>Pesquisar</button>
-        </div>
-
-        <div id="appHeaderRightContent">
-            <?php if(isset($_SESSION["idUsuario"])){ ?>
-                
-                <div> <a href="index.php"> <?php echo $_SESSION["nomeUsuario"]?></a> </div>
-
-            <?php } else { ?>
-                <div> <a href="loginPage.php">Entrar</a> </div>
-            <?php } ?>
-
-
-            <div>Favoritos</div>
-            <div>Carrinho</div>
-        </div>
- 
-	</header> -->
-
-    <div id="appBody">
+<div id="appBody">
