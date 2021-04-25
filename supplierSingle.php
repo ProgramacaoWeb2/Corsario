@@ -8,8 +8,9 @@ $supliers =  $db->Fornecedor()->getTodos();
 
 
 
-$id = @$_POST["idInput"];
-$nome = @$_POST["nameInput"];
+$id = @$_GET["idInput"];
+$nome = @$_GET["nameInput"];
+
 
 if ($id != "") {
     $supplierNew = $db->Fornecedor()->getPorCodigo($id);
@@ -17,6 +18,9 @@ if ($id != "") {
     $supplierNew = $db->Fornecedor()->getPorNome($nome);
 }
 
+if ($id != "" && $nome != "") {
+    $supplierNew = $db->Fornecedor()->getPorNomeId($id, $nome);
+} 
 
 if ($supplierNew === NULL) {
     echo "Nenhum cadastro encontrado";

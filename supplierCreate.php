@@ -46,6 +46,6 @@ $adressDb->insere($adress);
 
 
 
-header("Location: http://localhost/corsario/supplierPageDetails.php");
-exit;
+//header("Location: http://localhost/corsario/supplierPageDetails.php");
+//exit;
 ?>

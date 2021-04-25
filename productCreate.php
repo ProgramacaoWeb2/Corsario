@@ -10,6 +10,8 @@ $id = @$_POST['inputProductId'];
 $name = @$_POST['inputProductName'];
 $description = @$_POST['inputProductDescription'];
 $photo = @$_POST['inputProductPhoto'];
+$price = @$_POST['inputPreco'];
+$supplierId = @$_POST['inputSupplierId'];
 
 $product = $productDb->getPorNome($name);
 

@@ -119,6 +119,26 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         return false;
     }
-}
 
-?>
+    
+    public function getPorNomeId($idProduto, $nome)
+    {
+        $produto = NULL;
+
+        $query = "SELECT idProduto, nome, descricao, foto  FROM  " . $this->tabela . " WHERE nome = :nome and idProduto = :idProduto LIMIT 1";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":idProduto", $idProduto);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+        }
+
+        return $produto;
+    }
+
+}

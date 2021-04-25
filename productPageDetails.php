@@ -19,7 +19,7 @@ $products =  $db->Produto()->getTodos();
 
     <div class="search-panel">
 
-        <form action="productSingle.php" method="POST">
+        <form action="productSingle.php" method="get">
             <div class="row">
                 <div class="col-md-3 col-sm-4">
                     <label for="idInput"># </label>
