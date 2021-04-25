@@ -1,7 +1,7 @@
 
 <?php include "authentication.php"; ?>
 <?php 
-    include_once "Layout/layoutSimpleHeader.php";
+    include_once "Layout/layoutHeader.php";
     require "DbFactory.php";
 ?>
 
