@@ -7,13 +7,67 @@ class Usuario
     private $login;
     private $senha;
     private $nome;
+    private $tipoUsuario;
 
-    public function __construct($id, $login, $password, $name)
+    private $telefone;
+    private $cartaoCredito;
+
+    private $idEndereco;
+
+    public function __construct($id, $login, $password, $name, $tipoUsuario, $telefone, $cartaoCredito, $idEndereco)
     {
         $this->idUsuario = $id;
         $this->login = $login;
         $this->senha = $password;
         $this->nome = $name;
+        $this->tipoUsuario = $tipoUsuario;
+
+        $this->telefone = $telefone;
+        $this->cartaoCredito = $cartaoCredito;
+        $this->idEndereco = $idEndereco;
+
+        
+    }
+
+    
+    public function getEndereco()
+    {
+        return $this->idEndereco;
+    }
+
+    public function setEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
+    }
+
+    public function getTelefone()
+    {
+        return $this->telefone;
+    }
+
+    public function getCartaoCredito()
+    {
+        return $this->cartaoCredito;
+    }
+
+    public function setCartaoCredito($cartaoCredito)
+    {
+        $this->cartaoCredito = $cartaoCredito;
+    }
+
+    public function setTelefone($telefone)
+    {
+        $this->telefone = $telefone;
+    }
+
+    public function getUserType()
+    {
+        return $this->tipoUsuario;
+    }
+
+    public function setUserType($tipoUsuario)
+    {
+        $this->tipoUsuario = $tipoUsuario;
     }
 
     public function getId()

@@ -1,18 +1,6 @@
 CREATE DATABASE CorsarioDb DEFAULT CHARSET=latin1;
 USE CorsarioDb;
 
-CREATE TABLE Usuario(
-	idUsuario INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    login VARCHAR(50) NOT NULL,
-    senha VARCHAR(150) NOT NULL,
-    nome VARCHAR(100) NOT NULL,
-    
-    
-    INDEX(idUsuario),
-    PRIMARY KEY(idUsuario)
-    
-) ENGINE = INNODB;
-
 CREATE TABLE Endereco(
 	idEndereco INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
 
@@ -28,36 +16,40 @@ CREATE TABLE Endereco(
     PRIMARY KEY (idEndereco)
 ) ENGINE = INNODB;
 
+CREATE TABLE Usuario(
+	idUsuario INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
+    login VARCHAR(50) NOT NULL,
+    senha VARCHAR(150) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    tipoUsuario INTEGER NOT NULL,
+
+    telefone VARCHAR(9),
+    cartaoCredito VARCHAR(30) ,
+    
+	idEndereco INTEGER UNSIGNED,
+    
+    INDEX(idUsuario),
+    PRIMARY KEY(idUsuario),
+    CONSTRAINT fk_Endereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+    
+) ENGINE = INNODB;
+
+
+
 
 
 CREATE TABLE Fornecedor(
 	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEnderecoFornecedor INTEGER UNSIGNED,
-    
     nome VARCHAR(200) NOT NULL,
     descricao VARCHAR(200) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
+    idEndereco INTEGER UNSIGNED,
     
     
     INDEX(idFornecedor),
     PRIMARY KEY (idFornecedor),
-    CONSTRAINT fk_Endereco_Fornecedor FOREIGN KEY (fkEnderecoFornecedor) REFERENCES Endereco(idEndereco)
-) ENGINE = INNODB;
-
-CREATE TABLE Cliente(
-	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    fkEnderecoCliente INTEGER UNSIGNED NOT NULL,
-   
-    nome VARCHAR(200) NOT NULL,
-    telefone VARCHAR(9) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    cartaoCredito VARCHAR(30) NOT NULL,
-     
-    
-    INDEX(idCliente),
-    PRIMARY KEY (idCliente),
-	CONSTRAINT fk_Endereco_Cliente FOREIGN KEY (fkEnderecoCliente) REFERENCES Endereco(idEndereco)
+    CONSTRAINT fk_EnderecoFornecedor FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
 ) ENGINE = INNODB;
 
 
@@ -93,17 +85,18 @@ CREATE TABLE Estoque(
 
 CREATE TABLE Pedido(
 	IdPedido INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    idCliente INTEGER UNSIGNED,
-    
+  
     numero INTEGER NOT NULL,
    	dataPedido DATE NOT NULL,
     dataEntrega DATE NOT NULL,
     situacao VARCHAR(10) NOT NULL,
+    
+	idUsuario INTEGER UNSIGNED,
    
     
     INDEX(IdPedido),
     PRIMARY KEY (IdPedido),
-    CONSTRAINT fkCliente FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
+    CONSTRAINT fkUsuario FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 
 ) ENGINE = INNODB;
 
@@ -117,6 +110,4 @@ CREATE TABLE PedidoItens(
 ) ENGINE = INNODB;
 
 
-INSERT INTO `usuario`( `login`, `senha`, `nome`) VALUES ("admin","admin", "admin");
-
-
+INSERT INTO Usuario (login, senha, nome, tipoUsuario) VALUES ("admin@admin.com", MD5("admin1234"), "Admin", 1)

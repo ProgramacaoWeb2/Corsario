@@ -7,10 +7,11 @@ require "Utils.php";
 $name = $_POST['inputName'];
 $userName = $_POST['inputUsername'];
 $password = $_POST['inputPassword'];
-$comfirmPassword = $_POST['inputConfirmPassword'];
+$confirmPassword = $_POST['inputConfirmPassword'];
+$typeUser = $_POST['inputTypeUser'];
 $result = null;
 
-if($password != $comfirmPassword ){
+if($password != $confirmPassword ){
     $result =  new TResult(false, "Error: Senhas não correspondem.");
 }
 else{
@@ -21,7 +22,7 @@ else{
         $result =  new TResult(false, "Error: Email já cadastrado");
     }
     else{
-        $newUser = new Usuario(null, $userName, $password, $name);
+        $newUser = new Usuario(null, $userName, $password, $name, $typeUser);
 
         $insertResult = $db->Usuario()->insere($newUser);
     
