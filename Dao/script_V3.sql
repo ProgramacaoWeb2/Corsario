@@ -13,54 +13,8 @@ CREATE TABLE Usuario(
     
 ) ENGINE = INNODB;
 
-
-CREATE TABLE Fornecedor(
-	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    
-    
-    nome VARCHAR(200) NOT NULL,
-    descricao VARCHAR(200) NOT NULL,
-    telefone VARCHAR(20) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    
-    
-    INDEX(idFornecedor),
-    PRIMARY KEY (idFornecedor)
-) ENGINE = INNODB;
-
-CREATE TABLE Produto(
-	idProduto INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    idFornecedor INTEGER UNSIGNED,
-
-
-    nome VARCHAR(200) NOT NULL,
-    descricao VARCHAR(70) NOT NULL,
-    foto VARCHAR(70) NOT NULL,
-     
-   
-    INDEX(idProduto),
-    PRIMARY KEY (idProduto),
-    CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor)
-) ENGINE = INNODB;
-
-CREATE TABLE Cliente(
-	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-   
-    nome VARCHAR(200) NOT NULL,
-    telefone VARCHAR(9) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    cartaoCredito VARCHAR(30) NOT NULL,
-     
-    
-    INDEX(idCliente),
-    PRIMARY KEY (idCliente)
-) ENGINE = INNODB;
-
-
 CREATE TABLE Endereco(
 	idEndereco INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    idFornecedor INTEGER UNSIGNED,
-    idCliente INTEGER UNSIGNED,
 
     rua VARCHAR(200) NOT NULL,
     numero VARCHAR(100) NOT NULL,
@@ -71,25 +25,69 @@ CREATE TABLE Endereco(
     estado VARCHAR(10) NOT NULL,
      
     INDEX(idEndereco),
-    PRIMARY KEY (idEndereco),
-    CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor),
-    CONSTRAINT fkCliente FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
+    PRIMARY KEY (idEndereco)
 ) ENGINE = INNODB;
 
 
 
+CREATE TABLE Fornecedor(
+	idFornecedor INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
+    fkEnderecoFornecedor INTEGER UNSIGNED,
+    
+    nome VARCHAR(200) NOT NULL,
+    descricao VARCHAR(200) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    
+    
+    INDEX(idFornecedor),
+    PRIMARY KEY (idFornecedor),
+    CONSTRAINT fk_Endereco_Fornecedor FOREIGN KEY (fkEnderecoFornecedor) REFERENCES Endereco(idEndereco)
+) ENGINE = INNODB;
+
+CREATE TABLE Cliente(
+	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
+    fkEnderecoCliente INTEGER UNSIGNED NOT NULL,
+   
+    nome VARCHAR(200) NOT NULL,
+    telefone VARCHAR(9) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    cartaoCredito VARCHAR(30) NOT NULL,
+     
+    
+    INDEX(idCliente),
+    PRIMARY KEY (idCliente),
+	CONSTRAINT fk_Endereco_Cliente FOREIGN KEY (fkEnderecoCliente) REFERENCES Endereco(idEndereco)
+) ENGINE = INNODB;
+
+
+
+CREATE TABLE Produto(
+	idProduto INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
+    fkFornecedorProduto INTEGER UNSIGNED,
+
+
+    nome VARCHAR(200) NOT NULL,
+    descricao VARCHAR(70) NOT NULL,
+    foto VARCHAR(70) NOT NULL,
+     
+   
+    INDEX(idProduto),
+    PRIMARY KEY (idProduto),
+    CONSTRAINT fk_Fornecedor FOREIGN KEY (fkFornecedorProduto) REFERENCES fornecedor(idFornecedor)
+) ENGINE = INNODB;
 
 
 CREATE TABLE Estoque(
 	idEstoque INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-    idProduto INTEGER UNSIGNED,
+    fkProdutoEstoque INTEGER UNSIGNED,
     
    	quantidade INTEGER NOT NULL,
     preco DOUBLE NOT NULL,
    
     INDEX(idEstoque),
     PRIMARY KEY (idEstoque),
-    CONSTRAINT fkProduto FOREIGN KEY(idProduto) REFERENCES produto(idProduto)
+    CONSTRAINT fk_Produto FOREIGN KEY(fkProdutoEstoque) REFERENCES produto(idProduto)
 ) ENGINE = INNODB;
 
 
@@ -118,5 +116,7 @@ CREATE TABLE PedidoItens(
     PRIMARY KEY (idItemPedido)
 ) ENGINE = INNODB;
 
+
+INSERT INTO `usuario`( `login`, `senha`, `nome`) VALUES ("admin","admin", "admin");
 
 
