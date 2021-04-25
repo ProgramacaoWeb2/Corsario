@@ -12,13 +12,14 @@ class MySqlProdutoDao extends Dao implements DaoProduto
     public function insere($produto)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto) VALUES" . "(:nome,:descricao,:foto)";
+        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, foto, fkFornecedorProduto) VALUES" . "(:nome,:descricao,:foto, :fkFornecedorProduto)";
 
         $prep = $this->connection->prepare($query);
 
         $prep->bindValue(":nome", $produto->getNome());
         $prep->bindValue(":descricao", $produto->getDescricao());
         $prep->bindValue(":foto", $produto->getFoto());
+        $prep->bindValue(":fkFornecedorProduto", $produto->getIdFornecedor());
 
         if ($prep->execute()) {
             return true;
@@ -30,7 +31,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
     public function altera($produto)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET nome = :nome, descricao = :descricao, foto = :foto" .
+            " SET nome = :nome, descricao = :descricao, foto = :foto, fkFornecedorProduto = :fkFornecedorProduto " .
             " WHERE idProduto = :idProduto";
 
         $prep = $this->connection->prepare($query);
@@ -40,6 +41,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         $prep->bindValue(":descricao", $produto->getDescricao());
         $prep->bindValue(":foto", $produto->getFoto());
         $prep->bindValue(":idProduto", $produto->getId());
+        $prep->bindValue(":fkFornecedorProduto", $produto->getIdFornecedor());
 
 
         if ($prep->execute()) {
@@ -54,7 +56,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $produto = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
+        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
@@ -63,7 +65,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto']);
         }
 
         return $produto;
@@ -73,7 +75,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
     {
         $produto = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
+        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":nome", $nome);
@@ -81,7 +83,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto']);
         }
 
         return $produto;
@@ -89,7 +91,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
     public function getTodos()
     {
-        $query = "SELECT idProduto, nome, descricao, foto FROM " . $this->tabela;
+        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -97,7 +99,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $produto = new Produto($idProduto, $nome, $descricao, $foto);
+            $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto);
             $produtos[] = $produto;
         }
         return $produtos;
@@ -120,12 +122,12 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         return false;
     }
 
-    
+
     public function getPorNomeId($idProduto, $nome)
     {
         $produto = NULL;
 
-        $query = "SELECT idProduto, nome, descricao, foto  FROM  " . $this->tabela . " WHERE nome = :nome and idProduto = :idProduto LIMIT 1";
+        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto  FROM  " . $this->tabela . " WHERE nome = :nome and idProduto = :idProduto LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":nome", $nome);
@@ -135,10 +137,24 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto']);
+            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto']);
         }
 
         return $produto;
     }
 
+    public function ultimoIdCadastrado()
+    {
+        $query =  "SELECT MAX(idProduto) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row;
+        }
+
+        return null;
+    }
 }

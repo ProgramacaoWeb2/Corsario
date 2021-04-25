@@ -5,11 +5,13 @@ class Estoque
     
     private $quantidade;
     private $preco;
+    private $idProduto;
 
-    public function __construct($quantidade, $preco)
+    public function __construct($quantidade, $preco, $idProduto)
     {
         $this->quantidade = $quantidade;
         $this->preco = $preco;
+        $this->idProduto = $idProduto;
     }
 
 
@@ -31,5 +33,17 @@ class Estoque
     public function setPreco($preco)
     {
         $this->preco = $preco;
+    }
+
+
+    public function getIdProduto()
+    {
+        return $this->idProduto;
+    }
+
+
+    public function setIdProduto($idProduto)
+    {
+        $this->idProduto = $idProduto;
     }
 }

@@ -23,6 +23,7 @@ if ($productList != NULL) {
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Descrição</th>
+                <th scope="col">Fornecedor</th>
                 <th>
             </tr>
         </thead>
@@ -31,13 +32,14 @@ if ($productList != NULL) {
 
         <?php
         foreach ($productList as $product) { ?>
-
-
+            
+            
 
             <tr>
                 <td><?= $product->getId() ?></td>
                 <td><?= $product->getNome() ?></td>
                 <td><?= $product->getDescricao() ?></td>
+                <td><?= $product->getIdFornecedor()?></td>
 
                 <td>
 

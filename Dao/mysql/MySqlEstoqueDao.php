@@ -12,12 +12,13 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
     public function insere($estoque)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(quantidade, preco) VALUES" . "(:quantidade,:preco)";
+        $query = "INSERT INTO " . $this->tabela . "(quantidade, preco, fkProdutoEstoque) VALUES" . "(:quantidade,:preco,:fkProdutoEstoque)";
 
         $prep = $this->connection->prepare($query);
 
         $prep->bindValue(":quantidade", $estoque->getQuantidade());
         $prep->bindValue(":preco", $estoque->getPreco());
+        $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
 
         if ($prep->execute()) {
             return true;
@@ -29,13 +30,14 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
     public function altera($estoque)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET quantidade = :quantidade, preco = :preco" .
+            " SET quantidade = :quantidade, preco = :preco, fkProdutoEstoque =:fkProdutoEstoque" .
             " WHERE idEstoque = :idEstoque";
 
         $prep = $this->connection->prepare($query);
 
         $prep->bindValue(":quantidade", $estoque->getQuantidade());
         $prep->bindValue(":preco", $estoque->getPreco());
+        $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
 
 
         if ($prep->execute()) {
@@ -50,7 +52,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
         $estoque = null;
 
-        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela . " WHERE idEstoque = :idEstoque LIMIT 1";
+        $query = "SELECT idEstoque,quantidade, fkProdutoEstoque preco FROM " . $this->tabela . " WHERE idEstoque = :idEstoque LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
@@ -59,7 +61,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco']);
+            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco'], $row['fkProdutoEstoque']);
         }
 
         return $estoque;
@@ -69,7 +71,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
     {
         $estoque = null;
 
-        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela . " WHERE preco = :preco LIMIT 1";
+        $query = "SELECT idEstoque,quantidade, preco, fkProdutoEstoque FROM " . $this->tabela . " WHERE preco = :preco LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":preco", $preco);
@@ -77,7 +79,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco']);
+            $estoque = new Estoque($row['idEstoque'], $row['quantidade'], $row['preco'],  $row['fkProdutoEstoque']);
         }
 
         return $estoque;
@@ -85,7 +87,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
     public function getTodos()
     {
-        $query = "SELECT idEstoque,quantidade, preco FROM " . $this->tabela;
+        $query = "SELECT idEstoque,quantidade, preco, fkProdutoEstoque  FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -93,7 +95,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $estoque = new Estoque($idEstoque, $quantidade, $preco);
+            $estoque = new Estoque($idEstoque, $quantidade, $preco, $fkProdutoEstoque);
             $estoques[] = $estoque;
         }
         return $estoques;
