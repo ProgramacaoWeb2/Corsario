@@ -14,6 +14,6 @@ $deleteSupplier=$supplierDb->getPorCodigo($id);
 $supplierDb->deleta($deleteSupplier);
 
 
-header("Location: http://localhost/corsario/supplierPageDetails.php");
+header("Location: http://localhost/supplierPageDetails.php");
 exit;
 ?>

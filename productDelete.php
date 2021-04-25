@@ -13,6 +13,6 @@ $deleteProduct=$productDb->getPorCodigo($id);
 $productDb->deleta($deleteProduct);
 
 
-header("Location: http://localhost/corsario/ProductPageDetails.php");
+header("Location: http://localhost/ProductPageDetails.php");
 exit;
 ?>
