@@ -10,7 +10,6 @@ else
     $userList = $db->Usuario()->getTodos();
 
 
-
 if($userList) {
     
 ?>

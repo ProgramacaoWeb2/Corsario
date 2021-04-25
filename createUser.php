@@ -8,17 +8,31 @@ $name = $_POST['inputName'];
 $userName = $_POST['inputUsername'];
 $password = $_POST['inputPassword'];
 $comfirmPassword = $_POST['inputConfirmPassword'];
+$result = null;
+
+if($password != $comfirmPassword ){
+    $result =  new TResult(false, "Error: Senhas não correspondem.");
+}
+else{
+
+    $checkUser =  $db->Usuario()->getPorLogin($userName);
+
+    if(isset($checkUser) && $checkUser->getLogin() == $userName){
+        $result =  new TResult(false, "Error: Email já cadastrado");
+    }
+    else{
+        $newUser = new Usuario(null, $userName, $password, $name);
+
+        $insertResult = $db->Usuario()->insere($newUser);
+    
+        if(!$insertResult)
+            $result =  new TResult(true, "Erro ao criar usuário");
+        else
+            $result =  new TResult(true, "Usuário criado");
+    }
+}
 
 
-
-$newUser = new Usuario(null, $userName, $password, $name);
-
-$insertResult = $db->Usuario()->insere($newUser);
-
-if(!$insertResult)
-    $result =  new TResult(true, "Erro ao criar usuário");
-else
-    $result =  new TResult(true, "Usuário criado");
 
 
 echo json_encode($result);

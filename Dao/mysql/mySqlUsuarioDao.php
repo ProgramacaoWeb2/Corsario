@@ -30,17 +30,63 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
     }
 
     public function altera($user){
+        $query = "UPDATE " . $this->table_name . 
+        " SET login = :login, senha = :senha, nome = :nome" .
+        " WHERE idUsuario = :idUsuario";
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindValue(":login", $user->getLogin());
+        $stmt->bindValue(":senha", md5($user->getPassword()));
+        $stmt->bindValue(":nome", $user->getName());
+        $stmt->bindValue(':idUsuario', $user->getId());
+
+        if($stmt->execute()){
+            return true;
+        }    
+        return false;
 
     }
+
+
     public function getPorCodigo($id){
+        $query = "SELECT idUsuario, login, nome, senha FROM " . $this->table_name ." WHERE idUsuario = :idUsuario LIMIT 1 OFFSET 0";
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":idUsuario", $id);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $usuario = null;
+        if($row) 
+            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome']);
+        
+        return $usuario;
+        
+
 
     }
-    public function getPorNome($name){
+    public function getPorLogin($login){
+        $query = "SELECT idUsuario, login, nome, senha FROM " . $this->table_name ." WHERE login = :login LIMIT 1 OFFSET 0";
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":login", $login);
+        $stmt->execute();
 
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $usuario = null;
+        if($row) 
+            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome']);
+        
+        return $usuario;
     }
+
+    
     public function getTodos($searchArray= null){
 
-        $query = "SELECT idUsuario, login, nome FROM " . $this->table_name;
+        $query = "SELECT idUsuario, login, nome, senha FROM " . $this->table_name;
 
         $conditions = [];
 
@@ -79,7 +125,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $usuarios[] = new Usuario($idUsuario,$login,null,$nome);
+            $usuarios[] = new Usuario($idUsuario,$login,$senha,$nome);
         }
         
         return $usuarios;
