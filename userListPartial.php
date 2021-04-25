@@ -21,6 +21,7 @@ if($userList) {
                     <th>#</th>
                     <th>Nome</th>
                     <th>Login</th>
+                    <th>Tipo Usuário</th>
                     <th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@ if($userList) {
                 <td><?php echo $usuario->getId()?></td>
                 <td><?php echo $usuario->getName()?></td>
                 <td><?php echo $usuario->getLogin()?></td>
+                <td><?php echo $usuario->getUserType() == 0 ? "Cliente" : "Interno" ?></td>
 
                 <td>
                     

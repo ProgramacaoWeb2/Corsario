@@ -11,3 +11,8 @@ class TResult {
         $this->message = $message;
     }
 }
+
+class ETipoUsuario {
+    const cliente = 0;
+    const interno = 1;
+};

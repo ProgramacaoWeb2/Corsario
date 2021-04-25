@@ -6,6 +6,10 @@ CREATE TABLE Usuario(
     login VARCHAR(50) NOT NULL,
     senha VARCHAR(150) NOT NULL,
     nome VARCHAR(100) NOT NULL,
+    tipoUsuario INTEGER NOT NULL,
+
+    telefone VARCHAR(9) NOT NULL,
+    cartaoCredito VARCHAR(30) NOT NULL,
     
     
     INDEX(idUsuario),
@@ -41,19 +45,6 @@ CREATE TABLE Produto(
     INDEX(idProduto),
     PRIMARY KEY (idProduto),
     CONSTRAINT fkFornecedor FOREIGN KEY (idFornecedor) REFERENCES fornecedor(idFornecedor)
-) ENGINE = INNODB;
-
-CREATE TABLE Cliente(
-	idCliente INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
-   
-    nome VARCHAR(200) NOT NULL,
-    telefone VARCHAR(9) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    cartaoCredito VARCHAR(30) NOT NULL,
-     
-    
-    INDEX(idCliente),
-    PRIMARY KEY (idCliente)
 ) ENGINE = INNODB;
 
 
@@ -117,6 +108,10 @@ CREATE TABLE PedidoItens(
     INDEX(idItemPedido),
     PRIMARY KEY (idItemPedido)
 ) ENGINE = INNODB;
+
+
+INSERT INTO Usuario VALUES ("admin@admin.com", MD5("admin1234"), "Admin", 1)
+
 
 
 

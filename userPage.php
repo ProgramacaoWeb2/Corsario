@@ -24,6 +24,7 @@
                     <label for="userNameInput">Login </label>
                     <input type="text" class="form-control form-control-sm" id="userNameInput" aria-describedby="userNameInput" placeholder="Ex: joao@gmail.com">
                 </div>
+                
                 <div class="col-md-12" >
                     <button type="button" class="btn btn-purple mb-2 btn-sm" id="btn-user-search">Pesquisar</button>
                 </div>

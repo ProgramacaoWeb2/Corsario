@@ -175,7 +175,7 @@ var ExecLogout = ()=>{
                     if(data.status)
                         window.location = "index.php";
                     else
-                        alert(data.message);
+                        AlertMessage(data.status, data.message);
                 });
             }
         }
