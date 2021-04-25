@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="Content/css/app.css" />
     <script src="Content/js/app.js"></script>
 
+    <title><?php echo $page_title; ?></title>
     
     
 </head>

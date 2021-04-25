@@ -25,7 +25,11 @@ $daoEndereco->insere($endereco);
 $daoEstoque->insere($estoque);
 $dao->insere($pd);
 
+$result = $dao->getPorNome("ak47"); 
 
+echo($result->getNome());
+echo($result->getId());
+echo($result->getDescricao());
 // $result = $dao->altera($pd); OK
 
 //$result=$dao->deleta($pd); OK
