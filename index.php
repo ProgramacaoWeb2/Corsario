@@ -4,7 +4,6 @@ include_once("Layout/layoutHeader.php");
 include_once("DbFactory.php");
 
 
-
 echo "CU";
 echo " XD 888 ";
 

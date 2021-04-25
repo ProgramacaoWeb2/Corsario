@@ -1,51 +1,51 @@
 <?php
 $page_title = "Fornecedores";
 
-include_once("Layout/layoutSimpleHeader.php");
+include_once("Layout/layoutHeader.php");
 include_once('DbFactory.php');
 
 $supliers =  $db->Fornecedor()->getTodos();
 ?>
 
 
-<body>
+<div class="col-md-12 col-sm-12 col-xs-12">
 
-
-
-
-    <div class="container">
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Excluir</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($supliers as $supplier) {
-                    $id = $supplier->getId();
-                    $name = $supplier->getNome();
-                    $descricao = $supplier->getDescricao();
-                    $phone = $supplier->getTelefone();
-                    $mail = $supplier->getEmail();
-
-                    echo "<tr>";
-                    echo "<td> <a href='supplierEdit.php?id={$id}'>{$id}</a> </td> ";
-                    echo "<td> <a href='supplierEdit.php?name={$name}'>{$name}</a> </td>";
-                    echo "<td>$descricao</td>";
-                    echo "<td>$phone</td>";
-                    echo "<td>$mail</td>";
-                    echo "<td><a href='supplierDelete.php?id={$id}'>  <button type=\"button\" class=\"btn btn-danger\">X</button>  </a></td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+    <div class="page-title">
+        <span>Lista de Fornecedores</span>
     </div>
-</body>
+
+
+    <div class="search-panel">
+
+        <form action="supplierSingle.php" method="POST">
+            <div class="row">
+                <div class="col-md-3 col-sm-4">
+                    <label for="idInput"># </label>
+                    <input type="number" class="form-control form-control-sm" id="idInput" aria-describedby="idInput" name="idInput" placeholder="Ex: 1">
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+                    <label for="nameInput">Nome </label>
+                    <input type="text" class="form-control form-control-sm" id="nameInput" aria-describedby="nameInput" name="nameInput" placeholder="Ex: AquiExpress">
+                </div>
+
+
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-user-search">Pesquisar</button>
+                </div>
+
+            </div>
+
+
+
+        </form>
+
+    </div>
+
+
+
+    <div>
+        <?php include_once "supplierListPartial.php"; ?>
+    </div>
+
+</div>
