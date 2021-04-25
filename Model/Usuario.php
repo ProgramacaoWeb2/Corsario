@@ -12,7 +12,9 @@ class Usuario
     private $telefone;
     private $cartaoCredito;
 
-    public function __construct($id, $login, $password, $name, $tipoUsuario, $telefone, $cartaoCredito)
+    private $idEndereco;
+
+    public function __construct($id, $login, $password, $name, $tipoUsuario, $telefone, $cartaoCredito, $idEndereco)
     {
         $this->idUsuario = $id;
         $this->login = $login;
@@ -22,6 +24,20 @@ class Usuario
 
         $this->telefone = $telefone;
         $this->cartaoCredito = $cartaoCredito;
+        $this->idEndereco = $idEndereco;
+
+        
+    }
+
+    
+    public function getEndereco()
+    {
+        return $this->idEndereco;
+    }
+
+    public function setEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
     }
 
     public function getTelefone()

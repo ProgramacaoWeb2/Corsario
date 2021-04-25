@@ -10,8 +10,8 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
     public function insere($user){
         $query = "INSERT INTO " . $this->table_name . 
-        " (login, senha, nome, tipoUsuario, telefone, cartaoCredito) VALUES" .
-        " (:login, :senha, :nome, :tipoUsuario, :telefone, :cartaoCredito)";
+        " (login, senha, nome, tipoUsuario, telefone, cartaoCredito, idEndereco) VALUES" .
+        " (:login, :senha, :nome, :tipoUsuario, :telefone, :cartaoCredito, :idEndereco)";
 
         $stmt = $this->connection->prepare($query);
 
@@ -22,6 +22,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
         $stmt->bindValue(":telefone", $user->getTelefone());
         $stmt->bindValue(":cartaoCredito", $user->getCartaoCredito());
+        $stmt->bindValue(":idEndereco", $user->getEndereco());
 
         if($stmt->execute()){
             return true;
@@ -32,7 +33,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
     public function altera($user){
         $query = "UPDATE " . $this->table_name . 
-        " SET login = :login, senha = :senha, nome = :nome, tipoUsuario = :tipoUsuario, telefone = :telefone, cartaoCredito = :cartaoCredito" .
+        " SET login = :login, senha = :senha, nome = :nome, tipoUsuario = :tipoUsuario, telefone = :telefone, cartaoCredito = :cartaoCredito, idEndereco = :idEndereco" .
         " WHERE idUsuario = :idUsuario";
 
         $stmt = $this->connection->prepare($query);
@@ -43,6 +44,10 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
         $stmt->bindValue(':idUsuario', $user->getId());
         $stmt->bindValue(":tipoUsuario", $user->getUserType());
 
+        $stmt->bindValue(":telefone", $user->getTelefone());
+        $stmt->bindValue(":cartaoCredito", $user->getCartaoCredito());
+        $stmt->bindValue(":idEndereco", $user->getEndereco());
+
         if($stmt->execute()){
             return true;
         }    
@@ -52,7 +57,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
 
     public function getPorCodigo($id){
-        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito FROM " . $this->table_name ." WHERE idUsuario = :idUsuario LIMIT 1 OFFSET 0";
+        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito, idEndereco FROM " . $this->table_name ." WHERE idUsuario = :idUsuario LIMIT 1 OFFSET 0";
         
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":idUsuario", $id);
@@ -62,7 +67,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
         $usuario = null;
         if($row) 
-            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome'], $row['tipoUsuario'], $row['telefone'],$row['cartaoCredito']);
+            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome'], $row['tipoUsuario'], $row['telefone'],$row['cartaoCredito'], $row['idEndereco']);
         
         return $usuario;
         
@@ -70,7 +75,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
     }
     public function getPorLogin($login){
-        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito FROM " . $this->table_name ." WHERE login = :login LIMIT 1 OFFSET 0";
+        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito, idEndereco FROM " . $this->table_name ." WHERE login = :login LIMIT 1 OFFSET 0";
         
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":login", $login);
@@ -80,7 +85,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
         $usuario = null;
         if($row) 
-            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome'], $row['tipoUsuario'], $row['telefone'],$row['cartaoCredito']);
+            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome'], $row['tipoUsuario'], $row['telefone'],$row['cartaoCredito'], $row['idEndereco']);
         
         return $usuario;
     }
@@ -88,7 +93,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
     
     public function getTodos($searchArray= null){
 
-        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito FROM " . $this->table_name;
+        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito, idEndereco FROM " . $this->table_name;
 
         $conditions = [];
 
@@ -127,7 +132,7 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $usuarios[] = new Usuario($idUsuario,$login,$senha,$nome,$tipoUsuario, $telefone, $cartaoCredito);
+            $usuarios[] = new Usuario($idUsuario,$login,$senha,$nome,$tipoUsuario, $telefone, $cartaoCredito, $idEndereco);
         }
         
         return $usuarios;
