@@ -30,6 +30,6 @@ if ($product === NULL) {
     $productDb->altera($product);
 }
 
-header("Location: http://localhost/corsario/productPageDetails.php");
+header("Location: http://localhost/productPageDetails.php");
 exit;
 ?>

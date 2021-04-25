@@ -51,7 +51,7 @@ include "authentication.php";
                     </div>
 
                     <div class="formGroup">
-                        <label for="inputSupplierComplement">Rua:</label>
+                        <label for="inputSupplierComplement">Complemento:</label>
                         <input type="text" id="inputSupplierComplement" name="inputSupplierComplement" placeholder="" required>
                     </div>
 
