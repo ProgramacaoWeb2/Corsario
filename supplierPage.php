@@ -2,7 +2,7 @@
 $page_title = "Cadastro de Fornecedores";
 
 include_once("./Layout/layoutHeader.php");
-include "authetication.php";
+include "authentication.php";
 ?>
 
 
