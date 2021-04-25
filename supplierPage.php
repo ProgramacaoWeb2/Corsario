@@ -1,7 +1,9 @@
 <?php
 $page_title = "Cadastro de Fornecedores";
 
-include_once("Views/Layout/layoutSimpleHeader.php"); ?>
+include_once("./Layout/layoutHeader.php");
+include "authetication.php";
+?>
 
 
 <body>
@@ -17,22 +19,22 @@ include_once("Views/Layout/layoutSimpleHeader.php"); ?>
 
                     <div class="formGroup">
                         <label for="inputSupplierName">Nome:</label>
-                        <input type="text" id="inputSupplierName" name="inputSupplierName" placeholder="Ex. João das Neves ">
+                        <input type="text" id="inputSupplierName" name="inputSupplierName" placeholder="Ex. João das Neves " required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierPhone">Telefone:</label>
-                        <input type="number" id="inputSupplierPhone" name="inputSupplierPhone" placeholder="Ex. joaodasilva@gmail.com">
+                        <input type="number" id="inputSupplierPhone" name="inputSupplierPhone" placeholder="Ex. (54) 9 9712-1491" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierMail">E-mail:</label>
-                        <input type="email" id="inputSupplierMail" name="inputSupplierMail" placeholder="Ex. joaodasilva@gmail.com">
+                        <input type="email" id="inputSupplierMail" name="inputSupplierMail" placeholder="Ex. joaodasilva@gmail.com" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierDescription">Descrição:</label>
-                        <textarea type="textarea" id="inputSupplierDescription" name="inputSupplierDescription" rows="5" cols="53" maxlength="100"></textarea>
+                        <textarea type="textarea" id="inputSupplierDescription" name="inputSupplierDescription" rows="5" cols="53" maxlength="100" required></textarea>
                     </div>
 
 
@@ -40,37 +42,37 @@ include_once("Views/Layout/layoutSimpleHeader.php"); ?>
 
                     <div class="formGroup">
                         <label for="inputSupplierStreet">Rua:</label>
-                        <input type="text" id="inputSupplierStreet" name="inputSupplierStreet" placeholder="">
+                        <input type="text" id="inputSupplierStreet" name="inputSupplierStreet" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierNumber">Numero:</label>
-                        <input type="number" id="inputSupplierNumber" name="inputSupplierNumber" placeholder="">
+                        <input type="number" id="inputSupplierNumber" name="inputSupplierNumber" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierComplement">Rua:</label>
-                        <input type="text" id="inputSupplierComplement" name="inputSupplierComplement" placeholder="">
+                        <input type="text" id="inputSupplierComplement" name="inputSupplierComplement" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierDistrict">Bairro:</label>
-                        <input type="text" id="inputSupplierDistrict" name="inputSupplierDistrict" placeholder="">
+                        <input type="text" id="inputSupplierDistrict" name="inputSupplierDistrict" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierCep">Cep:</label>
-                        <input type="number" id="inputSupplierCep" name="inputSupplierCep" placeholder="">
+                        <input type="number" id="inputSupplierCep" name="inputSupplierCep" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierCity">Cidade:</label>
-                        <input type="text" id="inputSupplierCity" name="inputSupplierCity" placeholder="">
+                        <input type="text" id="inputSupplierCity" name="inputSupplierCity" placeholder="" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputSupplierState">Estado:</label>
-                        <select name="inputSupplierState" id="inputSupplierState" class="form-select form-select-lg mb-3">
+                        <select name="inputSupplierState" id="inputSupplierState" class="form-select form-select-lg mb-3" required>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>

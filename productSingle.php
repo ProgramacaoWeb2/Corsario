@@ -4,8 +4,8 @@ $page_title = "Pesquisa Detalhada";
 include_once("Layout/layoutHeader.php");
 include_once("DbFactory.php");
 
-$id = @$_POST["idInput"];
-$nome = @$_POST["nameInput"];
+$id = @$_GET["idInput"];
+$nome = @$_GET["nameInput"];
 
 if ($id != "") {
     $productNew = $db->Produto()->getPorCodigo($id);
@@ -13,6 +13,10 @@ if ($id != "") {
     $productNew = $db->Produto()->getPorNome($nome);
 }
 
+
+if ($id != "" && $nome != "") {
+    $productNew = $db->Produto()->getPorNomeId($id, $nome);
+} 
 
 if ($productNew === NULL) {
     echo "Nenhum cadastro encontrado";

@@ -1,10 +1,12 @@
 <?php
 $page_title = "Cadastro de produtos";
-include_once("Views/Layout/layoutSimpleHeader.php"); ?>
+include_once("Views/Layout/layoutSimpleHeader.php");
+include "authetication.php"
+?>
 
 
 <body>
-
+   
     <div id="loginbBody">
 
         <span>Cadastro de produto</span>
@@ -16,13 +18,13 @@ include_once("Views/Layout/layoutSimpleHeader.php"); ?>
 
                     <div class="formGroup">
                         <label for="inputProductName">Nome:</label>
-                        <input type="text" id="inputProductName" name="inputProductName" placeholder="Ex. Gphone ">
+                        <input type="text" id="inputProductName" name="inputProductName" placeholder="Ex. Gphone " required>
                     </div>
 
 
                     <div class="formGroup">
                         <label for="inputProductDescription">Descrição:</label>
-                        <textarea type="textarea" id="inputProductDescription" name="inputProductDescription" rows="5" cols="53" maxlength="100"></textarea>
+                        <textarea type="textarea" id="inputProductDescription" name="inputProductDescription" rows="5" cols="53" maxlength="100" required></textarea>
                     </div>
 
                     <div class="formGroup">

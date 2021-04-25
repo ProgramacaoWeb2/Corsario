@@ -65,7 +65,6 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             $fornecedorNew = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
-            
         }
         return $fornecedorNew;
     }
@@ -119,5 +118,25 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         }
 
         return false;
+    }
+
+    public function getPorNomeId($idFornecedor, $nome)
+    {
+        $fornecedor = NULL;
+
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email  FROM  " . $this->tabela . " WHERE nome = :nome and idFornecedor = :idFornecedor LIMIT 1";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":idFornecedor", $idFornecedor);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+        }
+
+        return $fornecedor;
     }
 }
