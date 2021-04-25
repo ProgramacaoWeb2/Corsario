@@ -29,7 +29,16 @@ $(()=>{
         return ExecLogin();
     });
 
-  
+    $('#appBody').on('change', '#inputTypeUser', ()=>{
+        let value = $('#inputTypeUser').val();
+
+        if(value == 0)
+            $('#address-form').show();
+        else
+            $('#address-form').hide();
+
+
+    });
    
    
 
@@ -38,12 +47,53 @@ $(()=>{
 
 
 var CreateUser = ()=>{
+
+
     var inputName = $('#inputName').val();
     var inputUsername = $('#inputUsername').val();
     var inputPassword = $('#inputPassword').val();
     var inputConfirmPassword = $('#inputConfirmPassword').val();
 
-    $.post('/createUser.php', {inputName:inputName,inputUsername:inputUsername,inputPassword:inputPassword,inputConfirmPassword:inputConfirmPassword},function(data){
+    var inputTypeUser = $('#inputTypeUser').val();
+
+    if(inputTypeUser == undefined)
+        inputTypeUser = 0;
+
+    var inputPhone = $('#inputPhone').val();
+    if(inputPhone == undefined)
+        inputPhone = null;
+
+    var inputCreditCard = $('#inputCreditCard').val();
+    if(inputCreditCard == undefined)
+        inputCreditCard = null;
+
+    var inputAddressStreet = $('#inputAddressStreet').val();
+    var inputAddressNumber = $('#inputAddressNumber').val();
+    var inputAddressComplement = $('#inputAddressComplement').val();
+    var inputAddressDistrict = $('#inputAddressDistrict').val();
+    var inputAddressCep = $('#inputAddressCep').val();
+    var inputAddressCity = $('#inputAddressCity').val();
+    var inputAddressState = $('#inputAddressState').val();
+
+
+    $.post('/createUser.php', {
+            inputName: inputName,
+            inputUsername:inputUsername,
+            inputPassword: inputPassword,
+            inputConfirmPassword: inputConfirmPassword,
+            inputTypeUser: inputTypeUser, 
+            inputPhone: inputPhone,
+            inputCreditCard: inputCreditCard,
+
+            inputAddressStreet: inputAddressStreet,
+            inputAddressNumber: inputAddressNumber,
+            inputAddressComplement: inputAddressComplement,
+            inputAddressDistrict: inputAddressDistrict,
+            inputAddressCep: inputAddressCep,
+            inputAddressCity: inputAddressCity,
+            inputAddressState: inputAddressState,
+        
+        },function(data){
         if(data.status)
             window.location = "index.php";
         else
@@ -56,12 +106,48 @@ var EditUser = ()=>{
     var inputName = $('#inputName').val();
     var inputIdUsuario = $('#inputIdUsuario').val();
 
-    $.post('/editUser.php', {inputName:inputName,inputIdUsuario:inputIdUsuario},function(data){
+    var inputTypeUser = $('#inputTypeUser').val();
+
+    if(inputTypeUser == undefined)
+        inputTypeUser = 0;
+
+    var inputPhone = $('#inputPhone').val();
+    if(inputPhone == undefined)
+        inputPhone = null;
+
+    var inputCreditCard = $('#inputCreditCard').val();
+    if(inputCreditCard == undefined)
+        inputCreditCard = null;
+
+    var inputAddressStreet = $('#inputAddressStreet').val();
+    var inputAddressNumber = $('#inputAddressNumber').val();
+    var inputAddressComplement = $('#inputAddressComplement').val();
+    var inputAddressDistrict = $('#inputAddressDistrict').val();
+    var inputAddressCep = $('#inputAddressCep').val();
+    var inputAddressCity = $('#inputAddressCity').val();
+    var inputAddressState = $('#inputAddressState').val();
+
+    $.post('/editUser.php', {
+        inputName: inputName,
+        inputIdUsuario: inputIdUsuario,
+
+        inputTypeUser: inputTypeUser, 
+        inputPhone: inputPhone,
+        inputCreditCard: inputCreditCard,
+
+        inputAddressStreet: inputAddressStreet,
+        inputAddressNumber: inputAddressNumber,
+        inputAddressComplement: inputAddressComplement,
+        inputAddressDistrict: inputAddressDistrict,
+        inputAddressCep: inputAddressCep,
+        inputAddressCity: inputAddressCity,
+        inputAddressState: inputAddressState,
+    },function(data){
     
         if(data.status)
-            window.location = "userPage.php";
+            window.location.reload;
         else
-            alert(data.message);
+            AlertMessage(data.status, data.message);
     },'json');
 }
 
@@ -84,7 +170,7 @@ var DeleteUser = (idUsuario)=>{
                     if(data.status)
                         window.location = "userPage.php";
                     else
-                        alert(data.message);
+                        AlertMessage(data.status, data.message);
                 });
             }
         }

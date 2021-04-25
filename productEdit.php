@@ -2,7 +2,7 @@
 
 $page_title = "Editar produto";
 
-include_once('Views/Layout/layoutSimpleHeader.php');
+include_once('Views/Layout/layoutHeader.php');
 include_once('DbFactory.php');
 
 $productDB = $db->Produto();

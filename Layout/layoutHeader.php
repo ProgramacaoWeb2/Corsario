@@ -43,27 +43,38 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo $_SESSION["nomeUsuario"]?>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Meus Pedidos</a>
+                <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="userDropdown">
+                    <?php if(isset($_SESSION["userType" == 1])){ ?>
+                        <a class="dropdown-item" href="#">Meus pedidos</a>
+                    <?php } ?>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="editUserPage.php?idUsuario=<?php echo $_SESSION["idUsuario"]?>"> Alterar meus dados</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="changePasswordPage.php?idUsuario=<?php echo $_SESSION["idUsuario"]?>"> Alterar minha senha</a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="javascript:ExecLogout()">Logout</a>
                 </div>
             </li>
-            <li> <div class="dropdown-divider"></div></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Administração
-                </a>
-                <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                    <a class="dropdown-item" href="supplierPage.php">Fornecedores</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.php">Pedidos</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="productPage.php">Produtos</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="userPage.php">Usuários</a>
-                </div>
-            </li>
+
+            <?php if(isset($_SESSION["userType"]) && $_SESSION["userType"] == 1){ ?>
+                <li> <div class="dropdown-divider"></div></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administração
+                    </a>
+                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="adminDropdown" >
+                        <a class="dropdown-item" href="supplierPageDetails.php">Fornecedores</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="index.php">Pedidos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="productPageDetails.php">Produtos</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="userPage.php">Usuários</a>
+                    </div>
+                </li>
+            <?php } ?>
 
 
         <?php } else { ?>
@@ -73,9 +84,11 @@
         <?php } ?>
 
      <li> <div class="dropdown-divider"></div></li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Carrinho</a>
-      </li>
+     <?php if( !isset($_SESSION["userType"]) || $_SESSION["userType"] == 0){ ?>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Carrinho</a>
+        </li>
+      <?php } ?>
      
     </ul>
   </div>

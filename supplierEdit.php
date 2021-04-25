@@ -2,7 +2,7 @@
 
 $page_title = "Editar Fornecedor";
 
-include_once('Views/Layout/layoutSimpleHeader.php');
+include_once('Views/Layout/layoutHeader.php');
 include_once('DbFactory.php');
 
 $supplierDb = $db->Fornecedor();
