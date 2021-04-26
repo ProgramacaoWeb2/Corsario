@@ -13,6 +13,6 @@ $deleteSupplier=$supplierDb->getPorCodigo($id);
 $supplierDb->deleta($deleteSupplier);
 
 
-header("Location: http://localhost/supplierPageDetails.php");
+header("Location: supplierPageDetails.php");
 exit;
 ?>

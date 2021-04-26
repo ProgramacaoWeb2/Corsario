@@ -1,7 +1,7 @@
 <?php
 $page_title = "Cadastro de produtos";
 include_once("Layout/layoutHeader.php");
-include "authentication.php";
+
 
 include_once("DbFactory.php");
 
