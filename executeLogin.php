@@ -24,6 +24,7 @@ else{
         if(!strcmp($cripPassword, $user->getPassword())){
             $_SESSION["idUsuario"]= $user->getId(); 
             $_SESSION["nomeUsuario"] = stripslashes($user->getName()); 
+            $_SESSION["userType"]= $user->getUserType();
 
             $result =  new TResult(true,null);
         }

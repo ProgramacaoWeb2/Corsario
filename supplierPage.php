@@ -72,7 +72,7 @@ include "authentication.php";
 
                     <div class="formGroup">
                         <label for="inputSupplierState">Estado:</label>
-                        <select name="inputSupplierState" id="inputSupplierState" class="form-select form-select-lg mb-3" required>
+                        <select name="inputSupplierState" id="inputSupplierState" class="form-control" required>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>

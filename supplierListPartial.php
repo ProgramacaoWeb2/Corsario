@@ -1,7 +1,6 @@
 <?php
 $page_title = "Pesquisa detalhada de Fornecedores";
 
-include_once("Layout/layoutHeader.php");
 include_once('DbFactory.php');
 
 

@@ -57,5 +57,5 @@ if ($product === NULL) {
 
 }
 
-header("Location: http://localhost/productPageDetails.php");
+header("Location: productPageDetails.php");
 exit;

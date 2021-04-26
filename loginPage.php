@@ -1,4 +1,4 @@
-<?php include_once "Layout/layoutSimpleHeader.php"; ?>
+<?php include_once "Layout/layoutHeader.php"; ?>
 
 
 <div id="loginbBody">

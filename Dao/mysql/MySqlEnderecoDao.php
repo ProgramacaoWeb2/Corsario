@@ -25,9 +25,9 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
         $prep->bindValue(":estado", $endereco->getEstado());
 
         if ($prep->execute()) {
-            return true;
+            return $this->connection->lastInsertId();
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -71,7 +71,7 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $endereco = new Endereco($row['idEndereco'], $row['rua'], $row['numero'], $row['complemento'], ['bairro'], ['cep'], ['cidade'], ['estado']);
+            $endereco = new Endereco($row['idEndereco'], $row['rua'], $row['numero'], $row['complemento'], $row['bairro'], $row['cep'], $row['cidade'], $row['estado']);
         }
 
         return $endereco;
