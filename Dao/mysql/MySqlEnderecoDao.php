@@ -127,4 +127,20 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
 
         return false;
     }
+
+
+    public function ultimoIdCadastrado()
+    {
+        $query =  "SELECT MAX(idEndereco) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row;
+        }
+
+        return null;
+    }
 }

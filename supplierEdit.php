@@ -6,6 +6,7 @@ include_once('Layout/layoutHeader.php');
 include_once('DbFactory.php');
 
 $supplierDb = $db->Fornecedor();
+$adressdB = $db->Endereco()->getTodos(); 
 
 $name = @$_GET['name'];
 $id = @$_GET['id'];
@@ -16,9 +17,7 @@ if ($name === NULL) {
     $supplier = $supplierDb->getPorNome($name);
 }
 
-if ($supplier === NULL) {
-    $supplier = new Fornecedor(NULL, NULL, NULL, NULL, NULL);
-}
+
 
 ?>
 

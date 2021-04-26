@@ -10,7 +10,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     public function insere($fornecedor)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, telefone , email) VALUES" . "(:nome,:descricao,:telefone, :email)";
+        $query = "INSERT INTO " . $this->tabela . "(nome, descricao, telefone , email, fkEnderecoFornecedor) VALUES" . "(:nome,:descricao,:telefone, :email, :fkEnderecoFornecedor)";
 
         $prep = $this->connection->prepare($query);
 
@@ -18,6 +18,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         $prep->bindValue(":descricao", $fornecedor->getDescricao());
         $prep->bindValue(":telefone", $fornecedor->getTelefone());
         $prep->bindValue(":email", $fornecedor->getEmail());
+        $prep->bindValue(":fkEnderecoFornecedor", $fornecedor->getIdEndereco());
 
         if ($prep->execute()) {
             return true;
@@ -29,7 +30,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     public function altera($fornecedor)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET nome = :nome, descricao = :descricao, telefone = :telefone, email = :email" .
+            " SET nome = :nome, descricao = :descricao, telefone = :telefone, email = :email, fkEnderecoFornecedor = :fkEnderecoFornecedor " .
             " WHERE idFornecedor = :idFornecedor";
 
         $prep = $this->connection->prepare($query);
@@ -40,6 +41,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         $prep->bindValue(":telefone", $fornecedor->getTelefone());
         $prep->bindValue(":email", $fornecedor->getEmail());
         $prep->bindValue(":idFornecedor", $fornecedor->getId());
+        $prep->bindValue(":fkEnderecoFornecedor", $fornecedor->getIdEndereco());
 
 
 
@@ -55,7 +57,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $fornecedorNew = null;
 
-        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela . " WHERE idFornecedor = :idFornecedor LIMIT 1";
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email, fkEnderecoFornecedor FROM " . $this->tabela . " WHERE idFornecedor = :idFornecedor LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
@@ -64,7 +66,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $fornecedorNew = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+            $fornecedorNew = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email'], $row['fkEnderecoFornecedor']);
         }
         return $fornecedorNew;
     }
@@ -73,7 +75,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     {
         $fornecedor = null;
 
-        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email, fkEnderecoFornecedor FROM " . $this->tabela . " WHERE nome = :nome LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":nome", $nome);
@@ -81,7 +83,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email'], $row['fkEnderecoFornecedor']);
         }
 
         return $fornecedor;
@@ -89,7 +91,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
     public function getTodos()
     {
-        $query = "SELECT idFornecedor, nome, descricao, telefone, email FROM " . $this->tabela;
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email, fkEnderecoFornecedor FROM " . $this->tabela;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -97,7 +99,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $fornecedor = new Fornecedor($idFornecedor, $nome, $descricao, $telefone, $email);
+            $fornecedor = new Fornecedor($idFornecedor, $nome, $descricao, $telefone, $email, $fkEnderecoFornecedor);
             $fornecedores[] = $fornecedor;
         }
         return $fornecedores;
@@ -124,7 +126,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     {
         $fornecedor = NULL;
 
-        $query = "SELECT idFornecedor, nome, descricao, telefone, email  FROM  " . $this->tabela . " WHERE nome = :nome and idFornecedor = :idFornecedor LIMIT 1";
+        $query = "SELECT idFornecedor, nome, descricao, telefone, email, fkEnderecoFornecedor  FROM  " . $this->tabela . " WHERE nome = :nome and idFornecedor = :idFornecedor LIMIT 1";
 
         $stmt = $this->connection->prepare($query);
         $stmt->bindValue(":nome", $nome);
@@ -134,7 +136,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email']);
+            $fornecedor = new Fornecedor($row['idFornecedor'], $row['nome'], $row['descricao'], $row['telefone'], $row['email'], $row['fkEnderecoFornecedor']);
         }
 
         return $fornecedor;

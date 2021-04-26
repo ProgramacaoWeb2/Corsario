@@ -11,6 +11,7 @@ class Endereco
     private $cidade;
     private $estado;
 
+
     public function __construct($id, $rua, $numero, $complemento, $bairro, $cep, $cidade, $estado)
     {
         $this->id = $id;

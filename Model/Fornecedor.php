@@ -8,16 +8,18 @@ class Fornecedor
     private $descricao;
     private $telefone;
     private $email;
+    private $idEndereco;
 
 
 
-    public function __construct($id, $nome, $descricao, $telefone, $email)
+    public function __construct($id, $nome, $descricao, $telefone, $email, $idEndereco)
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->telefone = $telefone;
         $this->email = $email;
+        $this->idEndereco = $idEndereco;
     }
 
     public function getId()
@@ -71,5 +73,15 @@ class Fornecedor
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function getIdEndereco()
+    {
+        return $this->idEndereco;
+    }
+
+    public function setIdEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
     }
 }
