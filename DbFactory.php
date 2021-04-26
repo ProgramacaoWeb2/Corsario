@@ -24,7 +24,7 @@ include_once("Dao/mysql/MySqlFornecedorDao.php");
 include_once("Dao/mysql/MySqlEnderecoDao.php");
 include_once("Dao/mysql/MySqlEstoqueDao.php");
 include_once("Dao/mysql/mySqlUsuarioDao.php");
-include_once("authentication.php");
+
 
 
 $db = new MySqlDaoFactory();
