@@ -12,13 +12,13 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
     public function insere($estoque)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(quantidade, preco, fkProdutoEstoque) VALUES" . "(:quantidade,:preco,:fkProdutoEstoque)";
+        $query = "INSERT INTO " . $this->tabela . "(fkProdutoEstoque,quantidade, preco ) VALUES" . "(:fkProdutoEstoque,:quantidade,:preco)";
 
         $prep = $this->connection->prepare($query);
 
+        $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
         $prep->bindValue(":quantidade", $estoque->getQuantidade());
         $prep->bindValue(":preco", $estoque->getPreco());
-        $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
 
         if ($prep->execute()) {
             return true;
@@ -117,4 +117,62 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
         return false;
     }
+
+    public function pesquisaTodosProdutos()
+    {
+        $query = "SELECT * FROM " . $this->tabela .  " as estoque, produto as produto where produto.idProduto = estoque.fkProdutoEstoque";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $estoques = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+            $estoque = new Estoque($idEstoque, $quantidade, $preco, $fkProdutoEstoque);
+            $estoques[] = $estoque;
+        }
+        return $estoques;
+    }
+
+    public function pesquisaProdutoPorId($idProduto)
+    {
+
+        $estoque = null;
+
+        $query = "SELECT * FROM " . $this->tabela .  " as estoque where estoque.fkProdutoEstoque = :idProduto";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":idProduto", $idProduto);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $estoque = new Estoque( $row['quantidade'], $row['preco'], $row['fkProdutoEstoque']);
+        }
+
+        return $estoque;
+    }
+
+    public function alteraPorProduto($estoque)
+    {
+    
+        $query = "UPDATE " . $this->tabela .
+            " SET quantidade = :quantidade, preco = :preco ".
+            " WHERE fkProdutoEstoque =:fkProdutoEstoque";
+
+        $prep = $this->connection->prepare($query);
+
+        $prep->bindValue(":quantidade", $estoque->getQuantidade());
+        $prep->bindValue(":preco", $estoque->getPreco());
+        $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
+
+
+        if ($prep->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

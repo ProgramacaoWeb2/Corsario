@@ -13,8 +13,12 @@ $id = @$_POST['inputProductId'];
 $name = @$_POST['inputProductName'];
 $description = @$_POST['inputProductDescription'];
 $photo = @$_POST['inputProductPhoto'];
-$price = @$_POST['inputPreco'];
+
+
 $supplierId = @$_POST['inputSupplierId'];
+
+$stock = @$_POST['inputEstoque'];
+$price = @$_POST['inputPreco'];
 
 
 
@@ -42,6 +46,15 @@ if ($product === NULL) {
 
 
     $productDb->altera($product);
+
+    $estoque = $estoqueDb->pesquisaProdutoPorId($id);
+
+    $estoque->setPreco($price);
+    $estoque->setQuantidade($stock);
+    $estoque->setIdProduto($id);
+
+    $estoqueDb->alteraPorProduto($estoque);
+
 }
 
 header("Location: http://localhost/productPageDetails.php");

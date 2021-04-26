@@ -8,18 +8,17 @@ include_once('DbFactory.php');
 $productDB = $db->Produto();
 $suppliers = $db->Fornecedor()->getTodos();
 
+
 $name = @$_GET['name'];
 $id = @$_GET['id'];
 
 if ($name === NULL) {
     $product = $productDB->getPorCodigo($id);
+    $estoque = $db->Estoque()->pesquisaProdutoPorId($product->getId());
 } else {
     $product = $productDB->getPorNome($name);
 }
 
-if ($product === NULL) {
-    $product = new Produto(NULL, NULL, NULL, NULL, NULL);
-}
 
 ?>
 
@@ -56,7 +55,12 @@ if ($product === NULL) {
 
                     <div class="formGroup">
                         <label for="inputPreco">Valor:</label>
-                        <input type="number"  id="inputPreco" name="inputPreco" required>
+                        <input type="number"  id="inputPreco" name="inputPreco" value="<?= $estoque->getPreco() ?>" required>
+                    </div>
+
+                    <div class="formGroup">
+                        <label for="inputEstoque">Quantidade em Estoque:</label>
+                        <input type="number"  id="inputEstoque" name="inputEstoque" value="<?= $estoque->getQuantidade() ?>" required>
                     </div>
 
                     <div class="input-group mb-3">

@@ -12,6 +12,7 @@ $productList = NULL;
 $productList = $db->Produto()->getTodos();
 
 
+
 if ($productList != NULL) {
 
 ?>
