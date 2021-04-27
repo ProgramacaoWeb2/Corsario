@@ -145,10 +145,10 @@ var EditUser = ()=>{
     },function(data){
     
         if(data.status)
-            window.location.reload;
+            window.location = "index.php";
         else
             AlertMessage(data.status, data.message);
-    },'json');
+    },'json');  
 }
 
 var DeleteUser = (idUsuario)=>{

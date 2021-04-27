@@ -1,5 +1,5 @@
-CREATE DATABASE CorsarioDb DEFAULT CHARSET=latin1;
-USE CorsarioDb;
+CREATE DATABASE Teste123 DEFAULT CHARSET=latin1;
+USE Teste123;
 
 CREATE TABLE Endereco(
 	idEndereco INTEGER UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE Usuario(
     
     INDEX(idUsuario),
     PRIMARY KEY(idUsuario),
-    CONSTRAINT fk_Endereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+    CONSTRAINT fk_Endereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco) ON DELETE CASCADE 
     
 ) ENGINE = INNODB;
 
@@ -49,7 +49,7 @@ CREATE TABLE Fornecedor(
     
     INDEX(idFornecedor),
     PRIMARY KEY (idFornecedor),
-    CONSTRAINT fk_EnderecoFornecedor FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+    CONSTRAINT fk_EnderecoFornecedor FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco) 
 ) ENGINE = INNODB;
 
 
@@ -66,7 +66,7 @@ CREATE TABLE Produto(
    
     INDEX(idProduto),
     PRIMARY KEY (idProduto),
-    CONSTRAINT fk_Fornecedor FOREIGN KEY (fkFornecedorProduto) REFERENCES fornecedor(idFornecedor)
+    CONSTRAINT fk_Fornecedor FOREIGN KEY (fkFornecedorProduto) REFERENCES fornecedor(idFornecedor) ON DELETE CASCADE 
 ) ENGINE = INNODB;
 
 
@@ -79,7 +79,7 @@ CREATE TABLE Estoque(
    
     INDEX(idEstoque),
     PRIMARY KEY (idEstoque),
-    CONSTRAINT fk_Produto FOREIGN KEY(fkProdutoEstoque) REFERENCES produto(idProduto)
+    CONSTRAINT fk_Produto FOREIGN KEY(fkProdutoEstoque) REFERENCES produto(idProduto) ON DELETE CASCADE 
 ) ENGINE = INNODB;
 
 

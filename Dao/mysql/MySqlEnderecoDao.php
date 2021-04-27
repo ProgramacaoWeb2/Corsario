@@ -12,7 +12,7 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
     public function insere($endereco)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(rua, numero, complemento, bairro, cep, cidade, estado) VALUES" . "(:rua,:numero,:complemento,:bairro,:cep,:cidade, :estado)";
+        $query = "INSERT INTO " . $this->tabela . " (rua, numero, complemento, bairro, cep, cidade, estado) VALUES " . " (:rua,:numero,:complemento,:bairro,:cep,:cidade, :estado)";
 
         $prep = $this->connection->prepare($query);
 
@@ -131,7 +131,7 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
 
     public function ultimoIdCadastrado()
     {
-        $query =  "SELECT MAX(idEndereco) as ultimo FROM " . $this->tabela;
+        $query =  "SELECT MAX(idEndereco) as ultimo FROM " . $this->tabela . " LIMIT 1";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 

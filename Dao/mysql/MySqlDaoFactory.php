@@ -10,7 +10,7 @@ class MySqlDaoFactory extends DaoFactory
 {
 
     private $host = "localhost";
-    private $db = "CorsarioDb";
+    private $db = "Teste123";
     private $port = "3306";
     private $user = "root";
     private $password = "";
@@ -42,11 +42,7 @@ class MySqlDaoFactory extends DaoFactory
         return new MySqlUsuarioDao($this->getConnection());
 
     }
-    public function Cliente()
-    {
-        return new MySqlClienteDao($this->getConnection());
-    }
-
+  
     public function Endereco()
     {
         return new MySqlEnderecoDao($this->getConnection());

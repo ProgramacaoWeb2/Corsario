@@ -34,6 +34,11 @@ $supliers =  $db->Fornecedor()->getTodos();
                     <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-user-search">Pesquisar</button>
                 </div>
 
+                <div class="col-md-12">
+                    <a class="btn btn-purple mb-2 btn-sm" href="/supplierPage.php"> Criar Fornecedor</a>
+                </div>
+
+
             </div>
 
 
