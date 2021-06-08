@@ -1,4 +1,6 @@
 <?php
+header("Content-Type: application/json");
+
 include_once('./DbFactory.php');
 
 $productDb = $db->Produto();
@@ -7,7 +9,6 @@ $estoqueDb = $db->Estoque();
 
 
 $product = NULL;
-
 
 $id = @$_POST['inputProductId'];
 $name = @$_POST['inputProductName'];
@@ -19,7 +20,6 @@ $supplierId = @$_POST['inputSupplierId'];
 
 $stock = @$_POST['inputEstoque'];
 $price = @$_POST['inputPreco'];
-
 
 
 $product = $productDb->getPorNome($name);
@@ -36,7 +36,7 @@ if ($product === NULL) {
 
     $estoqueNew = new Estoque(1, $price, $ultimoCadastro[0]);
 
-    $estoqueDb->insere($estoqueNew);
+    $estoqueDb->insere($estoqueNew);    
 } else {
     $product->setId($id);
     $product->setNome($name);
@@ -56,6 +56,9 @@ if ($product === NULL) {
     $estoqueDb->alteraPorProduto($estoque);
 
 }
+
+echo json_encode($result);
+
 
 header("Location: productPageDetails.php");
 exit;
