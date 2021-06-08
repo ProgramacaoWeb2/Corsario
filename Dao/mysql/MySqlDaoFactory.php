@@ -25,6 +25,7 @@ class MySqlDaoFactory extends DaoFactory
 
         try {
             $this->connection = new PDO($dsn, $this->user, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, $this->connection::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo "Erro na conexão" . $e->getMessage();
         }

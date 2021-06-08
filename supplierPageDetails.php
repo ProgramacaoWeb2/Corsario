@@ -4,7 +4,6 @@ $page_title = "Fornecedores";
 include_once("Layout/layoutHeader.php");
 include_once('DbFactory.php');
 
-$supliers =  $db->Fornecedor()->getTodos();
 ?>
 
 

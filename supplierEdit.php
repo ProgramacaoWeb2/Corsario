@@ -4,6 +4,8 @@ $page_title = "Editar Fornecedor";
 
 include_once('Layout/layoutHeader.php');
 include_once('DbFactory.php');
+include_once("authentication.php");
+
 
 $supplierDb = $db->Fornecedor();
 

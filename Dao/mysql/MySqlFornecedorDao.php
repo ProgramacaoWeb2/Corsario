@@ -11,7 +11,7 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
     {
 
         $query = "INSERT INTO " . $this->tabela . " (nome, descricao, telefone , email, idEndereco) VALUES " . " (:nome,:descricao,:telefone, :email, :idEndereco)";
- 
+
         $prep = $this->connection->prepare($query);
 
         $prep->bindValue(":nome", $fornecedor->getNome());
@@ -115,11 +115,15 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
 
         $stmt->bindValue(':idFornecedor', $fornecedor->getId());
 
-        if ($stmt->execute()) {
-            return true;
-        }
+        try {
 
-        return false;
+            if ($stmt->execute()) {
+                return true;
+            }
+        } catch (PDOException $th) {
+
+            return false;
+        }
     }
 
     public function getPorNomeId($idFornecedor, $nome)

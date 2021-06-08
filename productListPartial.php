@@ -3,14 +3,12 @@ $page_title = "Pesquisa Detalhada";
 
 include_once("Layout/layoutHeader.php");
 include_once("DbFactory.php");
-
-
-
+include_once("authentication.php");
 
 $productList = NULL;
 
 $productList = $db->Produto()->getTodos();
-
+$supplierDB = $db->Fornecedor();
 
 
 if ($productList != NULL) {
@@ -32,15 +30,19 @@ if ($productList != NULL) {
 
 
         <?php
-        foreach ($productList as $product) { ?>
-            
-            
+        foreach ($productList as $product) {
+
+            $supplier = $supplierDB->getPorCodigo($product->getIdFornecedor());
+
+        ?>
+
+
 
             <tr>
                 <td><?= $product->getId() ?></td>
                 <td><?= $product->getNome() ?></td>
                 <td><?= $product->getDescricao() ?></td>
-                <td><?= $product->getIdFornecedor()?></td>
+                <td><?= $supplier->getNome() ?></td>
 
                 <td>
 
@@ -50,8 +52,8 @@ if ($productList != NULL) {
                             Opções
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" href="productEdit.php?id=<?= $product->getId() ?>"> Editar Produto</a>
-                            <a class="dropdown-item btn-delete-user" href="productDelete.php?id=<?= $product->getId() ?>"> Deletar usuário</a>
+                            <a class="dropdown-item" id="btn-edit-product" href="productEdit.php?id=<?= $product->getId() ?>"> Editar Produto</a>
+                            <a class="dropdown-item" id="btn-delete-product" href="productDelete.php?id=<?= $product->getId() ?>"> Deletar Produto</a>
                         </div>
                     </div>
 

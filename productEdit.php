@@ -4,6 +4,8 @@ $page_title = "Editar produto";
 
 include_once('Layout/layoutHeader.php');
 include_once('DbFactory.php');
+include_once("authentication.php");
+
 
 $productDB = $db->Produto();
 $suppliers = $db->Fornecedor()->getTodos();
@@ -31,7 +33,7 @@ if ($name === NULL) {
         <div id="loginContent">
             <div class="formArea">
 
-                <form action="productCreate.php" method="POST">
+                <form action="ProductCreate.php" method="POST">
 
                     <div class="formGroup">
                         <label for="inputProductId">Identificação:</label>
@@ -70,13 +72,13 @@ if ($name === NULL) {
                         <select class="custom-select" id="inputGroupSelect01" name="inputSupplierId" required>
                             <?php
                             foreach ($suppliers as $supplier) { ?>
-                                <option value=<?= $supplier->getId() ?>><?= $supplier->getNome() ?></option>
+                                <option id="inputSupplierId" value=<?= $supplier->getId() ?>><?= $supplier->getNome() ?></option>
                             <?php  } ?>
                         </select>
                     </div>
 
 
-                    <button class="corsBtn btn-purple" type="submit">Editar</button>
+                    <button class="corsBtn btn-purple" id="btn-edit-product" type="submit">Editar</button>
 
 
                 </form>

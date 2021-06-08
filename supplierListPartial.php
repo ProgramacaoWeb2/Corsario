@@ -4,12 +4,12 @@ $page_title = "Pesquisa detalhada de Fornecedores";
 include_once('DbFactory.php');
 
 
-$supliers = NULL;
+$suppliers = NULL;
 
-$supliers =  $db->Fornecedor()->getTodos();
+$suppliers =  $db->Fornecedor()->getTodos();
 
 
-if ($supliers != NULL) {
+if ($suppliers != NULL) {
 
 ?>
 
@@ -29,7 +29,7 @@ if ($supliers != NULL) {
 
 
         <?php
-        foreach ($supliers as $supplier) { ?>
+        foreach ($suppliers as $supplier) { ?>
 
 
 
@@ -49,7 +49,7 @@ if ($supliers != NULL) {
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <a class="dropdown-item" href="supplierEdit.php?id=<?= $supplier->getId() ?>"> Editar Fornecedor</a>
-                            <a class="dropdown-item btn-delete-user" href="supplierDelete.php?id=<?= $supplier->getId() ?>"> Deletar Fornecedor</a>
+                            <a class="dropdown-item" href="supplierDelete.php?id=<?= $supplier->getId() ?>"> Deletar Fornecedor</a>
                         </div>
                     </div>
 

@@ -37,7 +37,7 @@ $products =  $db->Produto()->getTodos();
                 </div>
 
                 <div class="col-md-12">
-                    <a class="btn btn-purple mb-2 btn-sm" href="/productPage.php"> Criar Produto</a>
+                    <a class="btn btn-purple mb-2 btn-sm" id="btn-new-product" href="/productPage.php"> Criar Produto</a>
                 </div>
 
             </div>

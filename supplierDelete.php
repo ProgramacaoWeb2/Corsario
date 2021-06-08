@@ -2,17 +2,15 @@
 
 include_once('./DbFactory.php');
 
-$supplierDb = $db->Fornecedor();
-
 $id = @$_GET['id'];
 
 $supplierDb = $db->Fornecedor();
-
-$deleteSupplier=$supplierDb->getPorCodigo($id);
-
-$supplierDb->deleta($deleteSupplier);
+$productList = $db->Produto()->getTodos();
 
 
+$deleteSupplier = $supplierDb->getPorCodigo($id);
+
+if ($supplierDb->deleta($deleteSupplier) == true);
+ 
 header("Location: supplierPageDetails.php");
 exit;
-?>
