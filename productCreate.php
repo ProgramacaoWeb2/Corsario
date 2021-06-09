@@ -57,8 +57,5 @@ if ($product === NULL) {
 
 }
 
-echo json_encode($result);
-
-
 header("Location: productPageDetails.php");
 exit;
