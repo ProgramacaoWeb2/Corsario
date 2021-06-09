@@ -1,6 +1,6 @@
 
 $(() => {
-
+    
 
     $('#appBody').on('click', '#btn-create-product', () => {
         return CreateProduct();
@@ -81,16 +81,15 @@ var CreateProduct = () => {
         processData: false,
         data: photo,
         type: 'post',
+        async: false,
         success: function (response) {
-            var json = $.parseJSON(response);
-            console.log(json);
+            inputProductPhoto = response;
+            console.log(response);
         },
         error: function (response) {
-            var json = $.parseJSON(response);
-            console.log("error in insert the file " + json);
+            console.log("error in insert the file " + response);
         }
     });
-
     $.post('/productCreate.php', {
         inputProductName: inputProductName,
         inputProductDescription: inputProductDescription,

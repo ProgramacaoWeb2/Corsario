@@ -4,12 +4,14 @@ header("Content-Type: application/json");
 $result = NULL;
 $photoTemp = $_FILES["Arquivo"]["tmp_name"];
 
+$data = new DateTime();
 
 $nameFile = $_FILES["Arquivo"]["name"];
-$nameFile = str_replace(" ","_", $nameFile);
+$nameFile = str_replace(" ","_",$nameFile);
+
+$nameFile = $data->getTimestamp() . "_"  . $nameFile;
 
 copy($photoTemp,"./Uploads/$nameFile");
 
-$result= "TESTE";
-
-echo json_encode($result);
+echo json_encode($nameFile);
+exit;
