@@ -1,6 +1,6 @@
 
 $(() => {
-    
+
 
     $('#appBody').on('click', '#btn-create-product', () => {
         return CreateProduct();
@@ -63,6 +63,7 @@ $(() => {
 
 var CreateProduct = () => {
 
+
     var inputProductName = $('#inputProductName').val();
     var inputProductDescription = $('#inputProductDescription').val();
     var inputProductPhoto = $('#inputProductPhoto').val();
@@ -71,25 +72,10 @@ var CreateProduct = () => {
     var photo = new FormData();
     photo.append('Arquivo', inputProductPhoto2);
 
+
     var inputPreco = $('#inputPreco').val();
     var inputSupplierId = $('#inputSupplierId').val();
 
-    $.ajax({
-        url: '/createFile.php',
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: photo,
-        type: 'post',
-        async: false,
-        success: function (response) {
-            inputProductPhoto = response;
-            console.log(response);
-        },
-        error: function (response) {
-            console.log("error in insert the file " + response);
-        }
-    });
     $.post('/productCreate.php', {
         inputProductName: inputProductName,
         inputProductDescription: inputProductDescription,
@@ -99,13 +85,28 @@ var CreateProduct = () => {
         inputSupplierId: inputSupplierId,
 
     }, function (data) {
-        if (data.status) {
-            window.location = "/index.php";
-        }
-        else {
-            AlertMessage(data.status, data.message);
-        }
+    
+        photo.append('id', data[0]);
+
+        $.ajax({
+            url: '/createFile.php',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: photo,
+            type: 'post',
+            async: false,
+            success: function (response) {
+               console.log(response);
+            },
+            error: function (response) {
+                console.log("error in insert the file " + response);
+            }
+        });
+
     }, 'json');
+
+
 
 }
 
@@ -120,14 +121,6 @@ var EditProduct = () => {
     var inputPreco = $('#inputPreco').val();
     var inputEstoque = $('#inputEstoque').val();
     var inputSupplierId = $('#inputSupplierId').val();
-
-    console.log(inputProductId);
-    console.log(inputProductName);
-    console.log(inputProductDescription);
-    console.log(inputProductPhoto);
-    console.log(inputPreco);
-    console.log(inputEstoque);
-    console.log(inputSupplierId);
 
     $.post('/productCreate.php', {
         inputProductId: inputProductId,

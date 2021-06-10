@@ -57,5 +57,7 @@ if ($product === NULL) {
 
 }
 
-header("Location: productPageDetails.php");
+echo json_encode($ultimoCadastro);
+
+//header("Location: productPageDetails.php");
 exit;
