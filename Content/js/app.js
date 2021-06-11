@@ -63,48 +63,33 @@ $(() => {
 
 var CreateProduct = () => {
 
-
+    var inputProductPhoto = $('#inputProductPhoto').prop('files')[0];
     var inputProductName = $('#inputProductName').val();
     var inputProductDescription = $('#inputProductDescription').val();
-    var inputProductPhoto = $('#inputProductPhoto').val();
-
-    var inputProductPhoto2 = $('#inputProductPhoto2').prop('files')[0];
-    var photo = new FormData();
-    photo.append('Arquivo', inputProductPhoto2);
-
-
     var inputPreco = $('#inputPreco').val();
     var inputSupplierId = $('#inputSupplierId').val();
 
-    $.post('/productCreate.php', {
-        inputProductName: inputProductName,
-        inputProductDescription: inputProductDescription,
-        inputProductPhoto: inputProductPhoto,
-
-        inputPreco: inputPreco,
-        inputSupplierId: inputSupplierId,
-
-    }, function (data) {
+    var data = new FormData();
+    data.append('Arquivo', inputProductPhoto);
+    data.append('inputProductName', inputProductName);
+    data.append('inputProductDescription', inputProductDescription);
+    data.append('inputPreco', inputPreco);
+    data.append('inputSupplierId', inputSupplierId);
     
-        photo.append('id', data[0]);
-
-        $.ajax({
-            url: '/createFile.php',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: photo,
-            type: 'post',
-            async: false,
-            success: function (response) {
-               console.log(response);
-            },
-            error: function (response) {
-                console.log("error in insert the file " + response);
-            }
-        });
-
-    }, 'json');
+    $.ajax({
+        url: '/productCreate.php',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: 'post',
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (response) {
+            console.log("error in insert the file " + response);
+        }
+    });
 
 
 
@@ -116,17 +101,19 @@ var EditProduct = () => {
     var inputProductId = $('#inputProductId').val();
     var inputProductName = $('#inputProductName').val();
     var inputProductDescription = $('#inputProductDescription').val();
-    var inputProductPhoto = $('#inputProductPhoto').val();
-
+    var inputProductPhoto = $('#inputProductPhoto').prop('files')[0];
     var inputPreco = $('#inputPreco').val();
     var inputEstoque = $('#inputEstoque').val();
     var inputSupplierId = $('#inputSupplierId').val();
+
+    var photo = new FormData();
+    photo.append('Arquivo', inputProductPhoto);
 
     $.post('/productCreate.php', {
         inputProductId: inputProductId,
         inputProductName: inputProductName,
         inputProductDescription: inputProductDescription,
-        inputProductPhoto: inputProductPhoto,
+
 
         inputPreco: inputPreco,
         inputEstoque: inputEstoque,

@@ -33,7 +33,7 @@ if ($name === NULL) {
         <div id="loginContent">
             <div class="formArea">
 
-                <form action="ProductCreate.php" method="POST">
+                <form action="productCreate.php" method="POST">
 
                     <div class="formGroup">
                         <label for="inputProductId">Identificação:</label>
@@ -51,18 +51,13 @@ if ($name === NULL) {
                     </div>
 
                     <div class="formGroup">
-                        <label for="inputProductPhoto">Foto:</label>
-                        <input type="text" value="<?= $product->getFoto() ?>" id="inputProductPhoto" name="inputProductPhoto">
-                    </div>
-
-                    <div class="formGroup">
                         <label for="inputPreco">Valor:</label>
-                        <input type="number"  id="inputPreco" name="inputPreco" value="<?= $estoque->getPreco() ?>" required>
+                        <input type="number" id="inputPreco" name="inputPreco" value="<?= $estoque->getPreco() ?>" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputEstoque">Quantidade em Estoque:</label>
-                        <input type="number"  id="inputEstoque" name="inputEstoque" value="<?= $estoque->getQuantidade() ?>" required>
+                        <input type="number" id="inputEstoque" name="inputEstoque" value="<?= $estoque->getQuantidade() ?>" required>
                     </div>
 
                     <div class="input-group mb-3">
@@ -75,6 +70,13 @@ if ($name === NULL) {
                                 <option id="inputSupplierId" value=<?= $supplier->getId() ?>><?= $supplier->getNome() ?></option>
                             <?php  } ?>
                         </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputProductPhoto" name="inputProductPhoto">
+                            <label class="custom-file-label" for="inputProductPhoto">Choose file</label>
+                        </div>
                     </div>
 
 

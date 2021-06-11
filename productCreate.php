@@ -3,40 +3,46 @@ header("Content-Type: application/json");
 
 include_once('./DbFactory.php');
 
-$productDb = $db->Produto();
-$supplierDb = $db->Fornecedor();
-$estoqueDb = $db->Estoque();
-
-
-$product = NULL;
-
 $id = @$_POST['inputProductId'];
 $name = @$_POST['inputProductName'];
 $description = @$_POST['inputProductDescription'];
-$photo = @$_POST['inputProductPhoto'];
-
-
 $supplierId = @$_POST['inputSupplierId'];
-
 $stock = @$_POST['inputEstoque'];
 $price = @$_POST['inputPreco'];
+$photoTemp = $_FILES["Arquivo"]["tmp_name"];
 
+
+$productDb = $db->Produto();
+$supplierDb = $db->Fornecedor();
+$estoqueDb = $db->Estoque();
+$product = NULL;
 
 $product = $productDb->getPorNome($name);
 
 $product = $productDb->getPorCodigo($id);
 
 if ($product === NULL) {
-    $productNew = new Produto(NULL, $name, $description, $photo, $supplierId);
 
-    $productDb->insere($productNew);
+    $lastId = $productDb->ultimoIdCadastrado();
+    $lastId = $lastId + 1;
+    $directoryPath = "/Uploads/$lastId";
+
+    mkdir(__DIR__ . "." . $directoryPath, 0777, false);
+
+    $nameFile = $_FILES["Arquivo"]["name"];
+    $nameFile = str_replace(" ", "_", $nameFile);
+
+    copy($photoTemp, ".$directoryPath/$nameFile");
 
     $ultimoCadastro = $productDb->ultimoIdCadastrado();
 
+    $productNew = new Produto(NULL, $name, $description, $directoryPath, $supplierId);
 
-    $estoqueNew = new Estoque(1, $price, $ultimoCadastro[0]);
+    $productDb->insere($productNew);
 
-    $estoqueDb->insere($estoqueNew);    
+    $estoqueNew = new Estoque(1, $price, $ultimoCadastro);
+
+    $estoqueDb->insere($estoqueNew);
 } else {
     $product->setId($id);
     $product->setNome($name);
@@ -54,10 +60,11 @@ if ($product === NULL) {
     $estoque->setIdProduto($id);
 
     $estoqueDb->alteraPorProduto($estoque);
-
 }
 
-echo json_encode($ultimoCadastro);
+
+
+echo json_encode($lastId);
 
 //header("Location: productPageDetails.php");
 exit;

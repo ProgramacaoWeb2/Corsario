@@ -33,20 +33,12 @@ $suppliers = $db->Fornecedor()->getTodos();
                     </div>
 
 
-
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputProductPhoto2" name="inputProductPhoto2">
-                            <label class="custom-file-label" for="inputProductPhoto2">Choose file</label>
+                            <input type="file" class="custom-file-input" id="inputProductPhoto" name="inputProductPhoto">
+                            <label class="custom-file-label" for="inputProductPhoto">Choose file</label>
                         </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <label for="inputProductPhoto">Foto:</label>
-                        <input class="form-control" type="text" id="inputProductPhoto" name="inputProductPhoto">
-                    </div>
-
 
                     <div class="form-group">
                         <label for="inputPreco">Valor:</label>

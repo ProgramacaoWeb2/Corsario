@@ -152,7 +152,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch();
         if ($row) {
-            return $row;
+            return end($row);
         }
 
         return null;
