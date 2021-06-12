@@ -1,8 +1,8 @@
 <?php
 $page_title = "Cadastro de produtos";
+
 include_once("Layout/layoutHeader.php");
 include_once("authentication.php");
-
 include_once("DbFactory.php");
 
 $suppliers = $db->Fornecedor()->getTodos();
@@ -33,10 +33,13 @@ $suppliers = $db->Fornecedor()->getTodos();
                     </div>
 
 
+
+
+
                     <div class="input-group mb-3">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="inputProductPhoto" name="inputProductPhoto">
-                            <label class="custom-file-label" for="inputProductPhoto">Choose file</label>
+                            <label class="custom-file-label" for="inputProductPhoto" id="inputProductPhotoLabel">Escolha uma imagem</label>
                         </div>
                     </div>
 

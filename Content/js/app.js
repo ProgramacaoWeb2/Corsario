@@ -75,7 +75,7 @@ var CreateProduct = () => {
     data.append('inputProductDescription', inputProductDescription);
     data.append('inputPreco', inputPreco);
     data.append('inputSupplierId', inputSupplierId);
-    
+
     $.ajax({
         url: '/productCreate.php',
         cache: false,
@@ -84,9 +84,11 @@ var CreateProduct = () => {
         data: data,
         type: 'post',
         success: function (response) {
+            location.href = "productPageDetails.php";
             console.log(response);
         },
         error: function (response) {
+            location.href = "productPageDetails.php";
             console.log("error in insert the file " + response);
         }
     });
@@ -106,26 +108,31 @@ var EditProduct = () => {
     var inputEstoque = $('#inputEstoque').val();
     var inputSupplierId = $('#inputSupplierId').val();
 
-    var photo = new FormData();
-    photo.append('Arquivo', inputProductPhoto);
 
-    $.post('/productCreate.php', {
-        inputProductId: inputProductId,
-        inputProductName: inputProductName,
-        inputProductDescription: inputProductDescription,
+    var data = new FormData();
+    data.append('inputProductId', inputProductId);
+    data.append('inputProductName', inputProductName);
+    data.append('inputProductDescription', inputProductDescription);
+    data.append('Arquivo', inputProductPhoto);
+    data.append('inputPreco', inputPreco);
+    data.append('inputEstoque', inputEstoque);
+    data.append('inputSupplierId', inputSupplierId);
 
 
-        inputPreco: inputPreco,
-        inputEstoque: inputEstoque,
-        inputSupplierId: inputSupplierId,
-
-    }, function (data) {
-        if (data.status)
-            window.location = "productPageDetails.php";
-        else
-            AlertMessage(data.status, data.message);
-
-    }, 'json');
+    $.ajax({
+        url: '/productCreate.php',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: 'post',
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (response) {
+            console.log("error in insert the file " + response);
+        }
+    });
 
 
 

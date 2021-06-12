@@ -10,7 +10,7 @@ $supplierId = @$_POST['inputSupplierId'];
 $stock = @$_POST['inputEstoque'];
 $price = @$_POST['inputPreco'];
 $photoTemp = $_FILES["Arquivo"]["tmp_name"];
-
+$nameFile = $_FILES["Arquivo"]["name"];
 
 $productDb = $db->Produto();
 $supplierDb = $db->Fornecedor();
@@ -29,27 +29,27 @@ if ($product === NULL) {
 
     mkdir(__DIR__ . "." . $directoryPath, 0777, false);
 
-    $nameFile = $_FILES["Arquivo"]["name"];
-    $nameFile = str_replace(" ", "_", $nameFile);
 
+    $nameFile = str_replace(" ", "_", $nameFile);
     copy($photoTemp, ".$directoryPath/$nameFile");
 
-    $ultimoCadastro = $productDb->ultimoIdCadastrado();
 
     $productNew = new Produto(NULL, $name, $description, $directoryPath, $supplierId);
 
     $productDb->insere($productNew);
+    $ultimoCadastro = $productDb->ultimoIdCadastrado();
 
     $estoqueNew = new Estoque(1, $price, $ultimoCadastro);
 
     $estoqueDb->insere($estoqueNew);
 } else {
+
+
     $product->setId($id);
     $product->setNome($name);
     $product->setDescricao($description);
-    $product->setFoto($photo);
+    //$product->setFoto($photo);
     $product->setIdFornecedor($supplierId);
-
 
     $productDb->altera($product);
 
@@ -62,9 +62,6 @@ if ($product === NULL) {
     $estoqueDb->alteraPorProduto($estoque);
 }
 
-
-
-echo json_encode($lastId);
 
 //header("Location: productPageDetails.php");
 exit;
