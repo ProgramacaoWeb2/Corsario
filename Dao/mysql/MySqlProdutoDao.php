@@ -143,6 +143,23 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         return $produto;
     }
 
+    public function getTodosPaginacao($offset, $limit)
+    {
+        $query =  "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela . " limit " . $limit . " offset " . $offset ; 
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $produtos = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+            $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto);
+            $produtos[] = $produto;
+        }
+        return $produtos;
+    }
+
     public function ultimoIdCadastrado()
     {
         $query =  "SELECT MAX(idProduto) as ultimo FROM " . $this->tabela;
@@ -157,4 +174,5 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         return null;
     }
+
 }

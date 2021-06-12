@@ -96,6 +96,19 @@ class Produto{
 
         return $this;
     }
+
+    public function getProdutoJSON(){
+        $produto = [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'foto' => $this->foto,
+            'idFornecedor' => $this->idFornecedor
+        ];
+
+        return $produto;
+    }
+
 }
 
 

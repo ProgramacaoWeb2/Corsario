@@ -51,7 +51,7 @@ $products =  $db->Produto()->getTodos();
 
 
     <div>
-        <?php include_once "productListPartial.php"; ?>
+        <?php include_once "pagination.php"; ?>
     </div>
 
 </div>
