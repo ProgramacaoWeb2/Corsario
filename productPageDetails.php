@@ -4,6 +4,7 @@ $page_title = "Produtos";
 include_once("Layout/layoutHeader.php");
 include_once('DbFactory.php');
 
+
 $products =  $db->Produto()->getTodos();
 ?>
 
@@ -50,8 +51,39 @@ $products =  $db->Produto()->getTodos();
 
 
 
-    <div>
-        <?php include_once "pagination.php"; ?>
-    </div>
+
+    <nav id="dynamicContent">
+
+    </nav>
 
 </div>
+
+
+<script>
+    $(document).ready(function() {
+
+        load_data(1);
+
+        function load_data(page, query = '') {
+            $.ajax({
+                url: "pagination.php",
+                method: "POST",
+                data: {
+                    page: page,
+                    query: query
+                },
+                success: function(data) {
+                    $('#dynamicContent').html(data);
+                }
+            });
+        }
+
+        $(document).on('click', '.page-link', function() {
+            var page = $(this).data('page_number');
+            var query = $('#search_box').val();
+            load_data(page, query);
+        });
+
+
+    });
+</script>

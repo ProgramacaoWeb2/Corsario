@@ -143,7 +143,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         return $produto;
     }
 
-    public function getTodosPaginacao($offset, $limit)
+    public function getTodosPaginacao($limit, $offset)
     {
         $query =  "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela . " limit " . $limit . " offset " . $offset ; 
         
@@ -174,5 +174,22 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         return null;
     }
+
+    public function countProdutos()
+    {
+        $query =  "SELECT COUNT(idProduto) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row[0];
+        }
+
+        return null;
+    }
+
+
 
 }

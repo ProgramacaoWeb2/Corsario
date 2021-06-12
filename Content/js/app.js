@@ -2,6 +2,10 @@
 $(() => {
 
 
+
+
+
+
     $('#appBody').on('click', '#btn-create-product', () => {
         return CreateProduct();
     });
@@ -53,8 +57,6 @@ $(() => {
 
 
     });
-
-
 
 })
 
