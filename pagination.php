@@ -11,7 +11,7 @@ if (isset($_GET['page'])) {
     $page = 1;
 }
 
-$limit = 10;
+$limit = 5;
 $offset = ($page - 1) * $limit;
 
 $totalRows = $db->Produto()->ultimoIdCadastrado();
@@ -84,30 +84,30 @@ if ($productList != NULL) {
 
 
     </table>
-
-    <ul class="pagination">
-        <li><a href="?page=1">First</a></li>
-        <li class="<?php if ($page <= 1) {
-                        echo 'disabled';
-                    } ?>">
-            <a href="<?php if ($page <= 1) {
-                            echo '#';
-                        } else {
-                            echo "?page=" . ($page - 1);
-                        } ?>">Prev</a>
-        </li>
-        <li class="<?php if ($page >= $totalPages) {
-                        echo 'disabled';
-                    } ?>">
-            <a href="<?php if ($page >= $totalPages) {
-                            echo '#';
-                        } else {
-                            echo "?page=" . ($page + 1);
-                        } ?>">Next</a>
-        </li>
-        <li><a href="?page=<?php echo $totalPages; ?>">Last</a></li>
-    </ul>
-
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="?page=1">Primeira</a></li>
+            <li class="<?php if ($page <= 1) {
+                            echo 'page-item disable';
+                        } ?>">
+                <a class="page-link" href="<?php if ($page <= 1) {
+                                echo '#';
+                            } else {
+                                echo "?page=" . ($page - 1);
+                            } ?>">Anterior</a>
+            </li>
+            <li class="page-item" class="<?php if ($page >= $totalPages) {
+                            echo 'page-item disabled';
+                        } ?>">
+                <a class="page-link" href="<?php if ($page >= $totalPages) {
+                                echo '#';
+                            } else {
+                                echo "?page=" . ($page + 1);
+                            } ?>">Próxima</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="?page=<?php echo $totalPages; ?>">Última</a></li>
+        </ul>
+    </nav>
 <?php
 } else { ?>
 
