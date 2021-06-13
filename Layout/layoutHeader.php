@@ -68,7 +68,7 @@
                     <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="adminDropdown" >
                         <a class="dropdown-item" href="supplierPageDetails.php">Fornecedores</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="index.php">Pedidos</a>
+                        <a class="dropdown-item" href="orderPageDetails.php">Pedidos</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="productPageDetails.php">Produtos</a>
                         <div class="dropdown-divider"></div>

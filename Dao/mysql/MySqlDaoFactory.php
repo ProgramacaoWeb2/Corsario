@@ -58,4 +58,15 @@ class MySqlDaoFactory extends DaoFactory
     {
         return new MySqlFornecedorDao($this->getConnection());
     }
+
+    public function Pedido()
+    {
+        return new MySqlPedidoDao($this->getConnection());
+    }
+
+    public function PedidoItens()
+    {
+        return new MySqlPedidoItens($this->getConnection());
+    }
+
 }

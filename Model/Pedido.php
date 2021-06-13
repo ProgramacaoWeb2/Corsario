@@ -7,15 +7,17 @@ class Pedido{
     private $dataPedido;
     private $dataEntrega;
     private $situacao;
+    private $idUsuario;
 
 
-    public function __construct($id, $numero, $dataPedido, $dataEntrega, $situacao)
+    public function __construct($id, $numero, $dataPedido, $dataEntrega, $situacao, $idUsuario)
     {
         $this->id = $id;
         $this->numero = $numero;
         $this->dataPedido = $dataPedido;
         $this->dataEntrega = $dataEntrega;
         $this->situacao = $situacao;
+        $this->idUsuario = $idUsuario;
     }
 
     public function getId()
@@ -73,4 +75,15 @@ class Pedido{
     {
         $this->situacao = $situacao;
     }
+
+    public function setUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function getUsuario()
+    {
+       return $this->idUsuario;
+    }
+
 }
