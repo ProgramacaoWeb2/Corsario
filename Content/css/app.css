@@ -360,3 +360,8 @@ textarea {
     font-weight: bold;
     font-size: 2rem;
 }
+
+#dynamicContent{
+    margin-top: -4.7rem;
+    margin-left: -2.5rem;
+}

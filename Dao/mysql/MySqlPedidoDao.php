@@ -72,10 +72,30 @@ class MySqlPedidoDao extends Dao implements DaoPedido
         return $pedido;
     }
 
-   
-    public function getTodos()
+
+    public function getTodos($searchArray = NULL)
     {
         $query = "SELECT idPedido ,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela;
+
+        $conditions = [];
+
+        if (isset($searchArray)) {
+
+            if (!empty($searchArray['idUsuario']))
+                $conditions[] = ' idUsuario = ' . $searchArray['idUsuario'];
+
+            if (!empty($searchArray['idPedido']))
+                $conditions[] = ' idPedido = ' . $searchArray['idPedido'];
+
+            if (!empty($searchArray['numero']))
+                $conditions[] = ' numero = ' . $searchArray['numero'];
+
+            if ($conditions) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+        }
+
+
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -106,10 +126,31 @@ class MySqlPedidoDao extends Dao implements DaoPedido
         return false;
     }
 
-    public function getTodosPaginacao($limit, $offset)
+    public function getTodosPaginacao($limit, $offset, $searchArray)
     {
-        $query =  "SELECT idPedido ,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela . " limit " . $limit . " offset " . $offset ; 
-        
+        $query =  "SELECT idPedido ,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela;
+
+        $conditions = [];
+
+        if (isset($searchArray)) {
+
+            if (!empty($searchArray['idUsuario']))
+                $conditions[] = ' idUsuario = ' . $searchArray['idUsuario'];
+
+            if (!empty($searchArray['idPedido']))
+                $conditions[] = ' idPedido = ' . $searchArray['idPedido'];
+
+            if (!empty($searchArray['numero']))
+                $conditions[] = ' numero = ' . $searchArray['numero'];
+
+            if ($conditions) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+        }
+
+
+        $query =   $query . " limit " . $limit . " offset " . $offset;
+
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -137,6 +178,4 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         return null;
     }
-
-
 }

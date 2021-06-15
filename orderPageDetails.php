@@ -16,7 +16,7 @@ include_once('DbFactory.php');
 
     <div class="search-panel">
 
-        <form action="#" method="get">
+        <form>
             <div class="row">
                 <div class="col-md-3 col-sm-4">
                     <label for="idInput"># </label>
@@ -24,18 +24,18 @@ include_once('DbFactory.php');
                 </div>
 
                 <div class="col-md-3 col-sm-4">
-                    <label for="nameInput">Número do Pedido </label>
-                    <input type="text" class="form-control form-control-sm" id="nameInput" aria-describedby="nameInput" name="nameInput" placeholder="Ex: Tijolinho">
+                    <label for="numeroInput">Número do Pedido </label>
+                    <input type="text" class="form-control form-control-sm" id="numeroInput" aria-describedby="numeroInput" name="numeroInput" placeholder="Ex: Tijolinho">
                 </div>
 
                 <div class="col-md-3 col-sm-4">
-                    <label for="nameInput">Nome do Cliente </label>
-                    <input type="text" class="form-control form-control-sm" id="nameInput" aria-describedby="nameInput" name="nameInput" placeholder="Ex: Urubu">
+                    <label for="orderNameInput">Nome do Cliente </label>
+                    <input type="text" class="form-control form-control-sm" id="orderNameInput" aria-describedby="orderNameInput" name="orderNameInput" placeholder="Ex: Urubu">
                 </div>
 
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-user-search">Pesquisar</button>
+                    <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-order-details" >Pesquisar</button>
                 </div>
 
                 <div class="col-md-12">
@@ -47,14 +47,42 @@ include_once('DbFactory.php');
 
 
 
+
         </form>
 
+
+
     </div>
 
+    <nav id="dynamicContent">
 
-
-    <div>
-        <?php include_once "orderListPartial.php"; ?>
-    </div>
+    </nav>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        load_data(1);
+
+        function load_data(page, query ='') {
+
+            $.ajax({
+                url: "orderListPartial.php",
+                method: "POST",
+                data: {
+                    page: page,
+                    query: query
+                },
+                success: function(data) {
+                    $('#dynamicContent').html(data);
+                }
+            });
+        }
+
+        $(document).on('click', '.page-link', function() {
+            var page = $(this).data('page_number');
+            var query = $('#search_box').val();
+            load_data(page, query);
+        });
+    });
+</script>

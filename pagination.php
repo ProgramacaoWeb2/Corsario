@@ -22,7 +22,7 @@ $total_data = $db->Produto()->countProdutos();
 
 
 $output = '
-<label>Quantidade de Registros | ' . $total_data . '</label>
+<label class="color-purple">Quantidade de Registros | ' . $total_data . '</label>
 <table class="table">
   <thead class="thead-purple">
     <tr>
@@ -116,7 +116,7 @@ for ($count = 0; $count < count($page_array); $count++) {
   if ($page == $page_array[$count]) {
     $page_link .= '
     <li class="page-item active">
-      <a class="page-link " href="#">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
+      <a class="page-link background-purple" href="#">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
     </li>
     ';
 

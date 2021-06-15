@@ -14,10 +14,26 @@ if (@$_POST['page'] > 1) {
   $start = 0;
 }
 
-$pedidos = $db->Pedido()->getTodosPaginacao($limit, $start);
+
+$idPedido = @$_POST['idPedido'];
+$numero = @$_POST['numero'];
+$nome = @$_POST['nome'];
+$search = NULL;
+
+if (isset($search)) {
+
+  if (!empty($search["nome"])) {
+    $pedidos = $db->Usuario()->getTodos($search["nome"]);
+  } else {
+    $pedidos = $db->Pedido()->getTodosPaginacao($limit, $start, $search);
+  }
+} else {
+  $pedidos = $db->Pedido()->getTodosPaginacao($limit, $start, $search);
+}
+
+
+
 $total_data = $db->Pedido()->countPedido();
-
-
 
 $output = '
 <label>Quantidade de Registros | ' . $total_data . '</label>
@@ -35,8 +51,14 @@ $output = '
   </thead>
 ';
 if ($total_data > 0) {
+
+
   foreach ($pedidos as $pedido) {
-  
+
+    if (empty($search["idUsuario"])) {
+      $usuario = $db->Usuario()->getPorCodigo($pedido->getUsuario());
+    }
+
     $output .= '
     <tr>
       <td>' . $pedido->getId() . '</td>
@@ -44,7 +66,7 @@ if ($total_data > 0) {
       <td>' . $pedido->getDataPedido() . '</td>
       <td>' . $pedido->getDataEntrega() . '</td>
       <td>' . $pedido->getSituacao() . '</td>
-      <td>' . $pedido->getUsuario() . '</td>
+      <td>' . $usuario->getName() . '</td>
 
 
       <td>
@@ -54,8 +76,9 @@ if ($total_data > 0) {
                             Opções
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" id="btn-edit-product" href=productEdit.php?id='.$pedido->getId(). '>Editar Produto</a>
-                            <a class="dropdown-item" id="btn-delete-product" href="productDelete.php?id='.$pedido->getId().'"> Deletar Produto</a>
+                            <a class="dropdown-item" id="btn-edit-order" href=productEdit.php?id=' . $pedido->getId() . '>Editar Pedido</a>
+                            <a class="dropdown-item" id="btn-delete-order" href="productDelete.php?id=' . $pedido->getId() . '"> Deletar Pedido</a>
+                            <a class="dropdown-item" id="btn-order-details" href="orderPageDetails.php?id= ' . $pedido->getId() . ' "> Mostra detalhe</a>
                         </div>
                     </div>
 

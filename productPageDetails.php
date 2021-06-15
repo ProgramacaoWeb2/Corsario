@@ -60,8 +60,10 @@ $products =  $db->Produto()->getTodos();
 
 
 <script>
-    $(document).ready(function() {
 
+    $(document).ready(function() {
+       
+       
         load_data(1);
 
         function load_data(page, query = '') {
@@ -72,18 +74,20 @@ $products =  $db->Produto()->getTodos();
                     page: page,
                     query: query
                 },
+
                 success: function(data) {
                     $('#dynamicContent').html(data);
                 }
             });
         }
 
-        $(document).on('click', '.page-link', function() {
+        $(document).on('click', '.page-link', function(e) {
+            e.preventDefault();
+
             var page = $(this).data('page_number');
             var query = $('#search_box').val();
             load_data(page, query);
         });
-
 
     });
 </script>
