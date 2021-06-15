@@ -122,7 +122,7 @@ for ($count = 0; $count < count($page_array); $count++) {
 
     $previous_id = $page_array[$count] - 1;
     if ($previous_id > 0) {
-      $previous_link = '<li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $previous_id . '">Anterior</a></li>';
+      $previous_link = '<li class="page-item"><a class="page-link color-purple" href="javascript:void(0)" data-page_number="' . $previous_id . '">Anterior</a></li>';
     } else {
       $previous_link = '
       <li class="page-item disabled">
@@ -138,7 +138,7 @@ for ($count = 0; $count < count($page_array); $count++) {
       </li>
         ';
     } else {
-      $next_link = '<li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $next_id . '">Próximo</a></li>';
+      $next_link = '<li class="page-item"><a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $next_id . '">Próximo</a></li>';
     }
   } else {
     if ($page_array[$count] == '...') {
@@ -149,7 +149,7 @@ for ($count = 0; $count < count($page_array); $count++) {
       ';
     } else {
       $page_link .= '
-      <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $page_array[$count] . '">' . $page_array[$count] . '</a></li>
+      <li class="page-item"><a class="page-link color-purple" href="javascript:void(0)" data-page_number="' . $page_array[$count] . '">' . $page_array[$count] . '</a></li>
       ';
     }
   }
