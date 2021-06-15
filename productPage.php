@@ -19,7 +19,7 @@ $suppliers = $db->Fornecedor()->getTodos();
         <div id="loginContent">
             <div class="formArea">
 
-                <form enctype="multipart/form-data">
+                <form enctype="multipart/form-data" method="POST">
 
                     <div class="form-group">
                         <label for="inputProductName">Nome:</label>

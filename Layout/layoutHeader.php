@@ -14,6 +14,8 @@
  
     <link href="Content/fonts/Roboto" rel="stylesheet">
 
+    <link href="Content/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="Content/fontawesome/css/solid.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="Content/css/app.css" />
     <script src="Content/js/app.js"></script>
