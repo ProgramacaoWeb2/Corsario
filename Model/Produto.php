@@ -7,15 +7,17 @@ class Produto{
     private $descricao;
     private $foto;
     private $idFornecedor;
+    private $Estoque;
 
 
-    public function __construct($id, $nome, $descricao, $foto, $idFornecedor)
+    public function __construct($id, $nome, $descricao, $foto, $idFornecedor, $Estoque = null)
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->foto = $foto;
         $this->idFornecedor = $idFornecedor;
+        $this->Estoque = $Estoque;
         
     }
 
@@ -96,6 +98,14 @@ class Produto{
 
         return $this;
     }
+    
+
+    public function getEstoque()
+    {
+        return $this->Estoque;
+    }
+
+
 
     public function getProdutoJSON(){
         $produto = [

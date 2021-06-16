@@ -60,7 +60,7 @@ CREATE TABLE Produto(
 
 
     nome VARCHAR(200) NOT NULL,
-    descricao VARCHAR(70) NOT NULL,
+    descricao VARCHAR(1000) NOT NULL,
     foto VARCHAR(70) NOT NULL,
      
    

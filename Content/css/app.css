@@ -298,7 +298,6 @@ textarea {
 
 .price-product{
     text-align: center;
-    padding-bottom: 0.5rem;
 }
 
 .main-price-product{
@@ -351,9 +350,27 @@ textarea {
 }
 
 
-#btn-buy:hover{
+#btn-buy:hover,.product-add-cart:hover{
     background-color: #a6afec;
 }
+
+.product-add-cart{
+    color: #fff;
+    background-color: #6775d8;
+    cursor: pointer;
+    text-align: center;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.product-unavailable{
+    color: #fff;
+    background-color: #848484;
+    text-align: center;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+}
+
 
 #product-price{
     padding: 0 1rem;

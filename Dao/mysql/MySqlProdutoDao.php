@@ -91,7 +91,8 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
     public function getTodos()
     {
-        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela;
+        $query = "SELECT t0.idProduto, t0.nome, t0.descricao, t0.foto, t0.fkFornecedorProduto, t1.idEstoque, t1.quantidade, t1.preco FROM ".$this->tabela." t0 JOIN estoque t1 on t1.fkProdutoEstoque = t0.idProduto";
+
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -99,7 +100,9 @@ class MySqlProdutoDao extends Dao implements DaoProduto
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto);
+
+            $estoque = new Estoque($quantidade, $preco, $idProduto);
+            $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto, $estoque);
             $produtos[] = $produto;
         }
         return $produtos;
