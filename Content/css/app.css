@@ -382,3 +382,17 @@ textarea {
     margin-top: -4.7rem;
     margin-left: -2.5rem;
 }
+
+.background-purple{
+    background-color: #6775d8 !important ;
+    border: 1px #6775d8  !important;
+}
+
+.color-purple{
+    color: #6775d8 !important;
+    border: 1px #6775d8 !important;
+}
+
+td{
+    font-size: 14px;
+}
