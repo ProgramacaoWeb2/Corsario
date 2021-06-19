@@ -1,6 +1,8 @@
 <?php include_once "Layout/layoutHeader.php"; ?>
 
-
+<?php 
+  $returnUrl = @$_GET['returnUrl'];
+?>
 <div id="loginbBody">
 
     <span>Cadastre-se</span>
@@ -8,6 +10,10 @@
     <div id="loginContent">
         <div class="formArea" id="loginFormArea">
             <form>
+                <?php if(isset($returnUrl)){ ?>
+                    <input type="hidden" id="returnUrl" value="<?php echo  $returnUrl; ?>">
+                <?php } ?>
+
                 <div class="formGroup">
                     <label for="inputUsername">Nome:</label>
                     <input type="text" id="inputName" name="inputName" placeholder="João" required>

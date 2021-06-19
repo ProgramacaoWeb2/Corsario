@@ -34,13 +34,35 @@
             <div class="price-product">
                 <div class="main-price-product"><?php echo $price  ?></div>
 
-                <?php if($produto->getEstoque()->getQuantidade() <= 0) {?>
+                <?php 
+                    $unavailable = false;
+                    if(isset($_SESSION["SessionCart"])){
+                        $cartArray = json_decode($_SESSION["SessionCart"]);
+                        $idProduto = $produto->getId();
+
+                        $fItem = array_filter(
+                            $cartArray,
+                            function ($e) use (&$idProduto) {
+                                return $e->idProduto == (int)$idProduto;
+                            }
+                        );
+                    
+                        $count = count($fItem);
+                        if($count > 0){
+                            $item = reset($fItem);
+                            if($item->qtd >= (int)$produto->getEstoque()->getQuantidade())
+                                $unavailable = true;
+                        }
+                    }
+                ?>
+
+                <?php if($produto->getEstoque()->getQuantidade() <= 0 ||  $unavailable) {?>
                     <div class="product-unavailable">
                         Indisponível
                     </div>
                 <?php } else { ?>
                     <div class="product-add-cart">
-                        <i class="fas fa-shopping-cart"></i> Adicionar
+                        <i class="fas fa-cart-plus"></i> Adicionar
                     </div>
                 <?php } ?>
             </div>

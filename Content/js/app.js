@@ -2,10 +2,19 @@
 $(() => {
 
 
+    
 
     $('#appBody').on('click', '#btn-order-details', () => {
         return DetailsOrder();
     });
+    $('.nav-link-cart').on('click', () => {
+        if($('#cart-option').is(':visible'))
+            $('#cart-option').hide();
+        else
+            $('#cart-option').show();
+
+    });
+
 
     $('#appBody').on('click', '#btn-create-product', () => {
         return CreateProduct();
@@ -59,6 +68,53 @@ $(() => {
 
     });
 
+
+    $('#appBody').on('click','.product-add-cart', (elem) =>{
+        var idProduto = $(elem.target).closest('.card-product').data('product');
+        AddToCart(idProduto);
+
+    });
+
+
+    $('#appBody').on('keyup','.input-qtd-cart', (elem) =>{
+        var value = parseInt($(elem.target).val());
+        var maxValue = parseInt($(elem.target).attr('max'));
+
+        if(value > maxValue){
+            $(elem.target).val(maxValue);
+        }
+        else if(value <= 0)
+            $(elem.target).val(1);
+    });
+
+    $('#appBody').on('chance','.input-qtd-cart', (elem) =>{
+        var value = parseInt($(elem.target).val());
+        var maxValue = parseInt($(elem.target).attr('max'));
+
+        if(value > maxValue){
+            $(elem.target).val(maxValue);
+        }
+        else if(value <= 0)
+            $(elem.target).val(1);
+    });
+
+    $('#appBody').on('focusout','.input-qtd-cart', (elem) =>{
+        UpdateCart();
+    });
+
+
+    $('#appBody').on('click','#btn-buy-logged', (elem) =>{
+        AddOrder(0);
+
+    });
+
+    $('#appBody').on('click','#btn-buy-unlogged', (elem) =>{
+        AddOrder(1);
+
+    });
+
+    
+
 })
 
 var DetailsOrder = () => {
@@ -74,7 +130,84 @@ var DetailsOrder = () => {
 
 
 }
+var AddOrder = (option) =>{
+    switch (option) {
+        case 0:
+            window.location = '/confirmOrder.php';
+            break;
 
+        case 1:
+            window.location = '/loginPage.php?returnUrl=/confirmOrder.php';
+            break;
+    
+    }
+
+}
+
+var DeleteItemCart = (idProduto) => {
+    bootbox.confirm({
+        message: "Deseja deletar remover o produto do seu carrinho?",
+        buttons: {
+            confirm: {
+                label: 'Sim',
+                className: 'btn-purple'
+            },
+            cancel: {
+                label: 'Não',
+                className: 'btn-secondary'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.getJSON('/deleteItemCart.php', { idProduto: idProduto }, function (data) {
+                    if (data.status)
+                        window.location.reload();
+                    else
+                        AlertMessage(data.status, data.message);
+                });
+            }
+        }
+    });
+
+}
+
+var UpdateCart = () => {
+    var listItens = $('.input-qtd-cart').map(function(i, elem){
+        var idProduto = parseInt($(elem).data('product'));
+        var qtd = parseInt($(elem).val());
+        return { idProduto: idProduto, qtd: qtd };
+
+    }).get();
+
+    $.post('/updateCart.php', { listItens: listItens }, function (data) {
+        if (data.status){
+            window.location.reload();
+        }
+        else
+            AlertMessage(data.status, data.message);
+
+    }, 'json');
+
+}
+
+
+var AddToCart = (idProduto) => {
+
+    $.post('/addToCart.php', { idProduto: idProduto }, function (data) {
+        if (data.status){
+            if(data.setUnavailable){
+                $(`.card-product.col-md-3[data-product="${idProduto}"] .product-add-cart`).remove();
+                $(`.card-product.col-md-3[data-product="${idProduto}"] .price-product`).append('<div class="product-unavailable">Indisponível</div>');
+            }
+
+            $('#total-cart').html(data.qtd);
+        }
+        else
+            AlertMessage(data.status, data.message);
+
+    }, 'json');
+    
+}
 
 var CreateProduct = () => {
 
@@ -185,6 +318,7 @@ var CreateUser = () => {
     var inputAddressCity = $('#inputAddressCity').val();
     var inputAddressState = $('#inputAddressState').val();
 
+    var returnUrl = $('#returnUrl').val();
 
     $.post('/createUser.php', {
         inputName: inputName,
@@ -204,8 +338,21 @@ var CreateUser = () => {
         inputAddressState: inputAddressState,
 
     }, function (data) {
-        if (data.status)
-            window.location = "index.php";
+        if (data.status){
+
+            $.post('/executeLogin.php', { inputUsername: inputUsername, inputPassword: inputPassword }, function (data) {
+                if (data.status){
+                    if(returnUrl)
+                        window.location = returnUrl;
+                    else
+                        window.location = "index.php";
+                    }
+                else
+                    AlertMessage(data.status, data.message);
+            }, 'json');
+
+            
+        }
         else
             AlertMessage(data.status, data.message);
     }, 'json');
@@ -344,9 +491,16 @@ var ExecLogin = () => {
     var inputUsername = $('#inputUsername').val();
     var inputPassword = $('#inputPassword').val();
 
+    var returnUrl = $('#returnUrl').val();
+
     $.post('/executeLogin.php', { inputUsername: inputUsername, inputPassword: inputPassword }, function (data) {
-        if (data.status)
-            window.location = "index.php";
+        if (data.status){
+            if(returnUrl)
+                window.location = returnUrl;
+            else
+                indow.location = "index.php";
+            
+        }
         else
             AlertMessage(data.status, data.message);
     }, 'json');

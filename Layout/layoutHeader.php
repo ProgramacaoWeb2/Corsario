@@ -87,15 +87,30 @@
         <?php } ?>
 
      <li> <div class="dropdown-divider"></div></li>
-     <?php if( !isset($_SESSION["userType"]) || $_SESSION["userType"] == 0){ ?>
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Carrinho</a>
+
+     <?php 
+         $sum = 0; 
+         if(isset($_SESSION["SessionCart"])){
+             $cartArray = json_decode($_SESSION["SessionCart"]);
+             $sum = count($cartArray);
+
+         }
+            
+            
+        ?>
+       <li class="nav-item active nav-link-cart">
+            <a class="nav-link"><i class="fas fa-shopping-cart"></i> <span id="total-cart"> <?php echo $sum; ?></span></a>
         </li>
-      <?php } ?>
      
     </ul>
   </div>
 </header>
 
+<div id="cart-option" style="display:none">
+    <ul>
+        <li><a href="/cart.php" target="blank"> <i class="fas fa-shopping-basket"></i> Ver carrinho</a></li>
+        <li><a href="/clearCart.php"><i class="fas fa-trash"></i> Limpar carrinho</a></li>
+    </ul>
+</div>
 
 <div id="appBody">

@@ -56,7 +56,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $produto = null;
 
-        $query = "SELECT idProduto, nome, descricao, foto, fkFornecedorProduto FROM " . $this->tabela . " WHERE idProduto = :idProduto LIMIT 1";
+        $query = "SELECT t0.idProduto, t0.nome, t0.descricao, t0.foto, t0.fkFornecedorProduto, t1.idEstoque, t1.quantidade, t1.preco FROM ".$this->tabela." t0 JOIN estoque t1 on t1.fkProdutoEstoque = t0.idProduto WHERE t0.idProduto = :idProduto LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);
@@ -65,7 +65,8 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto']);
+            $estoque = new Estoque($row['quantidade'], $row['preco'], $row['idProduto']);
+            $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto'],$estoque );
         }
 
         return $produto;
@@ -92,6 +93,24 @@ class MySqlProdutoDao extends Dao implements DaoProduto
     public function getTodos()
     {
         $query = "SELECT t0.idProduto, t0.nome, t0.descricao, t0.foto, t0.fkFornecedorProduto, t1.idEstoque, t1.quantidade, t1.preco FROM ".$this->tabela." t0 JOIN estoque t1 on t1.fkProdutoEstoque = t0.idProduto";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $produtos = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+
+            $estoque = new Estoque($quantidade, $preco, $idProduto);
+            $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto, $estoque);
+            $produtos[] = $produto;
+        }
+        return $produtos;
+    }
+
+    public function getByList($list){
+        $query = "SELECT t0.idProduto, t0.nome, t0.descricao, t0.foto, t0.fkFornecedorProduto, t1.idEstoque, t1.quantidade, t1.preco FROM ".$this->tabela." t0 JOIN estoque t1 on t1.fkProdutoEstoque = t0.idProduto WHERE t0.idProduto in (".implode(" , ", $list).")";
 
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
