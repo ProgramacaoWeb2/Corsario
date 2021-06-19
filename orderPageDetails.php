@@ -54,9 +54,7 @@ include_once('DbFactory.php');
 
     </div>
 
-    <nav id="dynamicContent">
-
-    </nav>
+  <?php include_once("orderListPartialNoPag.php");  ?>
 
 </div>
 

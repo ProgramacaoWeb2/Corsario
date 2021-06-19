@@ -3,8 +3,9 @@ $(() => {
 
 
 
-
-
+    $('#appBody').on('click', '#btn-order-details', () => {
+        return DetailsOrder();
+    });
 
     $('#appBody').on('click', '#btn-create-product', () => {
         return CreateProduct();
@@ -60,7 +61,19 @@ $(() => {
 
 })
 
+var DetailsOrder = () => {
 
+    let orderId = {};
+    orderId = $('#idInput').val();
+ 
+    $.post('/userListPartial.php', { search: search }, function (data) {
+
+        $('#display-users').html(data);
+
+    }, 'html');
+
+
+}
 
 
 var CreateProduct = () => {

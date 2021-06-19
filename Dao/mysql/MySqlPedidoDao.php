@@ -66,7 +66,7 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $pedido = new Produto($row['idPedido'], $row['numero'], $row['dataPedido'], $row['dataEntrega'], $row['situacao'], $row['idUsuario']);
+            $pedido = new Pedido($row['idPedido'], $row['numero'], $row['dataPedido'], $row['dataEntrega'], $row['situacao'], $row['idUsuario']);
         }
 
         return $pedido;
@@ -103,7 +103,7 @@ class MySqlPedidoDao extends Dao implements DaoPedido
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
             extract($row);
-            $pedido = new Produto($idPedido, $numero, $dataPedido, $dataEntrega, $situacao, $idUsuario);
+            $pedido = new Pedido($idPedido, $numero, $dataPedido, $dataEntrega, $situacao, $idUsuario);
             $pedidos[] = $pedido;
         }
         return $pedidos;

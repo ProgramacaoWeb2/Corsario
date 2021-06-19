@@ -65,7 +65,7 @@ class MySqlPedidoItens extends Dao implements DaoPedidoItens
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $pedido = new Produto($row['idItemPedido'], $row['quantidade'], $row['fkPedido'], $row['fkProduto'], $row['preco']);
+            $pedido = new Pedidoitens($row['idItemPedido'], $row['quantidade'], $row['fkPedido'], $row['fkProduto'], $row['preco']);
         }
 
         return $pedido;
