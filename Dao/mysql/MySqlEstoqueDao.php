@@ -38,6 +38,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
         $prep->bindValue(":quantidade", $estoque->getQuantidade());
         $prep->bindValue(":preco", $estoque->getPreco());
         $prep->bindValue(":fkProdutoEstoque", $estoque->getIdProduto());
+        $prep->bindValue(":idEstoque", $estoque->getId());
 
 
         if ($prep->execute()) {
@@ -173,6 +174,21 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
         }
 
         return false;
+    }
+
+    public function ultimoIdCadastrado()
+    {
+        $query =  "SELECT MAX(idEstoque) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row[0];
+        }
+
+        return null;
     }
 
 }

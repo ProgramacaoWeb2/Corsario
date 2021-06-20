@@ -2,7 +2,7 @@
 
 class Estoque
 {
-    
+    private $idEstoque;
     private $quantidade;
     private $preco;
     private $idProduto;
@@ -45,5 +45,15 @@ class Estoque
     public function setIdProduto($idProduto)
     {
         $this->idProduto = $idProduto;
+    }
+
+    public function getId()
+    {
+        return $this->idEstoque;
+    }
+
+    public function setId($idEstoque)
+    {
+        $this->idEstoque = $idEstoque;
     }
 }
