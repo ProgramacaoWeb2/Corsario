@@ -5,6 +5,7 @@ header("Content-Type: application/json");
 
 $cartArray = json_decode($_SESSION["SessionCart"]); // [ {idProduto: 1, qtd: 2}, {idProduto: 3, qtd: 1}]
 $idUsuarioPedido = $_SESSION["idUsuario"];
+$count = 0;
 
 $listaProdutosPedido = array_map(function($item){
     return $item->idProduto;
@@ -24,17 +25,18 @@ foreach ($listaProdutosPedido as $produtoPedido) {
 
 
 
-    if ($listaProdutosQtd[0] > $estoque->getQuantidade()) {
+    if ($listaProdutosQtd[$count] > $estoque->getQuantidade()) {
         $res = "Quantidade em estoque insuficiente | Quantidade em estoque{$estoque}";
         return $res;
     }
+    $count++;
 }
 
-
+$count = 0;
 $dataDoPedido = new DateTime();
 $dataDoPedido = $dataDoPedido->format('d-m-y');
 $numeroPedido = $db->Pedido()->countPedido() + 1;
-$count = 0;
+
 
 $pedidoNovo = new Pedido(null, $numeroPedido, $dataDoPedido, $dataDoPedido, "novo", $idUsuarioPedido);
 $db->Pedido()->insere($pedidoNovo);
@@ -45,8 +47,7 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $produto = $db->Produto()->getPorCodigo($produtoPedido);
     $estoque = $db->Estoque()->pesquisaProdutoPorId($produto->getId());
 
-
-    $pedidoItens = new Pedidoitens(null, $listaProdutosQtd[$count], $idPedidoNovo, $produtoPedido, $estoque->getPreco());
+    $pedidoItens = new Pedidoitens(NULL, $listaProdutosQtd[$count], $idPedidoNovo, $produtoPedido, $estoque->getPreco());
     $db->PedidoItens()->insere($pedidoItens);
 
 

@@ -348,6 +348,7 @@ var CreateUser = () => {
                         window.location = "index.php";
                     }
                 else
+                    window.location = "index.php";
                     AlertMessage(data.status, data.message);
             }, 'json');
 

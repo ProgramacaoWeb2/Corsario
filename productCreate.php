@@ -63,5 +63,5 @@ if ($product === NULL) {
 }
 
 
-//header("Location: productPageDetails.php");
+header("Location: productPageDetails.php");
 exit;
