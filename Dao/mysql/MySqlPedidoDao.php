@@ -109,6 +109,68 @@ class MySqlPedidoDao extends Dao implements DaoPedido
         return $pedidos;
     }
 
+    public function getTodosJSON($searchArray = NULL)
+    {
+        $query = "SELECT idPedido,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela;
+
+        $conditions = [];
+
+        if (isset($searchArray)) {
+
+            // if (!empty($searchArray['idUsuario']))
+            //     $conditions[] = ' idUsuario = ' . $searchArray['idUsuario'];
+
+            if (!empty($searchArray['idPedido']))
+                $conditions[] = ' idPedido = ' . $searchArray['idPedido'];
+
+            if ($conditions) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+        }
+
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $pedidos = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+            $itens = $this->getItensJSON($idPedido);
+
+            array_push($pedidos, [
+                "num_pedido" => $row['idPedido'],
+                "num_cliente" => $row['idUsuario'],
+                "dt_pedido" => $row['dataPedido'],
+                "dt_entrega" => $row['dataEntrega'],
+                "situacao" => $row['situacao'],
+                "itens" =>  $itens
+            ]);
+        }
+        return stripslashes(json_encode($pedidos,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    public function getItensJSON($idPedido)
+    {
+        $query = "SELECT idItemPedido, quantidade, fkPedido, fkProduto, preco FROM pedidoitens WHERE fkPedido = ".$idPedido;
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $itens = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+
+            array_push($itens, [
+                "id_produto" => $row['fkProduto'],
+                "preco" => $row['preco'],
+                "qtd" => $row['quantidade']
+            ]);
+
+        }
+        return $itens;
+    }
 
     public function deleta($pedido)
     {
