@@ -139,8 +139,8 @@ class MySqlPedidoDao extends Dao implements DaoPedido
             $itens = $this->getItensJSON($idPedido);
 
             array_push($pedidos, [
-                "num_pedido" => $row['idPedido'],
-                "num_cliente" => $row['idUsuario'],
+                "id_pedido" => $row['idPedido'],
+                "id_cliente" => $row['idUsuario'],
                 "dt_pedido" => $row['dataPedido'],
                 "dt_entrega" => $row['dataEntrega'],
                 "situacao" => $row['situacao'],
