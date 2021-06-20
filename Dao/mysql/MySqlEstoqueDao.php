@@ -149,7 +149,7 @@ class MySqlEstoqueDao extends Dao implements DaoEstoque
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $estoque = new Estoque( $row['quantidade'], $row['preco'], $row['fkProdutoEstoque']);
+            $estoque = new Estoque($row['idEstoque'] ,$row['quantidade'], $row['preco'], $row['fkProdutoEstoque']);
         }
 
         return $estoque;

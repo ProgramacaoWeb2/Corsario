@@ -49,9 +49,12 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $pedidoItens = new Pedidoitens(null, $listaProdutosQtd[$count], $idPedidoNovo, $produtoPedido, $estoque->getPreco());
     $db->PedidoItens()->insere($pedidoItens);
 
-    $novaQtdEstoque =  $pedidoItens->getQuantidade() - $listaProdutosQtd[$count];
-    $estoqueAtualizado = new Estoque($novaQtdEstoque, $estoque->getPreco(), $produtoPedido);
-    $estoqueAtualizado->setId($estoque->getId());
+
+    $novaQtdEstoque =  $estoque->getQuantidade() - $listaProdutosQtd[$count];
+    $estoqueAtualizado = new Estoque($estoque->getId(),$novaQtdEstoque, $estoque->getPreco(), $produtoPedido);
+ 
+    echo $estoqueAtualizado->getId();
+
     $db->Estoque()->altera($estoqueAtualizado);
     $count++;
 }

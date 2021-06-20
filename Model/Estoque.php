@@ -7,8 +7,9 @@ class Estoque
     private $preco;
     private $idProduto;
 
-    public function __construct($quantidade, $preco, $idProduto)
+    public function __construct($idEstoque,$quantidade, $preco, $idProduto)
     {
+        $this->idEstoque = $idEstoque;
         $this->quantidade = $quantidade;
         $this->preco = $preco;
         $this->idProduto = $idProduto;

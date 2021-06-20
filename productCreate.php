@@ -39,7 +39,7 @@ if ($product === NULL) {
     $productDb->insere($productNew);
     $ultimoCadastro = $productDb->ultimoIdCadastrado();
 
-    $estoqueNew = new Estoque(1, $price, $ultimoCadastro);
+    $estoqueNew = new Estoque(NULL,1, $price, $ultimoCadastro);
 
     $estoqueDb->insere($estoqueNew);
 } else {
