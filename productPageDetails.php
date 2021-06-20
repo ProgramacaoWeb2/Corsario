@@ -52,9 +52,9 @@ $products =  $db->Produto()->getTodos();
 
 
 
-    <nav id="dynamicContent">
+    <div id="dynamicContent">
 
-    </nav>
+    </div>
 
 </div>
 
