@@ -178,4 +178,20 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         return null;
     }
+
+
+    public function ultimoIdCadastrado()
+    {
+        $query =  "SELECT MAX(IdPedido) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row[0];
+        }
+
+        return null;
+    }
 }
