@@ -65,7 +65,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $estoque = new Estoque($row['quantidade'], $row['preco'], $row['idProduto']);
+            $estoque = new Estoque($row['idEstoque'],$row['quantidade'], $row['preco'], $row['idProduto']);
             $produto = new Produto($row['idProduto'], $row['nome'], $row['descricao'], $row['foto'], $row['fkFornecedorProduto'],$estoque );
         }
 
@@ -102,7 +102,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
             extract($row);
 
-            $estoque = new Estoque($quantidade, $preco, $idProduto);
+            $estoque = new Estoque(null,$quantidade, $preco, $idProduto);
             $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto, $estoque);
             $produtos[] = $produto;
         }
@@ -120,7 +120,7 @@ class MySqlProdutoDao extends Dao implements DaoProduto
 
             extract($row);
 
-            $estoque = new Estoque($quantidade, $preco, $idProduto);
+            $estoque = new Estoque(null,$quantidade, $preco, $idProduto);
             $produto = new Produto($idProduto, $nome, $descricao, $foto, $fkFornecedorProduto, $estoque);
             $produtos[] = $produto;
         }
