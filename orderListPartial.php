@@ -1,9 +1,7 @@
 <?php
 $page_title = "Pesquisa Detalhada";
 
-include_once("Layout/layoutHeader.php");
 include_once("DbFactory.php");
-include_once("authentication.php");
 
 $limit = '10';
 $page = 1;

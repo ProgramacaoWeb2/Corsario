@@ -1,9 +1,9 @@
 <?php
 $page_title = "Pesquisa Detalhada";
 
-include_once("Layout/layoutHeader.php");
+// include_once("Layout/layoutHeader.php");
 include_once("DbFactory.php");
-include_once("authentication.php");
+// include_once("authentication.php");
 
 $limit = '10';
 $page = 1;
@@ -116,7 +116,7 @@ for ($count = 0; $count < count($page_array); $count++) {
   if ($page == $page_array[$count]) {
     $page_link .= '
     <li class="page-item active">
-      <a class="page-link background-purple" href="#">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
+      <a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $page. '">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
     </li>
     ';
 
