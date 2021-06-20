@@ -113,6 +113,20 @@ $(() => {
 
     });
 
+    $('#appBody').on('click','.card-product', (elem) =>{
+        if($(elem.target).is('.product-add-cart') || $(elem.target).is('.product-unavailable')){
+            return;
+        }
+        else{
+            var idProduto = $($(elem.target).closest('.card-product')).data('product');
+            window.location = "/productInfo.php?idProduto="+idProduto;
+        }
+        
+
+    });
+
+
+    
     
 
 })

@@ -1,10 +1,18 @@
 <?php include_once "Layout/layoutHeader.php"; ?>
 
-<style>
+<?php 
+  require "DbFactory.php";
+  $formatter = new NumberFormatter('pt_BR',  NumberFormatter::CURRENCY);
+  $idProduto = @$_GET["idProduto"];
+  $produto = $db->Produto()->getPorCodigo($idProduto);
 
-</style>
+  $path = dirname(__FILE__).$produto->getFoto();
 
-<div class="conteiner col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin: 3rem 0;">
+  $imagesArray = array_diff(scandir($path), array('.', '..')); 
+  $price = $formatter->formatCurrency($produto->getEstoque()->getPreco(), 'BRL');
+?>
+
+<div class="conteiner col-md-12 col-lg-12 col-sm-12 col-xs-12 " style="margin: 3rem 0;">
     <div class="row">
 
     <div class="col-md-9">
@@ -12,20 +20,33 @@
             <div class="col-md-6">
             <div id="carouselProduct" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#carouselProduct" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselProduct" data-slide-to="1"></li>
-                    <li data-target="#carouselProduct" data-slide-to="2"></li>
+                <?php 
+                $count = 0;
+                $active = "active";
+                foreach ($imagesArray as $i) { 
+                    if( $count > 0)
+                        $active = "";
+                ?>
+                     <li data-target="#carouselProduct" data-slide-to="<?php echo $count; ?>" class="<?php echo $active; ?>"></li>
+                <?php  $count++; } ?>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img class="d-block w-100" src="./Uploads/1.jpg">
-                    </div>
-                    <div class="carousel-item">
-                    <img class="d-block w-100" src="./Uploads/2.jpg">
-                    </div>
-                    <div class="carousel-item">
-                    <img class="d-block w-100" src="./Uploads/3.jpg">
-                    </div>
+
+                    <?php 
+                    $count = 0;
+                    $active = "active";
+                    foreach ($imagesArray as $image){ 
+                        if( $count > 0)
+                            $active = "";
+                    ?>
+
+                        <div class="carousel-item <?php echo $active; ?>">
+                             <img class="d-block w-100" src="<?php echo ".".$produto->getFoto()."/".$image; ?>">
+                        </div>
+
+                    <?php  $count++; } ?>
+                    
+
                 </div>
                 <a class="carousel-control-prev" href="#carouselProduct" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,13 +61,13 @@
     
             <div class="col-md-6">
                 <div id="product-name">
-                    Nome do produto men kkkk foda compra 
+                    <?php echo $produto->getNome(); ?>
                 </div>
                 <div id="product-id">
-                    #889955
+                    <?php echo "#".$produto->getId(); ?>
                 </div>
                 <div id="product-desc">
-                    Produto muito pica pqp seloco produto muito bom se não acredita compra ae sério pq negócio muito bom seloco mano bagulho é pica, compra ae e cala a boca.
+                    <?php echo $produto->getDescricao(); ?>
                 </div>
             
             </div>
@@ -55,14 +76,47 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-3 card-product price-product" data-product="<?php echo $produto->getId(); ?>">
         <div id="product-price">
-            R$ 570,00
+            <?php echo $price;  ?>
         </div>
 
-        <div id="btn-buy">
-            <i class="fas fa-shopping-cart"></i> Comprar
-        </div>
+        <div class="price-product">
+                <?php 
+                    $unavailable = false;
+                    if(isset($_SESSION["SessionCart"])){
+                        $cartArray = json_decode($_SESSION["SessionCart"]);
+                        $idProduto = $produto->getId();
+
+                        $fItem = array_filter(
+                            $cartArray,
+                            function ($e) use (&$idProduto) {
+                                return $e->idProduto == (int)$idProduto;
+                            }
+                        );
+                    
+                        $count = count($fItem);
+                        if($count > 0){
+                            $item = reset($fItem);
+                            if($item->qtd >= (int)$produto->getEstoque()->getQuantidade())
+                                $unavailable = true;
+                        }
+                    }
+                ?>
+
+                <?php if($produto->getEstoque()->getQuantidade() <= 0 ||  $unavailable) {?>
+                    <div class="product-unavailable">
+                        Indisponível
+                    </div>
+                <?php } else { ?>
+                    <div class="product-add-cart">
+                        <i class="fas fa-cart-plus"></i> Adicionar
+                    </div>
+                <?php } ?>
+
+                </div>
+                
+        
     </div>
 
 
