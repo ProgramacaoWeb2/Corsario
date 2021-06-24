@@ -8,9 +8,11 @@ class Pedido{
     private $dataEntrega;
     private $situacao;
     private $idUsuario;
+    private $Itens;
 
 
-    public function __construct($id, $numero, $dataPedido, $dataEntrega, $situacao, $idUsuario)
+
+    public function __construct($id, $numero, $dataPedido, $dataEntrega, $situacao, $idUsuario,$Itens = null)
     {
         $this->id = $id;
         $this->numero = $numero;
@@ -18,6 +20,13 @@ class Pedido{
         $this->dataEntrega = $dataEntrega;
         $this->situacao = $situacao;
         $this->idUsuario = $idUsuario;
+        $this->Itens = $Itens;
+    }
+
+
+    public function getItens()
+    {
+        return $this->Itens;
     }
 
     public function getId()
