@@ -16,7 +16,7 @@ include_once('DbFactory.php');
 
     <div class="search-panel">
 
-        <form>
+        <div id="order-main">
             <div class="row">
                 <div class="col-md-3 col-sm-4">
                     <label for="idInput"># </label>
@@ -39,7 +39,7 @@ include_once('DbFactory.php');
                 </div>
 
                 <div class="col-md-12">
-                    <a class="btn btn-purple mb-2 btn-sm" href="#"> Criar Pedido</a>
+                    <a class="btn btn-purple mb-2 btn-sm" href="orderPage.php"> Criar Pedido</a>
                 </div>
 
 
@@ -48,7 +48,7 @@ include_once('DbFactory.php');
 
 
 
-        </form>
+        </div>
 
 
 
