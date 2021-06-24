@@ -2,16 +2,25 @@
 $(() => {
 
 
-    
-
-    $('#appBody').on('click', '#btn-order-details', () => {
-        return DetailsOrder();
-    });
     $('.nav-link-cart').on('click', () => {
-        if($('#cart-option').is(':visible'))
+        if ($('#cart-option').is(':visible'))
             $('#cart-option').hide();
         else
             $('#cart-option').show();
+
+    });
+
+    $('#appBody').on('click', '#btn-order-details2', () => {
+
+        let orderId = $('#btn-order-details2').text();
+
+        console.log(orderId);
+
+        $.post('/orderListPartialDetails.php', { orderId: orderId }, function (data) {
+
+            $('#display-orders').html(data);
+
+        }, 'html');
 
     });
 
@@ -20,12 +29,55 @@ $(() => {
         return CreateProduct();
     });
 
+    $('#appBody').on('click', '.adress-row', (elem) => {
+        if ($(elem.target).hasClass('btn-group')) {
+            return;
+        }
+
+        let tr = $(elem.target).closest("tr");
+        let data = $(tr).data("adress");
+        let details = `.adress-details-${data}`;
+
+
+        if ($(details).is(':visible')) {
+            $(details).hide();
+
+        } else {
+            $(details).load("/adressDetails.php", { supplierId: data });
+            $(details).show();
+        }
+
+    });
+
+    $('#appBody').on('click', '.order-row', (elem) => {
+        if ($(elem.target).hasClass('btn-group')) {
+            return;
+        }
+
+        let tr = $(elem.target).closest("tr");
+        let data = $(tr).data("order");
+        let details = `.order-details-${data}`;
+
+        if ($(details).is(':visible')) {
+            $(details).hide();
+
+        } else {
+            $(details).load("/orderDetailsPartial.php", { orderId: data });
+            $(details).show();
+        }
+
+    });
+
     $('#appBody').on('click', '#btn-edit-product', () => {
         //return EditProduct();
     });
 
     $('#appBody').on('click', '#btn-delete-product', () => {
         //return DeleteProduct();
+    });
+
+    $('#appBody').on('click', '#btn-order-search', () => {
+        return SearchOrder();
     });
 
 
@@ -69,82 +121,80 @@ $(() => {
     });
 
 
-    $('#appBody').on('click','.product-add-cart', (elem) =>{
+    $('#appBody').on('click', '.product-add-cart', (elem) => {
         var idProduto = $(elem.target).closest('.card-product').data('product');
         AddToCart(idProduto);
 
     });
 
 
-    $('#appBody').on('keyup','.input-qtd-cart', (elem) =>{
+    $('#appBody').on('keyup', '.input-qtd-cart', (elem) => {
         var value = parseInt($(elem.target).val());
         var maxValue = parseInt($(elem.target).attr('max'));
 
-        if(value > maxValue){
+        if (value > maxValue) {
             $(elem.target).val(maxValue);
         }
-        else if(value <= 0)
+        else if (value <= 0)
             $(elem.target).val(1);
     });
 
-    $('#appBody').on('chance','.input-qtd-cart', (elem) =>{
+    $('#appBody').on('chance', '.input-qtd-cart', (elem) => {
         var value = parseInt($(elem.target).val());
         var maxValue = parseInt($(elem.target).attr('max'));
 
-        if(value > maxValue){
+        if (value > maxValue) {
             $(elem.target).val(maxValue);
         }
-        else if(value <= 0)
+        else if (value <= 0)
             $(elem.target).val(1);
     });
 
-    $('#appBody').on('focusout','.input-qtd-cart', (elem) =>{
+    $('#appBody').on('focusout', '.input-qtd-cart', (elem) => {
         UpdateCart();
     });
 
 
-    $('#appBody').on('click','#btn-buy-logged', (elem) =>{
+    $('#appBody').on('click', '#btn-buy-logged', (elem) => {
         AddOrder(0);
 
     });
 
-    $('#appBody').on('click','#btn-buy-unlogged', (elem) =>{
+    $('#appBody').on('click', '#btn-buy-unlogged', (elem) => {
         AddOrder(1);
 
     });
 
-    $('#appBody').on('click','.card-product', (elem) =>{
-        if($(elem.target).is('.product-add-cart') || $(elem.target).is('.product-unavailable')){
+    $('#appBody').on('click', '.card-product', (elem) => {
+        if ($(elem.target).is('.product-add-cart') || $(elem.target).is('.product-unavailable')) {
             return;
         }
-        else{
+        else {
             var idProduto = $($(elem.target).closest('.card-product')).data('product');
-            window.location = "/productInfo.php?idProduto="+idProduto;
+            window.location = "/productInfo.php?idProduto=" + idProduto;
         }
-        
+
 
     });
 
 
-    
-    
-
 })
 
-var DetailsOrder = () => {
+var SearchOrder = () => {
 
-    let orderId = {};
-    orderId = $('#idInput').val();
- 
-    $.post('/userListPartial.php', { search: search }, function (data) {
+    let search = {};
+    search.numeroInput = $('#numeroInput').val();
+    search.orderNameInput = $('#orderNameInput').val();
+    search.idInput = $('#idInput').val();
 
-        $('#display-users').html(data);
+    $.post('/orderListPartialNoPag.php', { search: search }, function (data) {
+
+        $('#display-orders').html(data);
 
     }, 'html');
-
-
 }
-var AddOrder = (option) =>{
+
+var AddOrder = (option) => {
     switch (option) {
         case 0:
             window.location = '/confirmOrder.php';
@@ -153,7 +203,7 @@ var AddOrder = (option) =>{
         case 1:
             window.location = '/loginPage.php?returnUrl=/confirmOrder.php';
             break;
-    
+
     }
 
 }
@@ -186,7 +236,7 @@ var DeleteItemCart = (idProduto) => {
 }
 
 var UpdateCart = () => {
-    var listItens = $('.input-qtd-cart').map(function(i, elem){
+    var listItens = $('.input-qtd-cart').map(function (i, elem) {
         var idProduto = parseInt($(elem).data('product'));
         var qtd = parseInt($(elem).val());
         return { idProduto: idProduto, qtd: qtd };
@@ -194,7 +244,7 @@ var UpdateCart = () => {
     }).get();
 
     $.post('/updateCart.php', { listItens: listItens }, function (data) {
-        if (data.status){
+        if (data.status) {
             window.location.reload();
         }
         else
@@ -208,8 +258,8 @@ var UpdateCart = () => {
 var AddToCart = (idProduto) => {
 
     $.post('/addToCart.php', { idProduto: idProduto }, function (data) {
-        if (data.status){
-            if(data.setUnavailable){
+        if (data.status) {
+            if (data.setUnavailable) {
                 $(`.card-product.col-md-3[data-product="${idProduto}"] .product-add-cart`).remove();
                 $(`.card-product.col-md-3[data-product="${idProduto}"] .price-product`).append('<div class="product-unavailable">Indisponível</div>');
             }
@@ -220,7 +270,7 @@ var AddToCart = (idProduto) => {
             AlertMessage(data.status, data.message);
 
     }, 'json');
-    
+
 }
 
 var CreateProduct = () => {
@@ -352,21 +402,21 @@ var CreateUser = () => {
         inputAddressState: inputAddressState,
 
     }, function (data) {
-        if (data.status){
+        if (data.status) {
 
             $.post('/executeLogin.php', { inputUsername: inputUsername, inputPassword: inputPassword }, function (data) {
-                if (data.status){
-                    if(returnUrl)
+                if (data.status) {
+                    if (returnUrl)
                         window.location = returnUrl;
                     else
                         window.location = "index.php";
-                    }
+                }
                 else
                     window.location = "index.php";
-                    AlertMessage(data.status, data.message);
+                AlertMessage(data.status, data.message);
             }, 'json');
 
-            
+
         }
         else
             AlertMessage(data.status, data.message);
@@ -509,12 +559,12 @@ var ExecLogin = () => {
     var returnUrl = $('#returnUrl').val();
 
     $.post('/executeLogin.php', { inputUsername: inputUsername, inputPassword: inputPassword }, function (data) {
-        if (data.status){
-            if(returnUrl)
+        if (data.status) {
+            if (returnUrl)
                 window.location = returnUrl;
             else
                 indow.location = "index.php";
-            
+
         }
         else
             AlertMessage(data.status, data.message);

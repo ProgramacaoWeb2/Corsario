@@ -35,7 +35,7 @@ include_once('DbFactory.php');
 
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-order-details" >Pesquisar</button>
+                    <button type="submit" class="btn btn-purple mb-2 btn-sm" id="btn-order-search" >Pesquisar</button>
                 </div>
 
                 <div class="col-md-12">
@@ -54,7 +54,10 @@ include_once('DbFactory.php');
 
     </div>
 
-  <?php include_once("orderListPartialNoPag.php");  ?>
+
+   <div id="dynamicContentOrders">
+   
+   </div> 
 
 </div>
 
@@ -65,14 +68,14 @@ include_once('DbFactory.php');
         function load_data(page, query ='') {
 
             $.ajax({
-                url: "orderListPartial.php",
+                url: "orderDetailsPagination.php",
                 method: "POST",
                 data: {
                     page: page,
                     query: query
                 },
                 success: function(data) {
-                    $('#dynamicContent').html(data);
+                    $('#dynamicContentOrders').html(data);
                 }
             });
         }

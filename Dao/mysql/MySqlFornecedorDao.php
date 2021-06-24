@@ -105,6 +105,23 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         return $fornecedores;
     }
 
+    public function getTodosPagination($limit, $offset)
+    {
+        $query =  "SELECT idFornecedor, nome, descricao, telefone, email, idEndereco FROM " . $this->tabela . " limit " . $limit . " offset " . $offset;
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $fornecedores = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+            $fornecedor = new Fornecedor($idFornecedor, $nome, $descricao, $telefone, $email, $idEndereco);
+            $fornecedores[] = $fornecedor;
+        }
+        return $fornecedores;
+    }
+
 
     public function deleta($fornecedor)
     {
@@ -144,5 +161,20 @@ class MySqlFornecedorDao extends Dao implements DaoFornecedor
         }
 
         return $fornecedor;
+    }
+
+    public function countFornecedor()
+    {
+        $query =  "SELECT COUNT(idFornecedor) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row[0];
+        }
+
+        return null;
     }
 }

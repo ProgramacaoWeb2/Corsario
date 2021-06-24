@@ -1,40 +1,22 @@
 <?php
-$page_title = "Pesquisa Detalhada";
+$page_title = "Pesquisa detalhada";
 
-include_once("DbFactory.php");
+include_once('DbFactory.php');
 
 $limit = '10';
 $page = 1;
 if (@$_POST['page'] > 1) {
-  $start = (($_POST['page'] - 1) * $limit);
-  $page = @$_POST['page'];
+    $start = (($_POST['page'] - 1) * $limit);
+    $page = @$_POST['page'];
 } else {
-  $start = 0;
+    $start = 0;
 }
 
-
-$idPedido = @$_POST['idPedido'];
-$numero = @$_POST['numero'];
-$nome = @$_POST['nome'];
-$search = NULL;
-
-if (isset($search)) {
-
-  if (!empty($search["nome"])) {
-    $pedidos = $db->Usuario()->getTodos($search["nome"]);
-  } else {
-    $pedidos = $db->Pedido()->getTodosPaginacao($limit, $start, $search);
-  }
-} else {
-  $pedidos = $db->Pedido()->getTodosPaginacao($limit, $start, $search);
-}
-
-
-
-$total_data = $db->Pedido()->countPedido();
+$suppliersList =  $db->Fornecedor()->getTodosPagination($limit,$start);
+$total_data = $db->Fornecedor()->countFornecedor();
 
 $output = '
-<label>Quantidade de Registros | ' . $total_data . '</label>
+<label class="color-purple">Quantidade de Registros | ' . $total_data . '</label>
 <table class="table">
   <thead class="thead-purple">
     <tr>
@@ -43,30 +25,23 @@ $output = '
       <th scope="col">Data do pedido</th>
       <th scope="col">Data da entrega</th>
       <th scope="col">Situação</th>
-      <th scope="col">ID do Cliente</th>
+      <th scope="col">Nome do usuário</th>
       <th>
     </tr>
   </thead>
 ';
 if ($total_data > 0) {
-
-
-  foreach ($pedidos as $pedido) {
-
-    if (empty($search["idUsuario"])) {
-      $usuario = $db->Usuario()->getPorCodigo($pedido->getUsuario());
-    }
+  foreach ($suppliersList as $supplier) {
+    
 
     $output .= '
-    <tr>
-      <td>' . $pedido->getId() . '</td>
-      <td>' . $pedido->getNumero() . '</td>
-      <td>' . $pedido->getDataPedido() . '</td>
-      <td>' . $pedido->getDataEntrega() . '</td>
-      <td>' . $pedido->getSituacao() . '</td>
-      <td>' . $usuario->getName() . '</td>
-
-
+    <tr class="adress-row" data-adress="'.$supplier->getId().'">
+      <td>' . $supplier->getId() . '</td>
+      <td>' . $supplier->getNome() . '</td>
+      <td>' . $supplier->getDescricao() . '</td>
+      <td>' . $supplier->getTelefone() . '</td>
+      <td>' . $supplier->getEmail() . '</td>
+     
       <td>
 
                     <div class="btn-group float-right" role="group">
@@ -74,13 +49,17 @@ if ($total_data > 0) {
                             Opções
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" id="btn-edit-order" href=productEdit.php?id=' . $pedido->getId() . '>Editar Pedido</a>
-                            <a class="dropdown-item" id="btn-delete-order" href="productDelete.php?id=' . $pedido->getId() . '"> Deletar Pedido</a>
-                            <a class="dropdown-item" id="btn-order-details" href="orderPageDetails.php?id= ' . $pedido->getId() . ' "> Mostra detalhe</a>
+                            <a class="dropdown-item" href="supplierEdit.php?id='.$supplier->getId().'">Editar Fornecedor</a>
+                            <a class="dropdown-item" href="supplierDelete.php?id="'. $supplier->getId().'">Deletar Fornecedor </a>
                         </div>
                     </div>
 
       </td>      
+    </tr>
+
+    <tr class="adress-details-'.$supplier->getId().'" style = "display:none;">
+
+
     </tr>
     ';
   }
@@ -139,13 +118,13 @@ for ($count = 0; $count < count($page_array); $count++) {
   if ($page == $page_array[$count]) {
     $page_link .= '
     <li class="page-item active">
-      <a class="page-link " href="#">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
+      <a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $page. '">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
     </li>
     ';
 
     $previous_id = $page_array[$count] - 1;
     if ($previous_id > 0) {
-      $previous_link = '<li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $previous_id . '">Anterior</a></li>';
+      $previous_link = '<li class="page-item"><a class="page-link color-purple" href="javascript:void(0)" data-page_number="' . $previous_id . '">Anterior</a></li>';
     } else {
       $previous_link = '
       <li class="page-item disabled">
@@ -161,7 +140,7 @@ for ($count = 0; $count < count($page_array); $count++) {
       </li>
         ';
     } else {
-      $next_link = '<li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $next_id . '">Próximo</a></li>';
+      $next_link = '<li class="page-item"><a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $next_id . '">Próximo</a></li>';
     }
   } else {
     if ($page_array[$count] == '...') {
@@ -172,7 +151,7 @@ for ($count = 0; $count < count($page_array); $count++) {
       ';
     } else {
       $page_link .= '
-      <li class="page-item"><a class="page-link" href="javascript:void(0)" data-page_number="' . $page_array[$count] . '">' . $page_array[$count] . '</a></li>
+      <li class="page-item"><a class="page-link color-purple" href="javascript:void(0)" data-page_number="' . $page_array[$count] . '">' . $page_array[$count] . '</a></li>
       ';
     }
   }

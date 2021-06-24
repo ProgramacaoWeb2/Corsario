@@ -48,8 +48,35 @@ include_once('DbFactory.php');
 
 
 
-    <div>
-        <?php include_once "supplierListPartial.php"; ?>
+    <div id="dynamicContentSupplier">
+
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        load_data(1);
+
+        function load_data(page, query = '') {
+
+            $.ajax({
+                url: "supplierListPartialPagination.php",
+                method: "POST",
+                data: {
+                    page: page,
+                    query: query
+                },
+                success: function(data) {
+                    $('#dynamicContentSupplier').html(data);
+                }
+            });
+        }
+
+        $(document).on('click', '.page-link', function() {
+            var page = $(this).data('page_number');
+            var query = $('#search_box').val();
+            load_data(page, query);
+        });
+    });
+</script>

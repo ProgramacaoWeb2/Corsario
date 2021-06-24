@@ -60,4 +60,5 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $count++;
 }
 
-echo "Pedido inserido com sucesso";
+header('orderPageDetails.php');
+exit;

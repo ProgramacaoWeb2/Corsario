@@ -59,7 +59,7 @@ class MySqlEnderecoDao extends Dao implements DaoEndereco
 
     public function getPorCodigo($id)
     {
-
+        
         $endereco = null;
 
         $query = "SELECT idEndereco, rua, numero, complemento, bairro, cep, cidade, estado FROM " . $this->tabela . " WHERE idEndereco = :idEndereco LIMIT 1";

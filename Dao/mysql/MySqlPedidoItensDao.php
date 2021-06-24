@@ -141,6 +141,27 @@ class MySqlPedidoItens extends Dao implements DaoPedidoItens
         return $pedidos;
     }
 
+
+
+    public function getPedidosItensPorPedido($idPedido)
+    {
+        $query =  "select * from ". $this->tabela ." where fkPedido = :idPedido";
+      
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(':idPedido', $idPedido);
+        $stmt->execute();
+
+        $pedidos = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+            $pedido = new PedidoItens($idItemPedido, $quantidade, $fkPedido, $fkProduto,$preco);
+            $pedidos[] = $pedido;
+        }
+        return $pedidos;
+    }
+
+
     public function getProdutos($idProduto, $limit, $offset)
     {
         $query =  "SELECT p.* FROM pedidoitens as pei, produto as p WHERE p.idProduto = pei. :idProduto"   . " limit " . $limit . " offset " . $offset;

@@ -72,12 +72,12 @@ if ($name === NULL) {
                         </select>
                     </div>
 
-                    <div class="input-group mb-3">
+                    <!--<div class="input-group mb-3">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="inputProductPhoto" name="inputProductPhoto">
                             <label class="custom-file-label" for="inputProductPhoto">Choose file</label>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <button class="corsBtn btn-purple" id="btn-edit-product" type="submit">Editar</button>

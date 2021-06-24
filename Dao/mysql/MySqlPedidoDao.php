@@ -37,7 +37,6 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         $prep = $this->connection->prepare($query);
 
-
         $prep->bindValue(":numero", $pedido->getNumero());
         $prep->bindValue(":dataPedido", $pedido->getDataPedido());
         $prep->bindValue(":dataEntrega", $pedido->getDataEntrega());
@@ -81,14 +80,14 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         if (isset($searchArray)) {
 
-            if (!empty($searchArray['idUsuario']))
-                $conditions[] = ' idUsuario = ' . $searchArray['idUsuario'];
+            if (!empty($searchArray['orderNameInput']))
+                $conditions[] = ' idUsuario = ' . $searchArray['orderNameInput'];
 
-            if (!empty($searchArray['idPedido']))
-                $conditions[] = ' idPedido = ' . $searchArray['idPedido'];
+            if (!empty($searchArray['idInput']))
+                $conditions[] = ' idPedido = ' . $searchArray['idInput'];
 
-            if (!empty($searchArray['numero']))
-                $conditions[] = ' numero = ' . $searchArray['numero'];
+            if (!empty($searchArray['numeroInput']))
+                $conditions[] = ' numero = ' . $searchArray['numeroInput'];
 
             if ($conditions) {
                 $query .= " WHERE " . implode(" AND ", $conditions);
@@ -194,4 +193,21 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         return null;
     }
+
+    public function countPedidos(){
+
+        $query =  "SELECT COUNT(idPedido) as ultimo FROM " . $this->tabela;
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row[0];
+        }
+
+        return null;
+    }
+
+    
 }

@@ -10,7 +10,7 @@ class MySqlDaoFactory extends DaoFactory
 {
 
     private $host = "localhost";
-    private $db = "CorsarioDB";
+    private $db = "Teste123";
     private $port = "3306";
     private $user = "root";
     private $password = "";
