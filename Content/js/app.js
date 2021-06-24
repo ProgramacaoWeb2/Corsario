@@ -68,6 +68,25 @@ $(() => {
 
     });
 
+    $('#appBody').on('click', '.product-row', (elem) => {
+        if ($(elem.target).hasClass('btn-group')) {
+            return;
+        }
+
+        let tr = $(elem.target).closest("tr");
+        let data = $(tr).data("product");
+        let details = `.product-details-${data}`;
+
+        if ($(details).is(':visible')) {
+            $(details).hide();
+
+        } else {
+            $(details).load("/productList.php", { productId: data });
+            $(details).show();
+        }
+
+    });
+
     $('#appBody').on('click', '#btn-edit-product', () => {
         //return EditProduct();
     });

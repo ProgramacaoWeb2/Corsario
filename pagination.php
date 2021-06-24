@@ -39,7 +39,7 @@ if ($total_data > 0) {
     $supplier = $supplierDB->getPorCodigo($product->getIdFornecedor());
 
     $output .= '
-    <tr>
+    <tr class="product-row" data-product="'.$product->getId() .'">
       <td>' . $product->getId() . '</td>
       <td>' . $product->getNome() . '</td>
       <td>' . $product->getDescricao() . '</td>
@@ -59,6 +59,13 @@ if ($total_data > 0) {
 
       </td>      
     </tr>
+
+    
+    <tr class="product-details-'.$product->getId().'" style = "display:none;">
+
+
+    </tr>
+
     ';
   }
 } else {
