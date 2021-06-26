@@ -9,8 +9,8 @@ $description = @$_POST['inputProductDescription'];
 $supplierId = @$_POST['inputSupplierId'];
 $stock = @$_POST['inputEstoque'];
 $price = @$_POST['inputPreco'];
-$photoTemp = $_FILES["Arquivo"]["tmp_name"];
-$nameFile = $_FILES["Arquivo"]["name"];
+$photoTemp = @$_FILES["Arquivo"]["tmp_name"];
+$nameFile = @$_FILES["Arquivo"]["name"];
 
 $productDb = $db->Produto();
 $supplierDb = $db->Fornecedor();
@@ -59,4 +59,5 @@ if ($product === NULL) {
     $estoque->setIdProduto($id);
 
     $estoqueDb->alteraPorProduto($estoque);
+    header("Location: productPageDetails.php");
 }

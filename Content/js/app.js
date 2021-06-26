@@ -362,9 +362,11 @@ var EditProduct = () => {
         data: data,
         type: 'post',
         success: function (response) {
+            location.href = "productPageDetails.php";
             console.log(response);
         },
         error: function (response) {
+            location.href = "productPageDetails.php";
             console.log("error in insert the file " + response);
         }
     });
