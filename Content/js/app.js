@@ -204,13 +204,13 @@ $(() => {
 var SearchOrder = () => {
 
     let search = {};
-    search.numeroInput = $('#numeroInput').val();
-    search.orderNameInput = $('#orderNameInput').val();
-    search.idInput = $('#idInput').val();
+    search.idPedido = $('#idInput').val();
+    search.numeroPedido = $('#numeroInput').val();
+    search.nomeCliente = $('#orderNameInput').val();
 
-    $.post('/orderListPartialNoPag.php', { search: search }, function (data) {
+    $.post('/orderDetailsPagination.php', { search: search }, function (data) {
 
-        $('#display-orders').html(data);
+        $('#dynamicContentOrders').html(data);
 
     }, 'html');
 }

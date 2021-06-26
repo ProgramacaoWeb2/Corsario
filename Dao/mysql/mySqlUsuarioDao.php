@@ -90,6 +90,22 @@ class MySqlUsuarioDao extends Dao implements DaoUsuario{
         return $usuario;
     }
 
+    public function getPorNome($nome){
+        $query = "SELECT idUsuario, login, nome, senha, tipoUsuario, telefone, cartaoCredito, idEndereco FROM " . $this->table_name ." WHERE nome = :nome LIMIT 1 OFFSET 0";
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":nome", $nome);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $usuario = null;
+        if($row) 
+            $usuario = new Usuario($row['idUsuario'],$row['login'],$row['senha'], $row['nome'], $row['tipoUsuario'], $row['telefone'],$row['cartaoCredito'], $row['idEndereco']);
+        
+        return $usuario;
+    }
+
     
     public function getTodos($searchArray= null){
 

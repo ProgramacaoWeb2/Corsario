@@ -187,22 +187,22 @@ class MySqlPedidoDao extends Dao implements DaoPedido
         return false;
     }
 
-    public function getTodosPaginacao($limit, $offset, $searchArray)
+    public function getTodosPaginacao($limit, $offset, $searchArray=NULL)
     {
         $query =  "SELECT idPedido ,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela;
 
         $conditions = [];
 
         if (isset($searchArray)) {
-
-            if (!empty($searchArray['idUsuario']))
-                $conditions[] = ' idUsuario = ' . $searchArray['idUsuario'];
+           
+            if (!empty($searchArray['nomeCliente']))
+                $conditions[] = ' idUsuario = ' . $searchArray['nomeCliente'];
 
             if (!empty($searchArray['idPedido']))
                 $conditions[] = ' idPedido = ' . $searchArray['idPedido'];
 
-            if (!empty($searchArray['numero']))
-                $conditions[] = ' numero = ' . $searchArray['numero'];
+            if (!empty($searchArray['numeroPedido']))
+                $conditions[] = ' numero = ' . $searchArray['numeroPedido'];
 
             if ($conditions) {
                 $query .= " WHERE " . implode(" AND ", $conditions);

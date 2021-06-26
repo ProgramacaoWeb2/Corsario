@@ -3,6 +3,7 @@ $page_title = "Pesquisa Detalhada";
 
 include_once("DbFactory.php");
 
+$search = @$_POST["search"];
 $limit = '10';
 $page = 1;
 if (@$_POST['page'] > 1) {
@@ -11,8 +12,18 @@ if (@$_POST['page'] > 1) {
 } else {
   $start = 0;
 }
+if (isset($search)) {
+  if ($search['nomeCliente'] != NULL) {
 
-$orderList = $db->Pedido()->getTodosPaginacao($limit,$start,NULL);
+    $usuario = $db->Usuario()->getPorNome($search['nomeCliente']);
+    $search['nomeCliente'] = $usuario->getId();
+  }
+
+  $orderList = $db->Pedido()->getTodosPaginacao($limit, $start, $search);
+} else {
+  $orderList = $db->Pedido()->getTodosPaginacao($limit, $start, NULL);
+}
+
 $total_data = $db->Pedido()->countPedido();
 
 $output = '
@@ -35,7 +46,7 @@ if ($total_data > 0) {
     $user = $db->Usuario()->getPorCodigo($order->getUsuario());
 
     $output .= '
-    <tr class="order-row" data-order="'.$order->getId().'">
+    <tr class="order-row" data-order="' . $order->getId() . '">
       <td>' . $order->getId() . '</td>
       <td>' . $order->getNumero() . '</td>
       <td>' . $order->getDataPedido() . '</td>
@@ -50,15 +61,15 @@ if ($total_data > 0) {
                             Opções
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id='.$order->getId(). '>Editar Pedido</a>
-                            <a class="dropdown-item" id="btn-order-details2" href="javascript:void(0);"> ' . $order->getId() .'  </a>
+                            <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id=' . $order->getId() . '>Editar Pedido</a>
+                            <a class="dropdown-item" id="btn-order-details2" href="javascript:void(0);"> ' . $order->getId() . '  </a>
                         </div>
                     </div>
 
       </td>      
     </tr>
 
-    <tr class="order-details-'.$order->getId().'" style = "display:none;">
+    <tr class="order-details-' . $order->getId() . '" style = "display:none;">
 
 
     </tr>
@@ -119,7 +130,7 @@ for ($count = 0; $count < count($page_array); $count++) {
   if ($page == $page_array[$count]) {
     $page_link .= '
     <li class="page-item active">
-      <a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $page. '">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
+      <a class="page-link background-purple" href="javascript:void(0)" data-page_number="' . $page . '">' . $page_array[$count] . ' <span class="sr-only">(current)</span></a>
     </li>
     ';
 
