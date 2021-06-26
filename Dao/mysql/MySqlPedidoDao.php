@@ -12,7 +12,7 @@ class MySqlPedidoDao extends Dao implements DaoPedido
     public function insere($pedido)
     {
 
-        $query = "INSERT INTO " . $this->tabela . "(numero, dataPedido, dataEntrega, situacao, idUsuario) VALUES" . "(:numero,:dataPedido,:dataEntrega, :situacao, :idUsuario )";
+        $query = "INSERT INTO " . $this->tabela . "(numero, dataPedido,  dataEntrega, situacao, idUsuario) VALUES" . "(:numero, STR_TO_DATE(:dataPedido, '%Y-%m-%d'),STR_TO_DATE(:dataEntrega, '%Y-%m-%d'), :situacao, :idUsuario )";
 
         $prep = $this->connection->prepare($query);
 
@@ -32,7 +32,7 @@ class MySqlPedidoDao extends Dao implements DaoPedido
     public function altera($pedido)
     {
         $query = "UPDATE " . $this->tabela .
-            " SET numero = :numero, dataPedido = :dataPedido, dataEntrega = :dataEntrega, situacao = :situacao,  idUsuario = :idUsuario " .
+            " SET numero = :numero, dataPedido = STR_TO_DATE(:dataPedido, '%Y-%m-%d'), dataEntrega = STR_TO_DATE(:dataEntrega, '%Y-%m-%d'), situacao = :situacao,  idUsuario = :idUsuario " .
             " WHERE idPedido = :idPedido";
 
         $prep = $this->connection->prepare($query);
@@ -56,7 +56,7 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         $pedido = null;
 
-        $query = "SELECT idPedido ,numero, dataPedido, dataEntrega, situacao, idUsuario FROM " . $this->tabela . " WHERE idPedido = :idPedido LIMIT 1";
+        $query = "SELECT idPedido ,numero, STR_TO_DATE(dataPedido, '%Y-%m-%d') as dataPedido, STR_TO_DATE(dataEntrega, '%Y-%m-%d') as dataEntrega, situacao, idUsuario FROM " . $this->tabela . " WHERE idPedido = :idPedido LIMIT 1";
 
 
         $stmt = $this->connection->prepare($query);

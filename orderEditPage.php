@@ -9,8 +9,6 @@ include_once("authentication.php");
 $id = @$_GET['id'];
 
 $order = $db->Pedido()->getPorCodigo($id);
-
-
 ?>
 
 <body>
@@ -33,7 +31,7 @@ $order = $db->Pedido()->getPorCodigo($id);
 
                         <div class="col-md-12 mb-1">
                             <label for="dataPedido" class="col-form-label">Data do Pedido</label>
-                            <input class="form-control" id="dataPedido" name="dataPedido" type="date" value="<?= $order->getDataPedido()  ?>">
+                            <input class="form-control" id="dataPedido" name="dataPedido" type="date" value="<?php echo $order->getDataPedido()  ?>">
                         </div>
 
                     </div>

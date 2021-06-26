@@ -39,7 +39,7 @@ include_once('DbFactory.php');
                 </div>
 
                 <div class="col-md-12">
-                    <a class="btn btn-purple mb-2 btn-sm" href="orderPage.php"> Criar Pedido</a>
+                    <a class="btn btn-purple mb-2 btn-sm" href="index.php"> Criar Pedido</a>
                 </div>
 
 

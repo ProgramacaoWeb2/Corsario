@@ -33,12 +33,12 @@ foreach ($listaProdutosPedido as $produtoPedido) {
 }
 
 $count = 0;
-$dataDoPedido = new DateTime();
-$dataDoPedido = $dataDoPedido->format('d-m-y');
+$dataDoPedido = new DateTime('now');
+$dataDoPedido = $dataDoPedido->format('Y-m-d');
 $numeroPedido = $db->Pedido()->countPedido() + 1;
 
 
-$pedidoNovo = new Pedido(null, $numeroPedido, $dataDoPedido, $dataDoPedido, "novo", $idUsuarioPedido);
+$pedidoNovo = new Pedido(null, $numeroPedido, $dataDoPedido, $dataDoPedido, "Novo", $idUsuarioPedido);
 $db->Pedido()->insere($pedidoNovo);
 $idPedidoNovo = $db->Pedido()->ultimoIdCadastrado();
 
@@ -60,5 +60,5 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $count++;
 }
 
-header('orderPageDetails.php');
+header("orderPageDetails.php");
 exit;
