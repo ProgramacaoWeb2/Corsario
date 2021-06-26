@@ -17,7 +17,7 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
         <th scope="col" class="color-purple">Preço</th>
         <th scope="col" class="color-purple">Preço Total Por Item</th>
         <th scope="col" class="color-purple">Preço Total da Compra</th>
-        <th>
+
       </tr>
       <?php $valorTotalCompra = 0;
       foreach ($pedidosItens as $pedidoItem) {

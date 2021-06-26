@@ -60,5 +60,5 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $count++;
 }
 
-header("orderPageDetails.php");
+header("Location: index.php");
 exit;
