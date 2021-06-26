@@ -60,7 +60,3 @@ if ($product === NULL) {
 
     $estoqueDb->alteraPorProduto($estoque);
 }
-
-
-header("Location: productPageDetails.php");
-exit;
