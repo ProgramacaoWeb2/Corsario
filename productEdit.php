@@ -37,27 +37,27 @@ if ($name === NULL) {
 
                     <div class="formGroup">
                         <label for="inputProductId">Identificação:</label>
-                        <input type="text" readonly="readonly" value="<?= $product->getId() ?>" id="inputProductId" name="inputProductId">
+                        <input class="form-control" type="text" readonly="readonly" value="<?= $product->getId() ?>" id="inputProductId" name="inputProductId">
                     </div>
 
                     <div class="formGroup">
                         <label for="inputProductName">Nome:</label>
-                        <input type="text" value="<?= $product->getNome() ?>" id="inputProductName" name="inputProductName" placeholder="Ex. Gphone ">
+                        <input class="form-control" type="text" value="<?= $product->getNome() ?>" id="inputProductName" name="inputProductName" placeholder="Ex. Gphone ">
                     </div>
 
                     <div class="formGroup">
                         <label for="inputProductDescription">Descrição:</label>
-                        <input type="text" value="<?= $product->getDescricao() ?>" id="inputProductDescription" name="inputProductDescription" placeholder="Gphone 12 Pro">
+                        <input class="form-control" type="text" value="<?= $product->getDescricao() ?>" id="inputProductDescription" name="inputProductDescription" placeholder="Gphone 12 Pro">
                     </div>
 
                     <div class="formGroup">
                         <label for="inputPreco">Valor:</label>
-                        <input type="number" id="inputPreco" name="inputPreco" value="<?= $estoque->getPreco() ?>" required>
+                        <input class="form-control" type="number" id="inputPreco" name="inputPreco" value="<?= $estoque->getPreco() ?>" required>
                     </div>
 
                     <div class="formGroup">
                         <label for="inputEstoque">Quantidade em Estoque:</label>
-                        <input type="number" id="inputEstoque" name="inputEstoque" value="<?= $estoque->getQuantidade() ?>" required>
+                        <input class="form-control" type="number" id="inputEstoque" name="inputEstoque" value="<?= $estoque->getQuantidade() ?>" required>
                     </div>
 
                     <div class="input-group mb-3">

@@ -48,6 +48,11 @@ $suppliers = $db->Fornecedor()->getTodos();
                         <input class="form-control" type="number" id="inputPreco" name="inputPreco" required>
                     </div>
 
+                    <div class="formGroup">
+                        <label for="inputEstoque">Quantidade em Estoque:</label>
+                        <input class="form-control" type="number" id="inputEstoque" name="inputEstoque"required>
+                    </div>
+
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputSupplierId">Fornecedores</label>
@@ -69,10 +74,5 @@ $suppliers = $db->Fornecedor()->getTodos();
             </div>
 
         </div>
-
-
-    </div>
-
-
 
 </body>

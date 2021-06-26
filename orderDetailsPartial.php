@@ -4,7 +4,6 @@ include_once("./DbFactory.php");
 
 $orderId = @$_POST['orderId'];
 $formatter = new NumberFormatter('pt_BR',  NumberFormatter::CURRENCY);
-
 $pedidosItens = $db->PedidoItens()->getPedidosItensPorPedido($orderId);
 $pedido = $db->Pedido()->getPorCodigo($orderId);
 ?>
@@ -16,17 +15,17 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
         <th scope="col" class="color-purple">Descricao do Produto</th>
         <th scope="col" class="color-purple">Quantidade</th>
         <th scope="col" class="color-purple">Preço</th>
-        <th scope="col" class="color-purple">Preço Total</th>
+        <th scope="col" class="color-purple">Preço Total Por Item</th>
+        <th scope="col" class="color-purple">Preço Total da Compra</th>
         <th>
       </tr>
-      <?php foreach ($pedidosItens as $pedidoItem) {
+      <?php $valorTotalCompra = 0;
+      foreach ($pedidosItens as $pedidoItem) {
         $produto = $db->Produto()->getPorCodigo($pedidoItem->getProduto());
         $totalSum = 0;
         $totalSum += ((int)$pedidoItem->getQuantidade()) * (float)$pedidoItem->getPreco();
+        $valorTotalCompra = $totalSum + $valorTotalCompra;
         $totalSum = $formatter->formatCurrency($totalSum, 'BRL');
-
-        $price = $formatter->formatCurrency($pedidoItem->getPreco(), 'BRL');
-
       ?>
         <tr>
           <td>
@@ -42,11 +41,17 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
           </td>
 
           <td>
-            <?php echo $price; ?>
+            <?php echo $totalSum; ?>
           </td>
 
+        <?php } ?>
+
+        <td class="color-purple">
+          <?php echo $formatter->formatCurrency($valorTotalCompra, 'BRL'); ?>
+        </td>
+
         </tr>
-      <?php } ?>
+
 
     </table>
   </div>

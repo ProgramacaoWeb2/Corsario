@@ -2,6 +2,8 @@
 $(() => {
 
 
+
+
     $('.nav-link-cart').on('click', () => {
         if ($('#cart-option').is(':visible'))
             $('#cart-option').hide();
@@ -298,6 +300,7 @@ var CreateProduct = () => {
     var inputProductName = $('#inputProductName').val();
     var inputProductDescription = $('#inputProductDescription').val();
     var inputPreco = $('#inputPreco').val();
+    var inputEstoque = $('#inputEstoque').val();
     var inputSupplierId = $('#inputSupplierId').val();
 
     var data = new FormData();
@@ -305,6 +308,7 @@ var CreateProduct = () => {
     data.append('inputProductName', inputProductName);
     data.append('inputProductDescription', inputProductDescription);
     data.append('inputPreco', inputPreco);
+    data.append('inputEstoque', inputEstoque);
     data.append('inputSupplierId', inputSupplierId);
 
     $.ajax({

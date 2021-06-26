@@ -39,8 +39,7 @@ if ($product === NULL) {
     $productDb->insere($productNew);
     $ultimoCadastro = $productDb->ultimoIdCadastrado();
 
-    $estoqueNew = new Estoque(NULL,1, $price, $ultimoCadastro);
-
+    $estoqueNew = new Estoque(NULL, $stock, $price, $ultimoCadastro);
     $estoqueDb->insere($estoqueNew);
 } else {
 
@@ -48,12 +47,12 @@ if ($product === NULL) {
     $product->setId($id);
     $product->setNome($name);
     $product->setDescricao($description);
-    //$product->setFoto($photo);
     $product->setIdFornecedor($supplierId);
 
     $productDb->altera($product);
 
     $estoque = $estoqueDb->pesquisaProdutoPorId($id);
+
 
     $estoque->setPreco($price);
     $estoque->setQuantidade($stock);
