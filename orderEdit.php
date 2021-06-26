@@ -10,6 +10,6 @@ $pedido=$db->Pedido()->getPorCodigo($id);
 $novoPedido = new Pedido($id,$pedido->getNumero(),$dataPedido,$dataEntrega,$situacao,$pedido->getUsuario());
 $db->Pedido()->altera($novoPedido);
 
-header('orderPageDetails.php');
+header("Location: orderPageDetails.php");
 exit;
 ?>

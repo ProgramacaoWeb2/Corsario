@@ -50,7 +50,7 @@ if ($total_data > 0) {
                             Opções
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id='.$order->getId(). '>Editar Produto</a>
+                            <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id='.$order->getId(). '>Editar Pedido</a>
                             <a class="dropdown-item" id="btn-order-details2" href="javascript:void(0);"> ' . $order->getId() .'  </a>
                         </div>
                     </div>
