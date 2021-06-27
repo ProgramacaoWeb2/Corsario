@@ -10,13 +10,12 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
 
 <td colspan="7">
   <div>
-    <table class="col-md-12">
+    <table class="col-md-12" style="text-align: left;">
       <tr>
         <th scope="col" class="color-purple">Descricao do Produto</th>
         <th scope="col" class="color-purple">Quantidade</th>
         <th scope="col" class="color-purple">Preço</th>
         <th scope="col" class="color-purple">Preço Total Por Item</th>
-        <th scope="col" class="color-purple">Preço Total da Compra</th>
 
       </tr>
       <?php $valorTotalCompra = 0;
@@ -29,29 +28,33 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
       ?>
         <tr>
           <td>
-            <?php echo $produto->getDescricao(); ?>
+            <?php echo $produto->getNome(); ?>
           </td>
 
           <td>
             <?php echo $pedidoItem->getQuantidade(); ?>
           </td>
 
-          <td>
+          <td style="text-align: center">
             <?php echo  $formatter->formatCurrency($pedidoItem->getPreco(), 'BRL'); ?>
           </td>
 
-          <td>
+          <td style="text-align: center">
             <?php echo $totalSum; ?>
           </td>
 
         <?php } ?>
 
-        <td class="color-purple">
-          <?php echo $formatter->formatCurrency($valorTotalCompra, 'BRL'); ?>
-        </td>
+       
 
         </tr>
-
+        <tr class="color-purple">
+          <td colspan="7" style="text-align: right;font-weight: bold;font-size: 1.3rem;
+}">
+            Total: <?php echo $formatter->formatCurrency($valorTotalCompra, 'BRL'); ?>
+          </td>
+        
+        </td>
 
     </table>
   </div>

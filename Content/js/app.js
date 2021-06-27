@@ -588,7 +588,7 @@ var ExecLogin = () => {
             if (returnUrl)
                 window.location = returnUrl;
             else
-                indow.location = "index.php";
+                window.location = "index.php";
 
         }
         else

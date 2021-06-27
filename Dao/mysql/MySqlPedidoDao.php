@@ -193,6 +193,10 @@ class MySqlPedidoDao extends Dao implements DaoPedido
 
         $conditions = [];
 
+        if(isset($_SESSION["userType"]) && $_SESSION["userType"] == 0){
+            $conditions[] = ' idUsuario = ' .$_SESSION["idUsuario"];
+        }
+
         if (isset($searchArray)) {
            
             if (!empty($searchArray['nomeCliente']))
@@ -204,11 +208,11 @@ class MySqlPedidoDao extends Dao implements DaoPedido
             if (!empty($searchArray['numeroPedido']))
                 $conditions[] = ' numero = ' . $searchArray['numeroPedido'];
 
-            if ($conditions) {
-                $query .= " WHERE " . implode(" AND ", $conditions);
-            }
         }
 
+        if ($conditions) {
+            $query .= " WHERE " . implode(" AND ", $conditions);
+        }
 
         $query =   $query . " limit " . $limit . " offset " . $offset;
 

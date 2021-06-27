@@ -24,7 +24,7 @@ if (isset($search)) {
   $orderList = $db->Pedido()->getTodosPaginacao($limit, $start, NULL);
 }
 
-$total_data = $db->Pedido()->countPedido();
+$total_data = count($orderList ?? 0);
 
 $output = '
 <label class="color-purple">Quantidade de Registros | ' . $total_data . '</label>
@@ -37,14 +37,13 @@ $output = '
       <th scope="col">Data da entrega</th>
       <th scope="col">Situação</th>
       <th scope="col">Nome do usuário</th>
-      <th>
+      <th><th>
     </tr>
   </thead>
 ';
 if ($total_data > 0) {
   foreach ($orderList as $order) {
     $user = $db->Usuario()->getPorCodigo($order->getUsuario());
-
     $output .= '
     <tr class="order-row" data-order="' . $order->getId() . '">
       <td>' . $order->getId() . '</td>
@@ -52,33 +51,34 @@ if ($total_data > 0) {
       <td>' . $order->getDataPedido() . '</td>
       <td>' . $order->getDataEntrega() . '</td>
       <td>' . $order->getSituacao() . '</td>
-      <td>' . $user->getName() . '</td>
-
-      <td>
-
-                    <div class="btn-group float-right" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-purple dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Opções
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id=' . $order->getId() . '>Editar Pedido</a>
-                            <a class="dropdown-item" id="btn-order-details2" href="javascript:void(0);"> ' . $order->getId() . '  </a>
-                        </div>
-                    </div>
-
-      </td>      
-    </tr>
-
-    <tr class="order-details-' . $order->getId() . '" style = "display:none;">
+      <td>' . $user->getName() . '</td>';
 
 
-    </tr>
+
+      if(isset($_SESSION["userType"]) && $_SESSION["userType"] == 1){
+        $output .= 
+        '<td>
+
+          <div class="btn-group float-right" role="group">
+              <button id="btnGroupDrop1" type="button" class="btn btn-purple dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Opções
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" id="btn-edit-product" href=orderEditPage.php?id=' . $order->getId() . '>Editar Pedido</a>
+              </div>
+          </div>
+
+        </td>';
+
+      }
+    $output .= '</tr>
+    <tr class="order-details-' . $order->getId() . '" style = "display:none;"> </tr>
     ';
   }
 } else {
   $output .= '
   <tr>
-    <td colspan="2" align="center">Nenhum nome encontrado</td>
+    <td colspan="2" align="center">Nenhum resultado encontrado</td>
   </tr>
   ';
 }

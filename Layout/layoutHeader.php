@@ -55,7 +55,8 @@
                     <a class="dropdown-item" href="editUserPage.php?idUsuario=<?php echo $_SESSION["idUsuario"]?>"> Alterar meus dados</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="changePasswordPage.php?idUsuario=<?php echo $_SESSION["idUsuario"]?>"> Alterar minha senha</a>
-
+                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="orderPageDetails.php">Meus Pedidos</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="javascript:ExecLogout()">Logout</a>
                 </div>

@@ -15,9 +15,6 @@ $listaProdutosQtd = array_map(function($item){
     return $item->qtd;
 },  $cartArray );
 
-
-//Chamar create do pedido
-
 foreach ($listaProdutosPedido as $produtoPedido) {
 
     $produto = $db->Produto()->getPorCodigo($produtoPedido);   
@@ -59,6 +56,6 @@ foreach ($listaProdutosPedido as $produtoPedido) {
     $db->Estoque()->altera($estoqueAtualizado);
     $count++;
 }
-
-header("Location: index.php");
+unset( $_SESSION["SessionCart"] );
+header("Location: orderPageDetails.php");
 exit;
