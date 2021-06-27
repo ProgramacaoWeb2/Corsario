@@ -21,6 +21,10 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
       <?php $valorTotalCompra = 0;
       foreach ($pedidosItens as $pedidoItem) {
         $produto = $db->Produto()->getPorCodigo($pedidoItem->getProduto());
+
+        $path = dirname(__FILE__).$produto->getFoto();
+        $firstFile = scandir($path)[2];
+        $firstFile = $produto->getFoto()."/".$firstFile;
         $totalSum = 0;
         $totalSum += ((int)$pedidoItem->getQuantidade()) * (float)$pedidoItem->getPreco();
         $valorTotalCompra = $totalSum + $valorTotalCompra;
@@ -28,7 +32,15 @@ $pedido = $db->Pedido()->getPorCodigo($orderId);
       ?>
         <tr>
           <td>
-            <?php echo $produto->getNome(); ?>
+              <div style="display: inline-flex;">
+                <div>
+                  <img src="<?php echo $firstFile?>" alt="" style="max-width: 6rem;">
+                </div>
+                <div>
+                  <?php echo $produto->getNome(); ?>
+                </div>
+              </div>
+         
           </td>
 
           <td>
