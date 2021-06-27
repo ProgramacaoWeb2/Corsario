@@ -90,7 +90,7 @@ $(() => {
     });
 
     $('#appBody').on('click', '#btn-edit-product', () => {
-        //return EditProduct();
+        return EditProduct();
     });
 
     $('#appBody').on('click', '#btn-delete-product', () => {
@@ -335,10 +335,10 @@ var CreateProduct = () => {
 
 var EditProduct = () => {
 
+    var inputProductPhoto = $('#inputProductPhoto').prop('files')[0];
     var inputProductId = $('#inputProductId').val();
     var inputProductName = $('#inputProductName').val();
     var inputProductDescription = $('#inputProductDescription').val();
-    var inputProductPhoto = $('#inputProductPhoto').prop('files')[0];
     var inputPreco = $('#inputPreco').val();
     var inputEstoque = $('#inputEstoque').val();
     var inputSupplierId = $('#inputSupplierId').val();

@@ -19,7 +19,7 @@ $suppliers = $db->Fornecedor()->getTodos();
         <div id="loginContent">
             <div class="formArea">
 
-                <form enctype="multipart/form-data" method="POST">
+                <form>
 
                     <div class="form-group">
                         <label for="inputProductName">Nome:</label>
@@ -31,10 +31,6 @@ $suppliers = $db->Fornecedor()->getTodos();
                         <label for="inputProductDescription">Descrição:</label>
                         <textarea class="form-control" type="textarea" id="inputProductDescription" name="inputProductDescription" rows="5" cols="49" maxlength="100" required></textarea>
                     </div>
-
-
-
-
 
                     <div class="input-group mb-3">
                         <div class="custom-file">
@@ -50,7 +46,7 @@ $suppliers = $db->Fornecedor()->getTodos();
 
                     <div class="formGroup">
                         <label for="inputEstoque">Quantidade em Estoque:</label>
-                        <input class="form-control" type="number" id="inputEstoque" name="inputEstoque"required>
+                        <input class="form-control" type="number" id="inputEstoque" name="inputEstoque" required>
                     </div>
 
                     <div class="form-group input-group mb-3">
@@ -66,7 +62,7 @@ $suppliers = $db->Fornecedor()->getTodos();
                     </div>
 
 
-                    <button class="corsBtn btn-purple" id="btn-create-product" type="submit">Cadastrar</button>
+                    <button class="corsBtn btn-purple" id="btn-create-product">Cadastrar</button>
 
 
                 </form>

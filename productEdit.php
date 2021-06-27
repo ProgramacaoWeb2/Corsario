@@ -33,7 +33,7 @@ if ($name === NULL) {
         <div id="loginContent">
             <div class="formArea">
 
-                <form action="productCreate.php" method="POST">
+                <form enctype="multipart/form-data" method="POST">
 
                     <div class="formGroup">
                         <label for="inputProductId">Identificação:</label>
@@ -72,12 +72,12 @@ if ($name === NULL) {
                         </select>
                     </div>
 
-                    <!--<div class="input-group mb-3">
+                    <div class="input-group mb-3">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="inputProductPhoto" name="inputProductPhoto">
-                            <label class="custom-file-label" for="inputProductPhoto">Choose file</label>
+                            <label class="custom-file-label" for="inputProductPhoto">Escolha um arquivo</label>
                         </div>
-                    </div> -->
+                    </div>
 
 
                     <button class="corsBtn btn-purple" id="btn-edit-product" type="submit">Editar</button>
